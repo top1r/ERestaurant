@@ -26,8 +26,8 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Transactional
-	public void modifyOrder(Orders order){
-		orderDao.modifyOrder(order);
+	public void saveOrder(Orders order){
+		orderDao.saveOrder(order);
 	}
 	
 	public List<Orders> getOrderByUser(int user_id) {

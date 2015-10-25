@@ -11,5 +11,5 @@ public interface OrderDao {
 	public void createOrder(Orders order);
 	public List<Orders> getOrderByUser(int user_id);
 	public List<ReportByDateResult> getOrderReportByTotal(Timestamp dateFrom, Timestamp dateTo);
-	public void modifyOrder(Orders order);
+	public void saveOrder(Orders order);
 }

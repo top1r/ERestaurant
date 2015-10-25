@@ -18,6 +18,8 @@ public class Product {
 	private double price;
 	private int quantity;
 	private boolean isOnline;
+	private boolean isKitchen;
+	
 	private Timestamp created;
 	private Timestamp lastupdated;
 	
@@ -55,6 +57,14 @@ public class Product {
 	public void setOnline(boolean isOnline) {
 		this.isOnline = isOnline;
 	}
+	
+	public boolean isKitchen() {
+		return isKitchen;
+	}
+	public void setKitchen(boolean isKitchen) {
+		this.isKitchen = isKitchen;
+	}
+	
 	public Timestamp getCreated() {
 		return created;
 	}

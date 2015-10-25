@@ -9,4 +9,5 @@ public interface ProductService {
 	public Product getProductById(int id);
 	public List<Product> getProductsByName(String name);
 	public String getCategoriesCount(List<Product> products);
+	public void deleteProduct (Product p);
 }

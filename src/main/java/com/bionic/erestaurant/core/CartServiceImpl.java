@@ -10,6 +10,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.bionic.erestaurant.entity.*;
 import com.bionic.erestaurant.service.AddressService;
 import com.bionic.erestaurant.service.OrderService;
+import com.bionic.erestaurant.service.ProductService;
 import com.bionic.erestaurant.service.UserService;
 
 public class CartServiceImpl implements CartService {
@@ -22,6 +23,8 @@ public class CartServiceImpl implements CartService {
 	UserService userService = (UserService)context.getBean("userServiceImpl");
 	AddressService addressService = (AddressService)context.getBean("addressServiceImpl");
 	OrderService orderService = (OrderService)context.getBean("orderServiceImpl");	
+	ProductService productService = (ProductService)context.getBean("productServiceImpl");	
+
 	
 	public CartServiceImpl() {};
 	
@@ -67,11 +70,30 @@ public class CartServiceImpl implements CartService {
 											.get(0)
 											.getAddressId());
 			order.setOrderitems((List<Orderitems>)orderitemsList);
+			boolean negativeInventory = false;
 			for (Orderitems oi: orderitemsList){
 				System.out.println(oi.getQuantity());
-				oi.setOrder(order);				
+				oi.setOrder(order);
+				Product pn = productService.getProductById(oi.getProductId());
+				//Check if there is enough inventory for the order
+				int deltaQuantity = pn.getQuantity() - oi.getQuantity();
+				if (deltaQuantity > 0){
+					pn.setQuantity(deltaQuantity);
+					productService.saveProduct(pn);
+				} else if (deltaQuantity == 0) {
+					pn.setQuantity(deltaQuantity);
+					pn.setOnline(false);
+				} else {
+					negativeInventory = true;
+					break;
+				}
 			}
-			orderService.createOrder(order);
+			if (!negativeInventory) {
+				orderService.createOrder(order);
+			} else {
+				System.out.println("Not enough inventory");
+			}
+			
 		} else {
 			//Logger goes here
 		}

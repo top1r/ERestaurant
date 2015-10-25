@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Orderitems {
 	public enum orderitemsStatus{
-		NEW, SOMESTATUS
+		NEW, KITCHEN_DONE, NON_KITCHEN_DONE
 	}
 	
 	@Id

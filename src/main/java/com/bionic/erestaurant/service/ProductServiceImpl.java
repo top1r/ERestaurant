@@ -29,4 +29,8 @@ public class ProductServiceImpl implements ProductService{
 		return productDao
 				.getCategoriesCount(products);
 	}
+	
+	public void deleteProduct(Product p){
+		productDao.deleteProduct(p);
+	}
 }
