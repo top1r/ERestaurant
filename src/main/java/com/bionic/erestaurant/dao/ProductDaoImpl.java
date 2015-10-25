@@ -27,7 +27,8 @@ public class ProductDaoImpl implements ProductDao{
 	}
 	
 	public List<Product> getProductsByName(String name){
-		String txt = "select p from Product p where p.name like :name and p.isOnline = true";
+		//online status should be checked during iteration during the generation of the page
+		String txt = "select p from Product p where p.name like :name";
 		TypedQuery<Product> query = em.createQuery(txt, Product.class);
 		return query
 				.setParameter("name", "%" + name + "%")

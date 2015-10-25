@@ -33,6 +33,8 @@ public class Main {
 		ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
 		UserService userService = (UserService)context.getBean("userServiceImpl");
 		OrderService orderService = (OrderService)context.getBean("orderServiceImpl");
+		AddressService addressService = (AddressService)context.getBean("addressServiceImpl");
+
 		// TODO Auto-generated method stub
 		/*
 		UserService userService = (UserService)context.getBean("userServiceImpl");		
@@ -61,6 +63,9 @@ public class Main {
 		
 		
 		Users user = userService.getByEmail("test2@test1.com");
+		Address address = addressService.getAddressesByUser(user).get(0);
+		address.setAddress1("Test address for change");
+		addressService.saveAddress(address, user);
 		/*AddressService addressService = (AddressService)context.getBean("addressServiceImpl");
 		System.out.println(addressService.getAddressesByUser(user));
 		*/

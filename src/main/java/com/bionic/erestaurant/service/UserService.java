@@ -6,5 +6,5 @@ import com.bionic.erestaurant.entity.Users;
 public interface UserService {
 		public Users getById(int id);
 		public Users getByEmail(String email);
-		public void createUser(Users user);
+		public void saveUser(Users user);
 }

@@ -27,6 +27,15 @@ public class OrderDaoImpl implements OrderDao{
 		em.persist(order);
 	}
 	
+	public void modifyOrder(Orders order){
+		if (order.getOrderId() == 0){
+			//Logging goes here
+			System.out.println("Order doesn't exist in the context");
+		} else {
+			em.merge(order);
+		}
+	}
+	
 	public List<Orders> getOrderByUser(int user_id){
 		String txt = "SELECT o FROM Orders o WHERE o.user_id = :userId";
 		TypedQuery<Orders> query = em.createQuery(txt, Orders.class);

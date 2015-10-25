@@ -14,7 +14,7 @@ public class OrderitemsServiceImpl implements OrderitemsService{
 		return orderitemsDao.getOrderitemsById(id);
 	}
 	
-	public void saveOrderItem(Orderitems o){
-		orderitemsDao.saveOrderItem(o);
+	public void createOrderItem(Orderitems o){
+		orderitemsDao.createOrderItem(o);
 	}
 }

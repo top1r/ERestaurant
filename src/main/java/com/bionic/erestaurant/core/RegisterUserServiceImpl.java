@@ -71,7 +71,7 @@ public class RegisterUserServiceImpl implements RegisterUserService{
 			
 		}
 		this.user.setRoles((List<UsersRole>)this.roles);
-		userService.createUser(this.user);
+		userService.saveUser(this.user);
 		
 	}
 	

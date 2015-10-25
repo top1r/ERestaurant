@@ -25,6 +25,11 @@ public class OrderServiceImpl implements OrderService {
 		orderDao.createOrder(order);
 	}
 	
+	@Transactional
+	public void modifyOrder(Orders order){
+		orderDao.modifyOrder(order);
+	}
+	
 	public List<Orders> getOrderByUser(int user_id) {
 		return orderDao.getOrderByUser(user_id);
 	}

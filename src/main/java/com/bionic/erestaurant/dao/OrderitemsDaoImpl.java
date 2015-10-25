@@ -12,8 +12,17 @@ public class OrderitemsDaoImpl implements OrderitemsDao{
 	@PersistenceContext
 	private EntityManager em;
 	
-	public void saveOrderItem(Orderitems o){
+	public void createOrderItem(Orderitems o){
 		em.persist(o);
+	}
+	
+	public void saveOrderItem(Orderitems o){
+		if (o.getOrderitemId() == 0){
+			//Logger goes here
+			System.out.println("Orderitem does not exist");
+		} else {
+			em.merge(o);
+		}
 	}
 	
 	public Orderitems getOrderitemsById(int id){
