@@ -49,7 +49,7 @@ public class OrderDaoImpl implements OrderDao{
 				+ "where oi.product_id = p.product_id "
 				+ "and FUNCTION('DATE',oi.created) between :dateFrom and :dateTo "
 				+ "group by FUNCTION('DATE',oi.created)";
-		TypedQuery<ReportByDateResult> query = em.createQuery(rawQuery, ReportByDateResult.class);
+				TypedQuery<ReportByDateResult> query = em.createQuery(rawQuery, ReportByDateResult.class);
 		return query.setParameter("dateFrom", dateFrom).setParameter("dateTo", dateTo).getResultList();
 	}
 	
