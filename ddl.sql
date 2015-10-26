@@ -49,6 +49,7 @@ CREATE TABLE PRODUCT (
 	price FLOAT NOT NULL,
 	quantity INT NOT NULL,
 	isonline BOOLEAN NOT NULL,
+	iskitchen BOOLEAN NOT NULL,
 	image_url varchar(254),
 	created TIMESTAMP NOT NULL,
 	lastupdated TIMESTAMP NOT NULL,

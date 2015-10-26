@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Transactional
-	public void createUser(Users user){
-		userDao.createUser(user);
+	public void saveUser(Users user){
+		userDao.saveUser(user);
 	}
 }

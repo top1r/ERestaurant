@@ -25,8 +25,13 @@ public class UserDaoImpl implements UserDao{
 		return query.setParameter("email", email).getSingleResult();
 	}	
 	
-	public void createUser(Users user){		
-		em.persist(user);
+	public void saveUser(Users user){
+		if (user.getUserId() == 0){
+			em.persist(user);
+		}
+		else {
+			em.merge(user);
+		}
 	}
 	
 }

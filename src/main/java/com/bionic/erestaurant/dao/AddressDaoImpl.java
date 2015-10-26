@@ -19,8 +19,13 @@ public class AddressDaoImpl implements AddressDao{
 	private EntityManager em;
 	
 	@Transactional
-	public void addAddress (Address address, Users user){
-		em.persist(address);
+	public void saveAddress (Address address, Users user){
+		if (address.getAddressId() == 0){
+			em.persist(address);
+		} else {
+			em.merge(address);
+		}
+		
 	}
 	
 	public List<Address> getAddressesByUser(Users user){

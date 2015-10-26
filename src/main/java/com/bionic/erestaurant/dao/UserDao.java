@@ -5,6 +5,6 @@ import com.bionic.erestaurant.entity.Users;
 
 public interface UserDao {
 	public Users getById(int id);
-	public void createUser(Users user);
+	public void saveUser(Users user);
 	public Users getByEmail(String email);
 }

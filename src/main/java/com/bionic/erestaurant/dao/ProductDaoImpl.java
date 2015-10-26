@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bionic.erestaurant.entity.Category;
 import com.bionic.erestaurant.entity.Product;
@@ -22,12 +23,27 @@ public class ProductDaoImpl implements ProductDao{
 		return em.find(Product.class, id);
 	}
 	
+	public void deleteProduct(Product p){
+		if (em.find(Product.class, p.getProductId()) == null){
+			em.remove(p);
+		} else {
+			System.out.println("No product to remove");
+		}
+	}
+	
+	@Transactional
 	public void saveProduct(Product p){
-		em.persist(p);
+		if (p.getProductId() == 0){
+			em.persist(p);
+		} else {
+			em.merge(p);
+		}
+		
 	}
 	
 	public List<Product> getProductsByName(String name){
-		String txt = "select p from Product p where p.name like :name and p.isOnline = true";
+		//online status should be checked during iteration during the generation of the page
+		String txt = "select p from Product p where p.name like :name";
 		TypedQuery<Product> query = em.createQuery(txt, Product.class);
 		return query
 				.setParameter("name", "%" + name + "%")

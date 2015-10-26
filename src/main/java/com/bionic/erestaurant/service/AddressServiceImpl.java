@@ -18,9 +18,14 @@ public class AddressServiceImpl implements AddressService{
 	private AddressDao addressDao; 
 	
 	@Transactional
-	public void addAddress(Address address, Users users){
-		address.setUserId(users.getUserId());
-		addressDao.addAddress(address, users);
+	public void saveAddress(Address address, Users users){
+		if (users.getUserId() == 0){
+			//Logger goes here
+			System.out.println("User is not set");
+		} else {
+			address.setUserId(users.getUserId());
+			addressDao.saveAddress(address, users);
+		}		
 	}
 	
 	public List<Address> getAddressesByUser(Users user){

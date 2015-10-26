@@ -17,6 +17,7 @@ import com.bionic.erestaurant.core.RegisterUserServiceImpl;
 import com.bionic.erestaurant.core.reports.ReportByDateResult;
 import com.bionic.erestaurant.entity.Address;
 import com.bionic.erestaurant.entity.Category;
+import com.bionic.erestaurant.entity.Orderitems;
 import com.bionic.erestaurant.entity.Product;
 import com.bionic.erestaurant.entity.Users;
 import com.bionic.erestaurant.entity.UsersRole;
@@ -24,6 +25,7 @@ import com.bionic.erestaurant.entity.UsersRole.UserRoleEnum;
 import com.bionic.erestaurant.service.AddressService;
 import com.bionic.erestaurant.service.CategoryService;
 import com.bionic.erestaurant.service.OrderService;
+import com.bionic.erestaurant.service.OrderitemsService;
 import com.bionic.erestaurant.service.ProductService;
 import com.bionic.erestaurant.service.UserService;
 
@@ -33,6 +35,10 @@ public class Main {
 		ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
 		UserService userService = (UserService)context.getBean("userServiceImpl");
 		OrderService orderService = (OrderService)context.getBean("orderServiceImpl");
+		OrderitemsService orderitemsService = (OrderitemsService)context.getBean("orderitemsServiceImpl");
+
+		AddressService addressService = (AddressService)context.getBean("addressServiceImpl");
+
 		// TODO Auto-generated method stub
 		/*
 		UserService userService = (UserService)context.getBean("userServiceImpl");		
@@ -61,10 +67,13 @@ public class Main {
 		
 		
 		Users user = userService.getByEmail("test2@test1.com");
+		Address address = addressService.getAddressesByUser(user).get(0);
+		address.setAddress1("Test address for change");
+		addressService.saveAddress(address, user);
 		/*AddressService addressService = (AddressService)context.getBean("addressServiceImpl");
 		System.out.println(addressService.getAddressesByUser(user));
 		*/
-		/*
+		
 		CartServiceImpl cart = new CartServiceImpl();
 		ProductService productService = (ProductService)context.getBean("productServiceImpl");	
 		Product product1 = productService.getProductById(1);
@@ -74,7 +83,7 @@ public class Main {
 		cart.addProduct(product2);
 		cart.addProduct(product1);
 		cart.submit();
-		*/
+		
 		/*
 		CategoryService categoryService = (CategoryService)context.getBean("categoryServiceImpl");
 		Category sales = new Category("Super Sale");
@@ -91,6 +100,11 @@ public class Main {
 				.getOrderReportByTotal(Timestamp.valueOf("2015-10-10 00:00:00.000") ,Timestamp.valueOf("2015-10-17 00:00:00.000"));
 		for (ReportByDateResult r: results){
 			System.out.println(r.toString());
+		}
+		
+		List<Orderitems> oil = orderitemsService.getKitchenPendingList();
+		for (Orderitems oi: oil){
+			System.out.println(oi.getLastupdated().toString() + " " + productService.getProductById(oi.getProductId()).getName() + "\n");
 		}
 		
 	}

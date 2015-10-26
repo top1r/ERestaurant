@@ -27,6 +27,15 @@ public class OrderDaoImpl implements OrderDao{
 		em.persist(order);
 	}
 	
+	public void saveOrder(Orders order){
+		if (order.getOrderId() == 0){
+			//Logging goes here
+			System.out.println("Order doesn't exist in the context");
+		} else {
+			em.merge(order);
+		}
+	}
+	
 	public List<Orders> getOrderByUser(int user_id){
 		String txt = "SELECT o FROM Orders o WHERE o.user_id = :userId";
 		TypedQuery<Orders> query = em.createQuery(txt, Orders.class);
@@ -34,11 +43,11 @@ public class OrderDaoImpl implements OrderDao{
 	}
 	
 	public List<ReportByDateResult> getOrderReportByTotal(Timestamp dateFrom, Timestamp dateTo){
-		String rawQuery = "select new com.bionic.erestaurant.core.reports.ReportByDateResult(o.order_id, count(oi.orderitem_id), sum(oi.quantity * p.price), o.timeplaced) "
+		String rawQuery = "select new com.bionic.erestaurant.core.reports.ReportByDateResult(DATE(o.timeplaced), count(distinct oi.orderitem_id), sum(oi.quantity * p.price)) "
 				+ "from Orders o, Orderitems oi, Product p "
 				+ "where oi.order = o and oi.product_id = p.product_id "
 				+ "and o.timeplaced between :dateFrom and :dateTo "
-				+ "group by o.order_id, o.timeplaced";
+				+ "group by DATE(o.timeplaced)";
 		TypedQuery<ReportByDateResult> query = em.createQuery(rawQuery, ReportByDateResult.class);
 		return query.setParameter("dateFrom", dateFrom).setParameter("dateTo", dateTo).getResultList();
 	}
