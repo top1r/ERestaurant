@@ -12,6 +12,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.bionic.erestaurant.core.CartService;
 import com.bionic.erestaurant.core.CartServiceImpl;
+import com.bionic.erestaurant.core.KitchenServiceImpl;
 import com.bionic.erestaurant.core.RegisterUserService;
 import com.bionic.erestaurant.core.RegisterUserServiceImpl;
 import com.bionic.erestaurant.core.reports.ReportByDateResult;
@@ -82,7 +83,7 @@ public class Main {
 		cart.addProduct(product1);
 		cart.addProduct(product2);
 		cart.addProduct(product1);
-		cart.submit();
+		//cart.submit();
 		
 		/*
 		CategoryService categoryService = (CategoryService)context.getBean("categoryServiceImpl");
@@ -96,16 +97,16 @@ public class Main {
 		System.out.println(orderService.getOrderByUser
 						  (userService.getByEmail("test2@test1.com").getUserId()));
 		*/
+		/*
 		List<ReportByDateResult> results = orderService
 				.getOrderReportByTotal(Timestamp.valueOf("2015-10-10 00:00:00.000") ,Timestamp.valueOf("2015-10-17 00:00:00.000"));
 		for (ReportByDateResult r: results){
 			System.out.println(r.toString());
 		}
-		
+		*/
 		List<Orderitems> oil = orderitemsService.getKitchenPendingList();
-		for (Orderitems oi: oil){
-			System.out.println(oi.getLastupdated().toString() + " " + productService.getProductById(oi.getProductId()).getName() + "\n");
-		}
+		KitchenServiceImpl kitchenService = new KitchenServiceImpl();
+		kitchenService.allocateInventory(orderitemsService.getOrderitemsById(6002));
 		
 	}
 

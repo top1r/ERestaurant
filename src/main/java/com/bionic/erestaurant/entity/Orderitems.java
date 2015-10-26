@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Orderitems {
 	public enum orderitemsStatus{
-		NEW, KITCHEN_DONE, NON_KITCHEN_DONE
+		NEW, DONE
 	}
 	
 	@Id
@@ -26,7 +26,9 @@ public class Orderitems {
 
 	private int product_id;
 	private int quantity;
+	private int allocated;
 	private String status;
+	private Timestamp created;
 	private Timestamp lastupdated;
 	
 	
@@ -34,8 +36,9 @@ public class Orderitems {
 	public Orderitems(int product_id) {
 		this.product_id = product_id;
 		this.quantity = 1;
+		this.allocated = 0;
 		this.status = orderitemsStatus.NEW.toString();
-		this.lastupdated = Timestamp.valueOf(LocalDateTime.now());
+		this.created = this.lastupdated = Timestamp.valueOf(LocalDateTime.now());
 	}
 
 	public Orderitems() {}
@@ -108,6 +111,22 @@ public class Orderitems {
 		if (product_id != other.product_id)
 			return false;
 		return true;
+	}
+
+	public int getAllocated() {
+		return allocated;
+	}
+
+	public void setAllocated(int allocated) {
+		this.allocated = allocated;
+	}
+
+	public Timestamp getCreated() {
+		return created;
+	}
+
+	public void setCreated(Timestamp created) {
+		this.created = created;
 	}
 	
 }

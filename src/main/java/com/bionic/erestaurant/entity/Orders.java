@@ -24,7 +24,7 @@ public class Orders {
 	private List<Orderitems> orderitems;
 	
 	public enum OrderStatus {
-		NEW, READY_FOR_SHIPMENT, DELIVERING, DELIVERED
+		NEW, KITCHEN_DONE, NON_KITCHEN_DONE, READY_FOR_SHIPMENT, DELIVERING, DELIVERED
 	}
 
 	private int user_id;

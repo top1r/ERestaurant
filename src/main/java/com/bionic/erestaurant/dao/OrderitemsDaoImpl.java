@@ -1,5 +1,6 @@
 package com.bionic.erestaurant.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -30,10 +31,11 @@ public class OrderitemsDaoImpl implements OrderitemsDao{
 	}
 	
 	public List<Orderitems> getKitchenPendingList(){
-		String txt = "SELECT o from Orderitems o, Product p "
-				+ "where o.product_id = p.product_id "
-				+ "and o.status = :status "
-				+ "and p.isKitchen = true";
+		String txt = "SELECT oi from Orderitems oi, Product p "
+				+ "where oi.product_id = p.product_id "
+				+ "and oi.status = :status "
+				+ "and p.isKitchen = true "
+				+ "order by oi.created asc";
 		TypedQuery<Orderitems> query = em.createQuery(txt, Orderitems.class);
 		return query.setParameter("status", orderitemsStatus.NEW.toString()).getResultList();
 	}

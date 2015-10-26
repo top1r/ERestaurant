@@ -6,6 +6,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.criteria.Order;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.bionic.erestaurant.dao.OrderitemsDao;
 import com.bionic.erestaurant.entity.Orderitems;
 
@@ -17,10 +19,12 @@ public class OrderitemsServiceImpl implements OrderitemsService{
 		return orderitemsDao.getOrderitemsById(id);
 	}
 	
+	@Transactional
 	public void saveOrderItem(Orderitems o){
 		orderitemsDao.saveOrderItem(o);
 	}
 	
+	@Transactional
 	public void createOrderItem(Orderitems o){
 		orderitemsDao.createOrderItem(o);
 	}
