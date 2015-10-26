@@ -83,7 +83,9 @@ public class Main {
 		cart.addProduct(product1);
 		cart.addProduct(product2);
 		cart.addProduct(product1);
-		cart.submit();
+		cart.addProduct(product2);
+		cart.addProduct(product2);
+		//cart.submit();
 		
 		/*
 		CategoryService categoryService = (CategoryService)context.getBean("categoryServiceImpl");
@@ -106,7 +108,7 @@ public class Main {
 		*/
 		List<Orderitems> oil = orderitemsService.getKitchenPendingList();
 		KitchenServiceImpl kitchenService = new KitchenServiceImpl();
-		kitchenService.allocateInventory(orderitemsService.getOrderitemsById(6002));
+		kitchenService.allocateInventory(orderitemsService.getOrderitemsById(6901));
 		
 	}
 
