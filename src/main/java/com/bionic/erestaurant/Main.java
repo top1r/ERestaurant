@@ -1,5 +1,6 @@
 package com.bionic.erestaurant;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -99,16 +100,16 @@ public class Main {
 		System.out.println(orderService.getOrderByUser
 						  (userService.getByEmail("test2@test1.com").getUserId()));
 		*/
-		/*
+		
 		List<ReportByDateResult> results = orderService
-				.getOrderReportByTotal(Timestamp.valueOf("2015-10-10 00:00:00.000") ,Timestamp.valueOf("2015-10-17 00:00:00.000"));
+				.getOrderReportByTotal(Date.valueOf("2015-10-01") ,Date.valueOf("2015-10-31"));
 		for (ReportByDateResult r: results){
 			System.out.println(r.toString());
 		}
-		*/
+		
 		List<Orderitems> oil = orderitemsService.getKitchenPendingList();
 		KitchenServiceImpl kitchenService = new KitchenServiceImpl();
-		kitchenService.allocateInventory(orderitemsService.getOrderitemsById(6901));
+		//kitchenService.allocateInventory(orderitemsService.getOrderitemsById(6901));
 		
 	}
 

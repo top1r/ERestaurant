@@ -1,5 +1,6 @@
 package com.bionic.erestaurant.dao;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -42,12 +43,12 @@ public class OrderDaoImpl implements OrderDao{
 		return query.setParameter("userId", user_id).getResultList();
 	}
 	
-	public List<ReportByDateResult> getOrderReportByTotal(Timestamp dateFrom, Timestamp dateTo){
-		String rawQuery = "select new com.bionic.erestaurant.core.reports.ReportByDateResult(DATE(o.timeplaced), count(distinct oi.orderitem_id), sum(oi.quantity * p.price)) "
-				+ "from Orders o, Orderitems oi, Product p "
-				+ "where oi.order = o and oi.product_id = p.product_id "
-				+ "and o.timeplaced between :dateFrom and :dateTo "
-				+ "group by DATE(o.timeplaced)";
+	public List<ReportByDateResult> getOrderReportByTotal(Date dateFrom, Date dateTo){
+		String rawQuery = "select new com.bionic.erestaurant.core.reports.ReportByDateResult(FUNCTION('DATE',oi.created), count(distinct oi.order), sum(oi.quantity * p.price)) "
+				+ "from Orderitems oi, Product p "
+				+ "where oi.product_id = p.product_id "
+				+ "and FUNCTION('DATE',oi.created) between :dateFrom and :dateTo "
+				+ "group by FUNCTION('DATE',oi.created)";
 		TypedQuery<ReportByDateResult> query = em.createQuery(rawQuery, ReportByDateResult.class);
 		return query.setParameter("dateFrom", dateFrom).setParameter("dateTo", dateTo).getResultList();
 	}

@@ -1,5 +1,6 @@
 package com.bionic.erestaurant.dao;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -10,6 +11,6 @@ public interface OrderDao {
 	public Orders getOrderById(int id);
 	public void createOrder(Orders order);
 	public List<Orders> getOrderByUser(int user_id);
-	public List<ReportByDateResult> getOrderReportByTotal(Timestamp dateFrom, Timestamp dateTo);
+	public List<ReportByDateResult> getOrderReportByTotal(Date dateFrom, Date dateTo);
 	public void saveOrder(Orders order);
 }

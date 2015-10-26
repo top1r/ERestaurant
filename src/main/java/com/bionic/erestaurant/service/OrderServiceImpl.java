@@ -1,5 +1,6 @@
 package com.bionic.erestaurant.service;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class OrderServiceImpl implements OrderService {
 		return orderDao.getOrderByUser(user_id);
 	}
 	
-	public List<ReportByDateResult> getOrderReportByTotal(Timestamp dateFrom, Timestamp dateTo){
+	public List<ReportByDateResult> getOrderReportByTotal(Date dateFrom, Date dateTo){
 		return orderDao.getOrderReportByTotal(dateFrom, dateTo);
 	}
 	
