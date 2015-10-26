@@ -77,9 +77,10 @@ public class CartServiceImpl implements CartService {
 				Product pn = productService.getProductById(oi.getProductId());
 				//Check if there is enough inventory for the order
 				int deltaQuantity = pn.getQuantity() - oi.getQuantity();
+				System.out.println("Delta: " + deltaQuantity);
 				if (deltaQuantity > 0){
 					pn.setQuantity(deltaQuantity);
-					productService.saveProduct(pn);
+					//productService.saveProduct(pn);
 				} else if (deltaQuantity == 0) {
 					pn.setQuantity(deltaQuantity);
 					pn.setOnline(false);
@@ -87,6 +88,7 @@ public class CartServiceImpl implements CartService {
 					negativeInventory = true;
 					break;
 				}
+				productService.saveProduct(pn);
 			}
 			if (!negativeInventory) {
 				orderService.createOrder(order);
