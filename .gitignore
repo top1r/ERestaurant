@@ -1,2 +1,9 @@
 /derby.log
 /target/
+<<<<<<< HEAD
+/.metadata/
+/.settings/
+=======
+/.metadata
+/.settings
+>>>>>>> refs/remotes/origin/master
