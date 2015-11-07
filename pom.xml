@@ -19,6 +19,7 @@
 		<spring.framework.version>4.1.4.RELEASE</spring.framework.version>
 		<logback.version>1.0.13</logback.version>
 		<slf4j.version>1.7.5</slf4j.version>
+		<jsf.version>2.2.12</jsf.version>
 	</properties>
 
 	<dependencies>
@@ -63,6 +64,11 @@
 			<artifactId>spring-agent</artifactId>
 			<version>2.5.6.SEC03</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.framework.version}</version>
+		</dependency>
 		<!-- JSR-330 -->
 		<dependency>
 			<groupId>javax.inject</groupId>
@@ -79,6 +85,31 @@
 			<groupId>com.sun.el</groupId>
 			<artifactId>el-ri</artifactId>
 			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-api</artifactId>
+			<version>${jsf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-impl</artifactId>
+			<version>${jsf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.persistence</groupId>
