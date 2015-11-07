@@ -1,4 +1,4 @@
 /derby.log
 /target/
-/.metadata/
-/.settings/
+/.metadata
+/.settings
