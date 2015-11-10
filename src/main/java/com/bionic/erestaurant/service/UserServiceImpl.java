@@ -1,5 +1,7 @@
 package com.bionic.erestaurant.service;
 
+import java.sql.SQLException;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -24,6 +26,6 @@ public class UserServiceImpl implements UserService {
 	
 	@Transactional
 	public void saveUser(Users user){
-		userDao.saveUser(user);
+			userDao.saveUser(user);
 	}
 }

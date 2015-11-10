@@ -1,4 +1,4 @@
-package com.bionic.erestaurant.core;
+package com.bionic.erestaurant.bean;
 
 import java.sql.Date;
 import java.util.List;

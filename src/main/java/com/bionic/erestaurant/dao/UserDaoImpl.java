@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
@@ -21,8 +22,12 @@ public class UserDaoImpl implements UserDao{
 	}
 	
 	public Users getByEmail(String email){
-		TypedQuery<Users> query = em.createQuery("SELECT u from Users u where u.email = :email", Users.class);
-		return query.setParameter("email", email).getSingleResult();
+			TypedQuery<Users> query = em.createQuery("SELECT u from Users u where u.email = :email", Users.class);
+			try {
+				return query.setParameter("email", email).getSingleResult();
+			} catch (NoResultException n){
+				return null;
+			}
 	}	
 	
 	public void saveUser(Users user){

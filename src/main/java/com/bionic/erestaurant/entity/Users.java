@@ -34,7 +34,9 @@ public class Users {
 	private Collection<Address> addresses;
 	*/
 	
-	public Users() {}
+	public Users() {
+		this.status = true;
+	}
 
 	public Users(String email, String firstname, String lastname, String password) {
 		this.status = true;
@@ -125,7 +127,8 @@ public class Users {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		this.salt = generateSalt();
+		this.password = generateHash(password, this.salt);
 	}
 
 	public String getSalt() {

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Registration</title>
+</head>
+<body>
+	<h1>Registration</h1>
+	<h:form>
+			<h:panelGrid columns="3">
+			<h:outputText value="First Name"></h:outputText>
+			<h:inputText id="firstName" value="#{usersBean.user.firstname}" required="true" requiredMessage = "The first name cannot be empty"></h:inputText>
+			<h:message for="firstName" style="color:red" />
+			
+			<h:outputText value="Last Name"></h:outputText>
+			<h:inputText id="lastName" value="#{usersBean.user.lastname}" required="true" requiredMessage = "The last name cannot be empty"></h:inputText>
+			<h:message for="lastName" style="color:red" />
+			
+			<h:outputText value="Email"></h:outputText>
+			<h:inputText id="email" value="#{usersBean.user.email}" required="true" requiredMessage = "The email cannot be empty">
+				<f:validator validatorId = "emailValidator" />
+			</h:inputText>
+			<h:message for="email" style="color:red" />
+			
+			<h:outputText value="Password"></h:outputText>
+			<h:inputText id="password" value="#{usersBean.user.password}" required="true" requiredMessage = "The password cannot be empty"></h:inputText>
+			<h:message for="password" style="color:red" />
+		</h:panelGrid>
+		<h:commandButton id="submit" value="Submit" action="#{usersBean.saveUser}"></h:commandButton>
+		
+	</h:form>
+
+</body>
+</html>
