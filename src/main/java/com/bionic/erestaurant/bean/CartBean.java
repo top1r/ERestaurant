@@ -1,72 +1,102 @@
-package com.bionic.erestaurant.core;
+package com.bionic.erestaurant.bean;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.context.annotation.Scope;
 
 import com.bionic.erestaurant.entity.*;
 import com.bionic.erestaurant.service.AddressService;
 import com.bionic.erestaurant.service.OrderService;
 import com.bionic.erestaurant.service.ProductService;
-import com.bionic.erestaurant.service.UserService;
 
-public class CartServiceImpl implements CartService {
-	private ArrayList<Product> productList = new ArrayList<Product>();
+@Named
+@Scope("session")
+public class CartBean  {
+	private Map<Product, Integer> productMap = new HashMap<Product, Integer>();
 	
-	/* Hardcoded user, while the session context is not yet defined */
-	private Users user;
+    FacesContext context = FacesContext.getCurrentInstance();
+	HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
 	
+	@Inject
+	private AddressService addressService;
+	
+	@Inject
+	private OrderService orderService;
+	
+	@Inject
+	private ProductService productService;
+/*
 	ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
-	UserService userService = (UserService)context.getBean("userServiceImpl");
 	AddressService addressService = (AddressService)context.getBean("addressServiceImpl");
 	OrderService orderService = (OrderService)context.getBean("orderServiceImpl");	
 	ProductService productService = (ProductService)context.getBean("productServiceImpl");	
-
+*/
 	
-	public CartServiceImpl() {};
+	public CartBean() {};
 	
 	public void addProduct(Product product) {
-		productList.add(product);
-		System.out.println(productList.size());
+		if (productMap.containsKey(product)){			
+			productMap.put(product, productMap.get(product) + 1);
+		} else {
+			productMap.put(product, 1);
+		}
 	}
 
 	public void removeProduct(Product product) {
-		if (productList.contains(product)) {
-			productList.remove(productList.indexOf(product));		
+		if (productMap.containsKey(product)) {
+			productMap.remove(product);
 		} else {
 			//Logger needs to be added here
 		}		
 	}
 	
+	public void increaseQuantity(Product product){
+		if (productMap.containsKey(product)) {
+			productMap.put(product, productMap.get(product) + 1);
+		} else {
+			//Logger needs to be added here
+		}
+	}
+	
+	public void decreaseQuantity(Product product){
+		if (productMap.containsKey(product)) {
+			int quantity = productMap.get(product); 
+			if ((quantity - 1) > 0){
+				productMap.put(product, productMap.get(product) - 1);
+			} else {
+				this.removeProduct(product);
+			}
+		} else {
+			//Logger needs to be added here
+		}
+	}
+	
 	public void submit() {
-		if (productList.size() > 0){
+		if (!productMap.isEmpty()){
 			Orders order = new Orders();			
 			Collection <Orderitems> orderitemsList = new ArrayList<Orderitems>();
-			for (Product p: productList){
-				Orderitems item = new Orderitems(p.getProductId());
+
+			for (Product p: productMap.keySet()){
+				Orderitems item = new Orderitems(p.getProductId(), productMap.get(p));
 				System.out.println(orderitemsList.contains(item));
-				if (orderitemsList.contains(item)){
-					Orderitems originalItem = orderitemsList
-							.stream()
-							.filter(oi-> oi.equals(item))
-							.findFirst()
-							.get();
-					originalItem.setQuantity(originalItem.getQuantity() + item.getQuantity());
-					//System.out.println(item.getQuantity());
-					item.setQuantity(1);
-				} else {
-					orderitemsList.add(item);
-				}
+				orderitemsList.add(item);
 			}
+			
 						
-			/* Hardcoded user, while the session context is not yet defined */
-			Users testUser = userService.getByEmail("test2@test1.com");
-			order.setUserId(testUser.getUserId());
+			int userId = (Integer)session.getAttribute("user_id"); 
+			order.setUserId(userId);
+			//hardcoded address_id for a while
 			order.setAddressId(addressService
-											.getAddressesByUser(testUser)
+											.getAddressesByUserId(userId)
 											.get(0)
 											.getAddressId());
 			order.setOrderitems((List<Orderitems>)orderitemsList);
@@ -93,6 +123,7 @@ public class CartServiceImpl implements CartService {
 			if (!negativeInventory) {
 				orderService.createOrder(order);
 			} else {
+				//TODO Logging
 				System.out.println("Not enough inventory");
 			}
 			
@@ -100,25 +131,12 @@ public class CartServiceImpl implements CartService {
 			//Logger goes here
 		}
 	}
-
-	public List<Product> getProductList() {
-		return productList;
-	}
 	
 	public double getCartTotal(){
 		double sum = 0;
-		for (Product p: productList){
-			sum += p.getPrice();
+		for (Product p: productMap.keySet()){
+			sum += p.getPrice() * productMap.get(p);
 		}
 		return sum;
 	}
-
-	public void setProductList(ArrayList<Product> productList) {
-		this.productList = productList;
-	}
-
-	public Users getUser() {
-		return user;
-	}
-	
 }

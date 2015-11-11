@@ -7,4 +7,5 @@ public interface UserService {
 		public Users getById(int id);
 		public Users getByEmail(String email);
 		public void saveUser(Users user);
+		public boolean validatePassword(String email, String hash);
 }

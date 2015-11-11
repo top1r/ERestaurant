@@ -127,8 +127,12 @@ public class Users {
 	}
 
 	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	public void generateSecurePassword() {
 		this.salt = generateSalt();
-		this.password = generateHash(password, this.salt);
+		this.password = generateHash(this.password, this.salt);
 	}
 
 	public String getSalt() {

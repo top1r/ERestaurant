@@ -28,7 +28,7 @@ public class AddressServiceImpl implements AddressService{
 		}		
 	}
 	
-	public List<Address> getAddressesByUser(Users user){
-		return addressDao.getAddressesByUser(user);
+	public List<Address> getAddressesByUserId(int id){
+		return addressDao.getAddressesByUserId(id);
 	}
 }

@@ -38,5 +38,4 @@ public class UserDaoImpl implements UserDao{
 			em.merge(user);
 		}
 	}
-	
 }

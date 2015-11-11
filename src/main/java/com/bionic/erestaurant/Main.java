@@ -11,8 +11,6 @@ import org.apache.derby.tools.sysinfo;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.bionic.erestaurant.core.CartService;
-import com.bionic.erestaurant.core.CartServiceImpl;
 import com.bionic.erestaurant.core.KitchenServiceImpl;
 import com.bionic.erestaurant.core.RegisterUserService;
 import com.bionic.erestaurant.core.RegisterUserServiceImpl;
@@ -34,13 +32,14 @@ import com.bionic.erestaurant.service.UserService;
 public class Main {
 
 	public static void main(String[] args) {
+		/*
 		ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
 		UserService userService = (UserService)context.getBean("userServiceImpl");
 		OrderService orderService = (OrderService)context.getBean("orderServiceImpl");
 		OrderitemsService orderitemsService = (OrderitemsService)context.getBean("orderitemsServiceImpl");
 
 		AddressService addressService = (AddressService)context.getBean("addressServiceImpl");
-
+		 */
 		// TODO Auto-generated method stub
 		/*
 		UserService userService = (UserService)context.getBean("userServiceImpl");		
@@ -57,7 +56,7 @@ public class Main {
 		//userService.createUser(user);
 		 * 
 		 */
-		
+		/*
 		RegisterUserServiceImpl rs = new RegisterUserServiceImpl();
 		UsersRole kitchen = new UsersRole(UserRoleEnum.KITCHEN);
 		UsersRole delivery = new UsersRole(UserRoleEnum.DELIVERY);
@@ -75,7 +74,7 @@ public class Main {
 		/*AddressService addressService = (AddressService)context.getBean("addressServiceImpl");
 		System.out.println(addressService.getAddressesByUser(user));
 		*/
-		
+		/*
 		CartServiceImpl cart = new CartServiceImpl();
 		ProductService productService = (ProductService)context.getBean("productServiceImpl");	
 		Product product1 = productService.getProductById(1);
@@ -100,7 +99,7 @@ public class Main {
 		System.out.println(orderService.getOrderByUser
 						  (userService.getByEmail("test2@test1.com").getUserId()));
 		*/
-		
+		/*
 		List<ReportByDateResult> results = orderService
 				.getOrderReportByTotal(Date.valueOf("2015-10-01") ,Date.valueOf("2015-10-31"));
 		for (ReportByDateResult r: results){
@@ -109,8 +108,10 @@ public class Main {
 		
 		List<Orderitems> oil = orderitemsService.getKitchenPendingList();
 		KitchenServiceImpl kitchenService = new KitchenServiceImpl();
-		//kitchenService.allocateInventory(orderitemsService.getOrderitemsById(6901));
 		
+		System.out.println(userService.validatePassword("test9@xx.com", "1234567"));
+		//kitchenService.allocateInventory(orderitemsService.getOrderitemsById(6901));
+		*/
 	}
 
 }

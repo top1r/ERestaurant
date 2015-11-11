@@ -28,8 +28,8 @@ public class AddressDaoImpl implements AddressDao{
 		
 	}
 	
-	public List<Address> getAddressesByUser(Users user){
+	public List<Address> getAddressesByUserId(int id){
 		TypedQuery<Address> query = em.createQuery("SELECT a from Address a where a.user_id = :userId", Address.class);
-		return query.setParameter("userId", user.getUserId()).getResultList();
+		return query.setParameter("userId", id).getResultList();
 	}
 }

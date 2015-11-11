@@ -33,9 +33,9 @@ public class Orderitems {
 	
 	
 	
-	public Orderitems(int product_id) {
+	public Orderitems(int product_id, int quantity) {
 		this.product_id = product_id;
-		this.quantity = 1;
+		this.quantity = quantity;
 		this.allocated = 0;
 		this.status = orderitemsStatus.NEW.toString();
 		this.created = this.lastupdated = Timestamp.valueOf(LocalDateTime.now());

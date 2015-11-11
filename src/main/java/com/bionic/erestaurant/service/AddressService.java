@@ -8,5 +8,5 @@ import com.bionic.erestaurant.entity.Users;
 
 public interface AddressService {
 	public void saveAddress(Address address, Users user);
-	public List<Address> getAddressesByUser(Users user);
+	public List<Address> getAddressesByUserId(int id);
 }

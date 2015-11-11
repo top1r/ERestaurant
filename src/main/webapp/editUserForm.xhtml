@@ -26,8 +26,10 @@
 			<h:message for="email" style="color:red" />
 			
 			<h:outputText value="Password"></h:outputText>
-			<h:inputText id="password" value="#{usersBean.user.password}" required="true" requiredMessage = "The password cannot be empty"></h:inputText>
+			<h:inputSecret id="password" value="#{usersBean.user.password}" required="true" requiredMessage = "The password cannot be empty"></h:inputSecret>
 			<h:message for="password" style="color:red" />
+			
+			
 		</h:panelGrid>
 		<h:commandButton id="submit" value="Submit" action="#{usersBean.saveUser}"></h:commandButton>
 		

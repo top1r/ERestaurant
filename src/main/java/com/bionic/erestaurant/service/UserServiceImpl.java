@@ -26,6 +26,24 @@ public class UserServiceImpl implements UserService {
 	
 	@Transactional
 	public void saveUser(Users user){
-			userDao.saveUser(user);
+		user.generateSecurePassword();;
+		userDao.saveUser(user);
+	}
+	
+	public boolean validatePassword(String email, String password){
+		Users user = userDao.getByEmail(email);
+		System.out.println(user);
+		if ((user != null) && (user.getPassword() != null)){
+			if (user.getPassword().equals(user.generateHash(password, user.getSalt()))){
+				return true;
+			} else {
+				System.out.println("here");
+				return false;
+			}
+		} else {
+			//TODO Add better logging
+			System.out.println("Null user or password");
+			return false;
+		}
 	}
 }
