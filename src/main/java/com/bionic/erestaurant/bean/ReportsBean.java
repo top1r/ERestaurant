@@ -46,7 +46,7 @@ public class ReportsBean implements Serializable{
 	
 	public void getReport() {
 		results = orderService.getOrderReportByTotal(this.dateFrom, this.dateTo);
-		System.out.println(session.getAttribute("user_id"));
+		System.out.println(session.getAttribute("user").toString());
 	}
 
 	public Date getDateFrom() {

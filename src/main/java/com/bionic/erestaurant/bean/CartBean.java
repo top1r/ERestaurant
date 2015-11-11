@@ -92,11 +92,11 @@ public class CartBean  {
 			}
 			
 						
-			int userId = (Integer)session.getAttribute("user_id"); 
-			order.setUserId(userId);
+			Users user = (Users)session.getAttribute("user"); 
+			order.setUserId(user.getUserId());
 			//hardcoded address_id for a while
 			order.setAddressId(addressService
-											.getAddressesByUserId(userId)
+											.getAddressesByUserId(user.getUserId())
 											.get(0)
 											.getAddressId());
 			order.setOrderitems((List<Orderitems>)orderitemsList);

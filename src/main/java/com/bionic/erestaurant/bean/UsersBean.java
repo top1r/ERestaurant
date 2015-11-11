@@ -45,7 +45,7 @@ public class UsersBean implements Serializable{
 	public void login(){
 		  FacesContext context = FacesContext.getCurrentInstance();
 		  HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
-		  session.setAttribute("user_id", user.getUserId());
+		  session.setAttribute("user", user);
 		  //session.setAttribute("email",  this.getUser().getEmail());
 	}
 	
