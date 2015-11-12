@@ -28,8 +28,12 @@
 			<h:outputText rendered = "#{param.type ne 'guest'}" value="Password"></h:outputText>
 			<h:inputSecret rendered = "#{param.type ne 'guest'}" id="password" value="#{usersBean.user.password}" required="true" requiredMessage = "The password cannot be empty"></h:inputSecret>
 			<h:message rendered = "#{param.type ne 'guest'}" for="password" style="color:red" />
+			
+			
 		</h:panelGrid>
-		<h:commandButton id="submit" value="Submit" action="#{usersBean.saveUser}"></h:commandButton>
+		<h:commandButton id="submit" value="Submit" action="#{usersBean.saveUser}">
+			<f:setPropertyActionListener target="#{usersBean.type}" value="#{param.type}" />
+		</h:commandButton>
 		
 	</h:form>
 

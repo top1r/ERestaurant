@@ -50,8 +50,9 @@ public class EmailValidator implements Validator{
 		UserService userService = (UserService)expression.getValue( context.getELContext() );
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
 
-
+		System.out.println("SessionType: " + session.getAttribute("type") +'\n');
 		System.out.println("Validating submitted email -- " + value.toString());
+		
 		
 	    matcher = pattern.matcher(value.toString());
 	    

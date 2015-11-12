@@ -22,7 +22,16 @@ import com.bionic.erestaurant.service.UserService;
 @Scope("session")
 public class UsersBean implements Serializable{
 	private static final long serialVersionUID = 1L;
-	public Users user;
+	private Users user;
+	private String type;
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	@Inject
 	private UserService userService;
 	
@@ -75,7 +84,7 @@ public class UsersBean implements Serializable{
 	public String validatePassword() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
-		String type = (String)session.getAttribute("type");
+		session.setAttribute("type", type);
 		
 		if (type != "guest"){
 			boolean valid = userService.validatePassword(user.getEmail(), user.getPassword());
@@ -96,9 +105,10 @@ public class UsersBean implements Serializable{
 	            return null;
 			}
 		} else {
-			context.getExternalContext().getSessionMap().put("type", "guest");
+			context.getExternalContext().getSessionMap().put("type", type);
 
 		}
+		System.out.println(type);
 		return this.addressStep();		
 	}
 	/*
