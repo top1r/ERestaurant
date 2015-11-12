@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Address</title>
+</head>
+<body>
+	<h1>Shipping Address</h1>
+	<h:form>
+			<h:panelGrid columns="3">
+			
+			<h:outputText value="Country"></h:outputText>
+			<h:selectOneMenu id="country" value="#{addressBean.address.country}"  required="true" requiredMessage = "The country cannot be empty">
+				<f:selectItems value="#{addressBean.country}"/>
+			</h:selectOneMenu>
+			<h:message for="country" style="color:red" />
+			
+			<h:outputText value="City"></h:outputText>
+			<h:inputText id="city" value="#{addressBean.address.city}" maxlength="30" required="true" requiredMessage = "The city cannot be empty"></h:inputText>
+			<h:message for="city" style="color:red" />
+			
+			<h:outputText value="State"></h:outputText>
+			<h:inputText id="state" value="#{addressBean.address.state}" maxlength="30" required="true" requiredMessage = "State cannot be empty"></h:inputText>
+			<h:message for="state" style="color:red" />
+			
+			<h:outputText value="Address"></h:outputText>
+			<h:inputText id="address" value="#{addressBean.address.address1}" maxlength="40" required="true" requiredMessage = "The address cannot be empty"></h:inputText>
+			<h:message for="address" style="color:red" />
+			
+			<h:outputText value="Zip Code"></h:outputText>
+			<h:inputText id="zip" value="#{addressBean.address.zip}" maxlength="10" required="true" requiredMessage = "The zip code cannot be empty"></h:inputText>
+			<h:message for="zip" style="color:red" />
+						
+		</h:panelGrid>
+		<h:commandButton rendered="#{param.type ne 'guest' and sessionScope['type'] ne 'guest'}" id="later" value="Later" action="#{addressBean.addressLater}"></h:commandButton>
+		<h:commandButton id="submit" value="Submit" action="#{addressBean.saveAddress}"></h:commandButton>
+		
+	</h:form>
+
+</body>
+</html>

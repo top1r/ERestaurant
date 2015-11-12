@@ -1,5 +1,6 @@
 package com.bionic.erestaurant.core.validators;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,6 +14,7 @@ import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
@@ -22,7 +24,7 @@ import com.bionic.erestaurant.entity.Users;
 import com.bionic.erestaurant.service.UserService;
 
 @Named
-@Scope("request")
+@Scope("session")
 @FacesValidator("emailValidator")
 public class EmailValidator implements Validator{
 	
@@ -46,6 +48,9 @@ public class EmailValidator implements Validator{
 		Application app = context.getApplication();
 		ValueExpression expression = app.getExpressionFactory().createValueExpression(context.getELContext(), "#{userServiceImpl}", Object.class);
 		UserService userService = (UserService)expression.getValue( context.getELContext() );
+		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+
+
 		System.out.println("Validating submitted email -- " + value.toString());
 		
 	    matcher = pattern.matcher(value.toString());

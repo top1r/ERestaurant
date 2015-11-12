@@ -5,19 +5,20 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-	<title>Login</title>
+	<h:title>Sign In</h:title>
 </h:head>
 <h:body>
 	<ui:composition>
 		<h:form>
 			<h:panelGrid columns="3">
 				<h:outputText value="E-mail"></h:outputText>
-				<h:inputText id="email" value="#{usersBean.user.email}" required="true" requiredMessage = "The email cannot be empty"></h:inputText>
+				<h:inputText id="email" value="#{usersBean.user.email}" maxlength="40" required="true" requiredMessage = "The email cannot be empty"></h:inputText>
 				<h:message for="email" style="color:red" />
-			
 				<h:outputText value="Password"></h:outputText>
-				<h:inputSecret id="password" value="#{usersBean.user.password}" required="true" requiredMessage = "The password cannot be empty"></h:inputSecret>
+				<h:inputSecret id="password" value="#{usersBean.user.password}" maxlength="20" required="true" requiredMessage = "The password cannot be empty"></h:inputSecret>
 				<h:message for="password" style="color:red" />
+				
+				<h:outputText value="#{request.getParameter('id')}" /> 
 			</h:panelGrid>
 			<h:commandButton id="login" value="Login" action="#{usersBean.validatePassword}"></h:commandButton>
 		</h:form>

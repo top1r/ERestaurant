@@ -26,7 +26,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Transactional
 	public void saveUser(Users user){
-		user.generateSecurePassword();;
+		if (user.getPassword() == null){
+			user.generateSecurePassword();
+		}
 		userDao.saveUser(user);
 	}
 	
