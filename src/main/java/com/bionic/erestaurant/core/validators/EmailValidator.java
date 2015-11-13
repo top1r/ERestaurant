@@ -49,10 +49,10 @@ public class EmailValidator implements Validator{
 		ValueExpression expression = app.getExpressionFactory().createValueExpression(context.getELContext(), "#{userServiceImpl}", Object.class);
 		UserService userService = (UserService)expression.getValue( context.getELContext() );
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
-
-		System.out.println("SessionType: " + session.getAttribute("type") +'\n');
-		System.out.println("Validating submitted email -- " + value.toString());
 		
+		System.out.println("SessionType: " + session.getAttribute("user") +'\n');
+		System.out.println("Validating submitted email -- " + value.toString());
+		Users user = (Users)session.getAttribute("user");
 		
 	    matcher = pattern.matcher(value.toString());
 	    
@@ -64,7 +64,7 @@ public class EmailValidator implements Validator{
 		    
 		      throw new ValidatorException(msg);
 	    } else if ((userService.getByEmail(value.toString())) != null) {
-	    	Users user = userService.getByEmail(value.toString());
+	    	user = userService.getByEmail(value.toString());
 	    	if (user.getUserId() != 0) {
 		    	messageString = " The user with an E-mail " + value.toString() + " exists in the System";
 			    FacesMessage msg =

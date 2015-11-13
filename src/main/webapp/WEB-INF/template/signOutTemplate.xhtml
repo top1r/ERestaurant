@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<body>
+				<h:panelGroup rendered="#{not empty usersBean.userList}">
+					<div class="signin-signup">
+						<div class="signin">
+							<h4><h:outputText value = "You are logged in as #{usersBean.user.firstname} #{usersBean.user.lastname}."></h:outputText></h4> 
+							<!-- move text to bean -->
+							<h4>If this is not you, please follow the link below:</h4>
+							<h:form><h:commandLink value="Sign Out" action="#{usersBean.logout}"></h:commandLink></h:form>
+						</div>
+					</div>
+				</h:panelGroup>
+
+</body>
+</html>

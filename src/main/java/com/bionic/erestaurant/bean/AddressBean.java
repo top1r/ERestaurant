@@ -9,28 +9,34 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.bionic.erestaurant.core.AddressHelper;
 import com.bionic.erestaurant.entity.Address;
 import com.bionic.erestaurant.entity.Users;
 import com.bionic.erestaurant.service.AddressService;
 
-@Named
+@Component
 @Scope("session")
 public class AddressBean implements Serializable{
 	private static final long serialVersionUID = 1L;
-	public Address address;
+	private Address address;
 	@Inject
 	private AddressService addressService;
 	
 	public AddressBean() {
 		address = new Address();
+		FacesContext context = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+		session.setAttribute("address", address);
 	}
 	
 	public String addressLater(){
 		return "home";
 	}
-	
+
+	/*
 	public String saveAddress() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
@@ -38,6 +44,7 @@ public class AddressBean implements Serializable{
 		addressService.saveAddress(address, user);
 		return "home";
 	}
+	*/
 
 	public Address getAddress() {
 		return address;

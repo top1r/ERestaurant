@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Address {
@@ -11,13 +13,11 @@ public class Address {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int address_id;
 	
-/*
+
 	@ManyToOne
 	@JoinColumn(name="user_id")
-	private Users user_id;	
-*/
-	
-	private int user_id;
+	private Users user;	
+
 	
 	private String address1;
 	
@@ -43,15 +43,15 @@ public class Address {
 	public void setAddressId(int address_id) {
 		this.address_id = address_id;
 	}
-/*
-	public Users getUserId() {
-		return user_id;
+
+	public Users getUser() {
+		return user;
 	}
 
-	public void setUserId(Users user_id) {
-		this.user_id = user_id;
+	public void setUser(Users user) {
+		this.user = user;
 	}
-*/
+
 	public String getAddress1() {
 		return address1;
 	}
@@ -91,14 +91,4 @@ public class Address {
 	public void setZip(String zip) {
 		this.zip = zip;
 	}
-
-	public int getUserId() {
-		return user_id;
-	}
-
-	public void setUserId(int user_id) {
-		this.user_id = user_id;
-	};
-	
-	
 }

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:body>
+	<ui:composition>
+	<div class = "header">
+		<div class = "wrapper">
+			<ul id="header_links" class="user-menu">
+			<h:panelGroup rendered="#{empty usersBean.userList}">
+				<li>
+				<!-- need to add validation for the registered user -->
+					<a href="login.xhtml" class="icon-login" id="headerLogin">
+						Sign In
+					</a>
+				</li>
+			</h:panelGroup>
+			<h:panelGroup rendered="#{not empty usersBean.userList}">
+				<li>
+				<!-- need to add validation for the registered user -->
+					<h:outputText value= "Welcome back, #{usersBean.user.firstname}"></h:outputText>
+				</li>
+			</h:panelGroup>
+			<li>
+			<!-- need to add validation for the registered user -->
+				<a href="help.xhtml">
+					Help
+				</a>
+			</li>
+		</ul>
+		<div class="header_content">
+			<div class="logo">		
+				<a id="" href="home.xhtml">
+					<img src="http://pro.bionic-university.com/resources/images/logo_sub_pro.png" alt="" border="0"/>
+			</a>
+			</div>
+		</div>
+		</div>
+	
+	</div>
+
+	</ui:composition>
+</h:body>
+</html>

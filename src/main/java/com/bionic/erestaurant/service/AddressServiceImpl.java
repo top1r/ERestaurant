@@ -16,7 +16,8 @@ import com.bionic.erestaurant.entity.Users;
 public class AddressServiceImpl implements AddressService{
 	@Inject
 	private AddressDao addressDao; 
-	
+
+	/*
 	@Transactional
 	public void saveAddress(Address address, Users users){
 		if (users.getUserId() == 0){
@@ -27,6 +28,7 @@ public class AddressServiceImpl implements AddressService{
 			addressDao.saveAddress(address, users);
 		}		
 	}
+	*/
 	
 	public List<Address> getAddressesByUserId(int id){
 		return addressDao.getAddressesByUserId(id);

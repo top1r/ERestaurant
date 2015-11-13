@@ -29,10 +29,10 @@ public class Users {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
 	private List<UsersRole> roles;
 	
-	/*
-	@OneToMany(mappedBy="user_id")
-	private Collection<Address> addresses;
-	*/
+
+	@OneToMany(mappedBy="user", cascade = CascadeType.PERSIST)
+	private List<Address> addresses;
+
 	
 	public Users() {
 		this.status = true;
@@ -162,5 +162,13 @@ public class Users {
 
 	public void setRoles(List<UsersRole> roles) {
 		this.roles = roles;
+	}
+
+	public List<Address> getAddresses() {
+		return addresses;
+	}
+
+	public void setAddresses(List<Address> addresses) {
+		this.addresses = addresses;
 	}
 }

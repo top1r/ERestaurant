@@ -11,7 +11,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.bionic.erestaurant.entity.*;
 import com.bionic.erestaurant.service.AddressService;
@@ -20,19 +22,20 @@ import com.bionic.erestaurant.service.ProductService;
 
 @Named
 @Scope("session")
+@SessionAttributes("address")
 public class CartBean  {
 	private Map<Product, Integer> productMap = new HashMap<Product, Integer>();
 	
     FacesContext context = FacesContext.getCurrentInstance();
 	HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
 	
-	@Inject
+	@Autowired
 	private AddressService addressService;
 	
-	@Inject
+	@Autowired
 	private OrderService orderService;
 	
-	@Inject
+	@Autowired
 	private ProductService productService;
 /*
 	ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
