@@ -88,8 +88,7 @@ header
 
 .pages-wrapper {
    margin-top:25px;
-   max-width: 100%;
-   min-width: 768px;
+   max-width: 70%;
    margin: 0 auto;
    display: table;
    border-collapse: collapse;
@@ -115,4 +114,20 @@ header
    text-align: left;
    vertical-align: top;
    border: none;
+}
+
+
+
+.pages-wrapper .product {
+	display:inline-block;	
+}
+
+.pages-wrapper .product li {
+	display:inline-block;	
+}
+
+.pages ul.product li:nth-child(5n+6) {
+	display:inline-block;	
+	clear:left;
+  	float:left;
 }
