@@ -19,7 +19,7 @@ import com.bionic.erestaurant.service.AddressService;
 @Scope("session")
 public class AddressBean implements Serializable{
 	private static final long serialVersionUID = 1L;
-	public Address address;
+	private Address address;
 	@Inject
 	private AddressService addressService;
 	
@@ -30,7 +30,8 @@ public class AddressBean implements Serializable{
 	public String addressLater(){
 		return "home";
 	}
-	
+
+	/*
 	public String saveAddress() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
@@ -38,6 +39,7 @@ public class AddressBean implements Serializable{
 		addressService.saveAddress(address, user);
 		return "home";
 	}
+	*/
 
 	public Address getAddress() {
 		return address;

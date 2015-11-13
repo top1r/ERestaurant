@@ -8,17 +8,24 @@
     <h:body>    	
     	<ui:composition template="WEB-INF/template/pageTemplate.xhtml">
 			<ui:define name="content">
+			
 			<div class = "pages-wrapper">
 				<div class="signin-signup">
-					<div class="signin">
-						<ui:include src="WEB-INF/template/editUserFormTemplate.xhtml"></ui:include>	
-					</div>
-					<div class="signup">
-						<ui:include src="WEB-INF/template/addressTemplate.xhtml"></ui:include>	
-					</div>
-				</div>
+					<h:form>
+						<div class="signin">
+							<ui:include src="WEB-INF/template/editUserFormTemplate.xhtml"></ui:include>	
+						</div>
+						<div class="signup">
+							<ui:include src="WEB-INF/template/addressTemplate.xhtml"></ui:include>	
+						</div>
+						<h:commandButton id="submit" value="Submit" action="#{usersBean.saveUser}"></h:commandButton>		
+						
+					</h:form>
+				</div>				
 			</div>
+			
 			</ui:define>
+
     	</ui:composition>
     	
     </h:body>

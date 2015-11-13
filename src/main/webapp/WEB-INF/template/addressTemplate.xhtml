@@ -9,7 +9,6 @@
 </head>
 <body>
 	<h1>Shipping Address</h1>
-	<h:form>
 			<h:panelGrid columns="3">
 			
 			<h:outputText value="Country"></h:outputText>
@@ -33,10 +32,6 @@
 			<h:outputText value="Zip Code"></h:outputText>
 			<h:inputText id="zip" value="#{addressBean.address.zip}" maxlength="10" required="true" requiredMessage = "The zip code cannot be empty"></h:inputText>
 			<h:message for="zip" style="color:red" />
-			<h:commandButton id="submit" value="Submit" action="#{usersBean.saveUser}"></h:commandButton>
 		</h:panelGrid>
-		
-	</h:form>
-
 </body>
 </html>

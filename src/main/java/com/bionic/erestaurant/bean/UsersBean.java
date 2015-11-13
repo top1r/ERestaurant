@@ -2,10 +2,12 @@ package com.bionic.erestaurant.bean;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -17,6 +19,8 @@ import org.eclipse.persistence.exceptions.TransactionException;
 import org.eclipse.persistence.jpa.rs.exceptions.PersistenceExceptionMapper;
 import org.springframework.context.annotation.Scope;
 
+import com.bionic.erestaurant.core.AddressHelper;
+import com.bionic.erestaurant.entity.Address;
 import com.bionic.erestaurant.entity.Users;
 import com.bionic.erestaurant.entity.UsersRole;
 import com.bionic.erestaurant.service.AddressService;
@@ -27,18 +31,22 @@ import com.bionic.erestaurant.service.UserService;
 public class UsersBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Users user;
+	private Address address;
+	private List<Address> addressList;
 	//used for rendered check
 	private List<Users> userList;
 
 	@Inject
 	private UserService userService;
 	
-	@Inject
-	private AddressService addressService;
+	public List<String> getCountry(){
+		return AddressHelper.getCountries();
+	}
 	
 	public UsersBean() {
 		user = new Users();
-		userList = new LinkedList<Users>();
+		userList = new ArrayList<Users>();
+		addressList = new ArrayList<Address>();
 	}
 	
 	public Users getUser() {
@@ -54,9 +62,21 @@ public class UsersBean implements Serializable{
 	}
 	
 	public String saveUser() {
-			userService.saveUser(user);
+			
+			System.out.println(user.getPassword());
+			if (user.getPassword() == null){
+				user.setPassword(user.generateHash(user.generateSalt(), user.generateSalt()));
+			}
+			
+
 			FacesContext context = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+			Address address = (Address)session.getAttribute("address");
+			System.out.println(address.getAddress1());
+			addressList.add((Address)session.getAttribute("address"));
+			address.setUser(user);
+			user.setAddresses(addressList);
+			userService.saveUser(user);
 			session.setAttribute("user",user);
 			Users user = (Users)session.getAttribute("user");
 			if (user != null){
@@ -68,7 +88,7 @@ public class UsersBean implements Serializable{
 					return this.addressStep();
 				}
 			} else {
-				return "signIn";
+				return "login";
 			}
 	}
 	

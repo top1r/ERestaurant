@@ -63,7 +63,7 @@ public class EmailValidator implements Validator{
 		      msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 		    
 		      throw new ValidatorException(msg);
-	    } else if ((user != null) && (userService.getByEmail(value.toString())) != null) {
+	    } else if ((userService.getByEmail(value.toString())) != null) {
 	    	user = userService.getByEmail(value.toString());
 	    	if (user.getUserId() != 0) {
 		    	messageString = " The user with an E-mail " + value.toString() + " exists in the System";

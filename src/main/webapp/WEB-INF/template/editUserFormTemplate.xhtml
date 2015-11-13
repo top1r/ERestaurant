@@ -5,8 +5,7 @@
 	xmlns:h="http://java.sun.com/jsf/html">
 <body>
 	<h1>User Information</h1>
-	<h:form>
-			<h:panelGrid columns="3">
+		<h:panelGrid columns="3">
 			<h:outputText value="First Name"></h:outputText>
 			<h:inputText id="firstName" value="#{usersBean.user.firstname}" required="true" requiredMessage = "The first name cannot be empty"></h:inputText>
 			<h:message for="firstName" style="color:red" />
@@ -25,7 +24,5 @@
 			<h:inputSecret rendered="#{param.checkout ne 'guest'}" id="password" value="#{usersBean.user.password}" required="true" requiredMessage = "The password cannot be empty"></h:inputSecret>
 			<h:message rendered="#{param.checkout ne 'guest'}" for="password" style="color:red" />			
 		</h:panelGrid>		
-	</h:form>
-
 </body>
 </html>
