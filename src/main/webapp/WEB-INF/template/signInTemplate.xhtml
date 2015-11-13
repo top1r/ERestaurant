@@ -4,9 +4,6 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-<h:head>
-	<h:title>Sign In</h:title>
-</h:head>
 <h:body>
 	<ui:composition>
 		<h:form>
@@ -20,7 +17,7 @@
 				
 				<h:outputText value="#{request.getParameter('id')}" /> 
 			</h:panelGrid>
-			<h:commandButton id="login" value="Login" action="#{usersBean.validatePassword}"></h:commandButton>
+			<h:commandButton id="login" value="Sign In" action="#{usersBean.validatePassword}"></h:commandButton>
 		</h:form>
 	</ui:composition>
 </h:body>

@@ -33,10 +33,8 @@
 			<h:outputText value="Zip Code"></h:outputText>
 			<h:inputText id="zip" value="#{addressBean.address.zip}" maxlength="10" required="true" requiredMessage = "The zip code cannot be empty"></h:inputText>
 			<h:message for="zip" style="color:red" />
-						
+			<h:commandButton id="submit" value="Submit" action="#{usersBean.saveUser}"></h:commandButton>
 		</h:panelGrid>
-		<h:commandButton rendered="#{param.type ne 'guest' and sessionScope['type'] ne 'guest'}" id="later" value="Later" action="#{addressBean.addressLater}"></h:commandButton>
-		<h:commandButton id="submit" value="Submit" action="#{addressBean.saveAddress}"></h:commandButton>
 		
 	</h:form>
 

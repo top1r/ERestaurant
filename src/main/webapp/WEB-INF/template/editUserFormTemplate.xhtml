@@ -3,12 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Registration</title>
-</head>
 <body>
-	<h1>Registration</h1>
+	<h1>User Information</h1>
 	<h:form>
 			<h:panelGrid columns="3">
 			<h:outputText value="First Name"></h:outputText>
@@ -25,16 +21,10 @@
 			</h:inputText>
 			<h:message for="email" style="color:red" />
 			
-			<h:outputText rendered = "#{param.type ne 'guest'}" value="Password"></h:outputText>
-			<h:inputSecret rendered = "#{param.type ne 'guest'}" id="password" value="#{usersBean.user.password}" required="true" requiredMessage = "The password cannot be empty"></h:inputSecret>
-			<h:message rendered = "#{param.type ne 'guest'}" for="password" style="color:red" />
-			
-			
-		</h:panelGrid>
-		<h:commandButton id="submit" value="Submit" action="#{usersBean.saveUser}">
-			<f:setPropertyActionListener target="#{usersBean.type}" value="#{param.type}" />
-		</h:commandButton>
-		
+			<h:outputText rendered="#{param.checkout ne 'guest'}" value="Password"></h:outputText>
+			<h:inputSecret rendered="#{param.checkout ne 'guest'}" id="password" value="#{usersBean.user.password}" required="true" requiredMessage = "The password cannot be empty"></h:inputSecret>
+			<h:message rendered="#{param.checkout ne 'guest'}" for="password" style="color:red" />			
+		</h:panelGrid>		
 	</h:form>
 
 </body>
