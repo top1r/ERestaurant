@@ -40,6 +40,7 @@ public class UsersBean implements Serializable{
 	
 	public UsersBean() {
 		user = new Users();
+		type = "guest";
 	}
 	
 	public Users getUser() {
@@ -51,7 +52,7 @@ public class UsersBean implements Serializable{
 	}
 	
 	public String addressStep() {
-		return "addressTemplate";
+		return "reportList";
 	}
 	
 	public String saveUser() {
@@ -84,7 +85,7 @@ public class UsersBean implements Serializable{
 	public String validatePassword() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
-		session.setAttribute("type", type);
+		//session.setAttribute("type", type);
 		
 		if (type != "guest"){
 			boolean valid = userService.validatePassword(user.getEmail(), user.getPassword());
