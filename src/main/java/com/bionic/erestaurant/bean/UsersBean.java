@@ -17,7 +17,9 @@ import javax.servlet.http.HttpSession;
 
 import org.eclipse.persistence.exceptions.TransactionException;
 import org.eclipse.persistence.jpa.rs.exceptions.PersistenceExceptionMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.bionic.erestaurant.core.AddressHelper;
 import com.bionic.erestaurant.entity.Address;
@@ -28,6 +30,8 @@ import com.bionic.erestaurant.service.UserService;
 
 @Named
 @Scope("session")
+@SessionAttributes("address")
+
 public class UsersBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Users user;
@@ -38,6 +42,9 @@ public class UsersBean implements Serializable{
 
 	@Inject
 	private UserService userService;
+	
+	@Autowired
+	private AddressService addressService;
 	
 	public List<String> getCountry(){
 		return AddressHelper.getCountries();
@@ -58,7 +65,7 @@ public class UsersBean implements Serializable{
 	}
 	
 	public String addressStep() {
-		return "addressTemplate";
+		return "home";
 	}
 	
 	public String saveUser() {
@@ -85,6 +92,7 @@ public class UsersBean implements Serializable{
 					return "reportList";
 				} else {
 					this.login();
+					session.removeAttribute("address");
 					return this.addressStep();
 				}
 			} else {
@@ -162,5 +170,21 @@ public class UsersBean implements Serializable{
 
 	public void setUserList(List<Users> userList) {
 		this.userList = userList;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public List<Address> getAddressList() {
+		return addressList;
+	}
+
+	public void setAddressList(List<Address> addressList) {
+		this.addressList = addressList;
 	}
 }
