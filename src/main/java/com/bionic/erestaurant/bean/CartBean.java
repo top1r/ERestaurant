@@ -3,8 +3,10 @@ package com.bionic.erestaurant.bean;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -22,9 +24,8 @@ import com.bionic.erestaurant.service.ProductService;
 
 @Named
 @Scope("session")
-@SessionAttributes("address")
 public class CartBean  {
-	private Map<Product, Integer> productMap = new HashMap<Product, Integer>();
+	private Map<Product, Integer> productMap;
 	
     FacesContext context = FacesContext.getCurrentInstance();
 	HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
@@ -44,7 +45,9 @@ public class CartBean  {
 	ProductService productService = (ProductService)context.getBean("productServiceImpl");	
 */
 	
-	public CartBean() {};
+	public CartBean() {
+		productMap = new HashMap<Product, Integer>();
+	};
 	
 	public void addProduct(Product product) {
 		if (productMap.containsKey(product)){			
@@ -52,6 +55,20 @@ public class CartBean  {
 		} else {
 			productMap.put(product, 1);
 		}
+		System.out.println("ADD: "+ productMap.size());
+
+	}
+	
+	public List<Entry<String, Integer>> getCartProductsList() {
+        return new ArrayList(productMap.entrySet());
+        }
+
+	public Map<Product, Integer> getProductMap() {
+		return productMap;
+	}
+
+	public void setProductMap(Map<Product, Integer> productMap) {
+		this.productMap = productMap;
 	}
 
 	public void removeProduct(Product product) {
@@ -60,6 +77,8 @@ public class CartBean  {
 		} else {
 			//Logger needs to be added here
 		}		
+		System.out.println("Remove: "+ productMap.size());
+
 	}
 	
 	public void increaseQuantity(Product product){
@@ -68,12 +87,21 @@ public class CartBean  {
 		} else {
 			//Logger needs to be added here
 		}
+		System.out.println("Increase: "+ productMap.size());
+
+	}
+	
+	public int getTotalItemsInCart(){
+		return productMap.values()
+			.stream()
+			.mapToInt(i->i.intValue())
+			.sum();
 	}
 	
 	public void decreaseQuantity(Product product){
 		if (productMap.containsKey(product)) {
 			int quantity = productMap.get(product); 
-			if ((quantity - 1) > 0){
+			if (quantity > 1){
 				productMap.put(product, productMap.get(product) - 1);
 			} else {
 				this.removeProduct(product);
@@ -81,6 +109,16 @@ public class CartBean  {
 		} else {
 			//Logger needs to be added here
 		}
+		System.out.println("Decrease: "+ productMap.size());
+
+	}
+	
+	public double getCartTotal(){
+		double sum = 0;
+		for (Product p: productMap.keySet()){
+			sum += p.getPrice() * productMap.get(p);
+		}
+		return sum;
 	}
 	
 	public void submit() {
@@ -98,10 +136,10 @@ public class CartBean  {
 			Users user = (Users)session.getAttribute("user"); 
 			order.setUserId(user.getUserId());
 			//hardcoded address_id for a while
-			order.setAddressId(addressService
-											.getAddressesByUserId(user.getUserId())
-											.get(0)
-											.getAddressId());
+			order.setAddressId(user
+						.getAddresses()
+						.get(0)
+						.getAddressId());
 			order.setOrderitems((List<Orderitems>)orderitemsList);
 			boolean negativeInventory = false;
 			for (Orderitems oi: orderitemsList){
@@ -125,6 +163,7 @@ public class CartBean  {
 			}
 			if (!negativeInventory) {
 				orderService.createOrder(order);
+				productMap.clear();
 			} else {
 				//TODO Logging
 				System.out.println("Not enough inventory");
@@ -133,13 +172,5 @@ public class CartBean  {
 		} else {
 			//Logger goes here
 		}
-	}
-	
-	public double getCartTotal(){
-		double sum = 0;
-		for (Product p: productMap.keySet()){
-			sum += p.getPrice() * productMap.get(p);
-		}
-		return sum;
 	}
 }

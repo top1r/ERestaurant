@@ -36,6 +36,10 @@
 					<img src="http://pro.bionic-university.com/resources/images/logo_sub_pro.png" alt="" border="0"/>
 			</a>
 			</div>
+			<div class="cart">
+				<h:outputText rendered="#{empty cartBean.productMap}" value="Shopping cart: 0 items, $0.00"></h:outputText>
+				<h:outputText rendered="#{not empty cartBean.productMap}" value="Shopping cart: #{cartBean.totalItemsInCart} items, $#{cartBean.cartTotal}"></h:outputText>		
+			</div>
 		</div>
 		</div>
 	
