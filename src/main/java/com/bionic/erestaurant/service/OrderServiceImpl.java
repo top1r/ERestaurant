@@ -11,7 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bionic.erestaurant.core.reports.ReportByDateResult;
 import com.bionic.erestaurant.dao.OrderDao;
+import com.bionic.erestaurant.entity.Address;
 import com.bionic.erestaurant.entity.Orders;
+import com.bionic.erestaurant.entity.Users;
 
 @Named
 public class OrderServiceImpl implements OrderService {
@@ -38,5 +40,10 @@ public class OrderServiceImpl implements OrderService {
 	public List<ReportByDateResult> getOrderReportByTotal(Date dateFrom, Date dateTo){
 		return orderDao.getOrderReportByTotal(dateFrom, dateTo);
 	}
+	
+	public Orders getLastUsersOrderByAddress(Users user, Address address){
+		return orderDao.getLastUsersOrderByAddress(user, address);
+	}
+
 	
 }

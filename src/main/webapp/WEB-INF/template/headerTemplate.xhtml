@@ -20,7 +20,11 @@
 			<h:panelGroup rendered="#{not empty usersBean.userList}">
 				<li>
 				<!-- need to add validation for the registered user -->
-					<h:outputText value= "Welcome back, #{usersBean.user.firstname}"></h:outputText>
+					<h:outputText value= "Welcome back, #{usersBean.user.firstname}"></h:outputText>					
+				</li>
+			
+				<li>
+					<h:form><h:commandLink value="Sign Out" action="#{usersBean.logout}"></h:commandLink></h:form>
 				</li>
 			</h:panelGroup>
 			<li>
@@ -30,15 +34,27 @@
 				</a>
 			</li>
 		</ul>
-		<div class="header_content">
-			<div class="logo">		
-				<a id="" href="home.xhtml">
-					<img src="http://pro.bionic-university.com/resources/images/logo_sub_pro.png" alt="" border="0"/>
-			</a>
-			</div>
-			<div class="cart">
-				<h:outputText rendered="#{empty cartBean.productMap}" value="Shopping cart: 0 items, $0.00"></h:outputText>
-				<h:outputText rendered="#{not empty cartBean.productMap}" value="Shopping cart: #{cartBean.totalItemsInCart} items, $#{cartBean.cartTotal}"></h:outputText>		
+		<div class="header-content">
+			<span class="logo">		
+				<a class="logo" href="home.xhtml">
+					<img src="http://pro.bionic-university.com/resources/images/logo_sub_pro.png" alt="Home" border="0"/>
+				</a>
+			</span>
+			<div class="header-content-cart">
+			<span class="cartimage">
+				<a href="cart.xhtml">
+					<img src="img/design/cart.png" height="60" width="60" alt="Home" border="0"/>
+				</a>
+			</span>
+			<span class="cart">
+				<h:form rendered="#{empty cartBean.productMap}" >
+					<h:commandLink value="Shopping cart: 0 items, $0.00" action="#{cartBean.cartRedirect}">
+					</h:commandLink>
+				</h:form>
+				<h:form rendered="#{not empty cartBean.productMap}" >
+					<h:commandLink value="Shopping cart: #{cartBean.totalItemsInCart} items, $#{cartBean.cartTotal}" action="#{cartBean.cartRedirect}"></h:commandLink>
+				</h:form>		
+			</span>
 			</div>
 		</div>
 		</div>

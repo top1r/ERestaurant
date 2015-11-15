@@ -5,7 +5,9 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import com.bionic.erestaurant.core.reports.ReportByDateResult;
+import com.bionic.erestaurant.entity.Address;
 import com.bionic.erestaurant.entity.Orders;
+import com.bionic.erestaurant.entity.Users;
 
 public interface OrderService {
 	public Orders getOrderById(int id);
@@ -13,5 +15,7 @@ public interface OrderService {
 	public void saveOrder(Orders order);
 	public List<Orders> getOrderByUser(int user_id);
 	public List<ReportByDateResult> getOrderReportByTotal(Date dateFrom, Date dateTo);
+	public Orders getLastUsersOrderByAddress(Users user, Address address);
+
 
 }

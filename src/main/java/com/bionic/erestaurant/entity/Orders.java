@@ -35,8 +35,7 @@ public class Orders {
 	
 	public Orders() {
 		this.status = OrderStatus.NEW.toString();
-		this.timeplaced = Timestamp.valueOf(LocalDateTime.now());
-		this.lastupdated = Timestamp.valueOf(LocalDateTime.now());
+		this.timeplaced = this.lastupdated = Timestamp.valueOf(LocalDateTime.now());
 	}
 
 	public int getOrderId() {

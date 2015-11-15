@@ -11,7 +11,7 @@
     		<ui:define name="content">
 				<div class="pages-wrapper">
     				<ui:repeat var="product" value="#{productBean.allOnlineProducts}">
-    				<ol class="product">			
+    				<ul class="product">			
     					<li>
     						<h:graphicImage rendered="#{not empty product.image_url}" value="#{product.image_url}" height="120" width="120" alt="#{product.name}"></h:graphicImage>
     						<h:graphicImage rendered="#{empty product.image_url}" value="img/product/no-image-available.png" height="120" width="120" alt="#{product.name}"></h:graphicImage>									
@@ -19,7 +19,7 @@
     						<p class="price">#{product.price}</p>
     						<h:form><h:commandButton id="addtocart" value="Add To Cart" action="#{cartBean.addProduct(product)}"></h:commandButton></h:form>
     					</li>
-    				</ol>
+    				</ul>
     				</ui:repeat>
     			</div>
 			</ui:define>

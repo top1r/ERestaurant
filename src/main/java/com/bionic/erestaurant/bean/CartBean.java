@@ -1,5 +1,6 @@
 package com.bionic.erestaurant.bean;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -24,6 +25,7 @@ import com.bionic.erestaurant.service.ProductService;
 
 @Named
 @Scope("session")
+@SessionAttributes("address")
 public class CartBean  {
 	private Map<Product, Integer> productMap;
 	
@@ -70,6 +72,7 @@ public class CartBean  {
 	public void setProductMap(Map<Product, Integer> productMap) {
 		this.productMap = productMap;
 	}
+
 
 	public void removeProduct(Product product) {
 		if (productMap.containsKey(product)) {
@@ -121,7 +124,15 @@ public class CartBean  {
 		return sum;
 	}
 	
-	public void submit() {
+	public String cartRedirect(){
+		return "cart";
+	}
+	
+	public String orderRedirect(){
+		return "confirmation";
+	}
+	
+	public String submit() {
 		if (!productMap.isEmpty()){
 			Orders order = new Orders();			
 			Collection <Orderitems> orderitemsList = new ArrayList<Orderitems>();
@@ -131,15 +142,12 @@ public class CartBean  {
 				System.out.println(orderitemsList.contains(item));
 				orderitemsList.add(item);
 			}
-			
-						
+							
 			Users user = (Users)session.getAttribute("user"); 
 			order.setUserId(user.getUserId());
-			//hardcoded address_id for a while
-			order.setAddressId(user
-						.getAddresses()
-						.get(0)
-						.getAddressId());
+			Address address = (Address)session.getAttribute("address");
+			System.out.println(address);
+			order.setAddressId(address.getAddressId());
 			order.setOrderitems((List<Orderitems>)orderitemsList);
 			boolean negativeInventory = false;
 			for (Orderitems oi: orderitemsList){
@@ -163,13 +171,17 @@ public class CartBean  {
 			}
 			if (!negativeInventory) {
 				orderService.createOrder(order);
+				//session.removeAttribute("address");
 				productMap.clear();
+				return this.orderRedirect();
 			} else {
 				//TODO Logging
 				System.out.println("Not enough inventory");
+				return this.cartRedirect();
 			}
 			
 		} else {
+			return this.cartRedirect();
 			//Logger goes here
 		}
 	}

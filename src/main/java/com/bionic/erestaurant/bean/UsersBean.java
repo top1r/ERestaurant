@@ -65,7 +65,7 @@ public class UsersBean implements Serializable{
 	}
 	
 	public String addressStep() {
-		return "home";
+		return "cart";
 	}
 	
 	public String saveUser() {
@@ -92,7 +92,7 @@ public class UsersBean implements Serializable{
 					return "reportList";
 				} else {
 					this.login();
-					session.removeAttribute("address");
+					//session.removeAttribute("address");
 					return this.addressStep();
 				}
 			} else {
@@ -106,7 +106,7 @@ public class UsersBean implements Serializable{
 		  session.setAttribute("user", user);
 		  System.out.println(user.toString());
 		  userList.add(user);
-		  return "reportList";
+		  return "cart";
 		  //session.setAttribute("email",  this.getUser().getEmail());
 	}
 	

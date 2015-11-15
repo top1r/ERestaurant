@@ -17,7 +17,7 @@
     
     <error-page>
    		<exception-type>javax.faces.application.ViewExpiredException</exception-type>
-    	<location>/signIn.xhtml</location>
+    	<location>/login.xhtml</location>
 	</error-page>
 	
 	<context-param>

@@ -20,6 +20,32 @@ header
 .wrapper{
 }
 
+.footer-wrapper {
+	margin-top:50px;
+    background: #f2f2f2;
+    padding: 30px 0;
+}
+
+.footer-wrapper li{
+	display: inline-block;;
+	position:relative;
+	display:inline-block;
+	margin-left:9px;
+	padding-left:9px;
+	font-size:16px;
+	color:black;
+	line-height:1;
+	letter-spacing:normal;
+	horizontal-align:middle;
+	vertical-align:middle;
+	border-left:1px solid #7e8185}
+	
+.footer-wrapper li:first-child{
+	color:black;
+	margin:0;
+	padding:0;
+	border:none}
+
 .user-menu{
 	position:relative;
 	z-index:6;
@@ -58,11 +84,29 @@ header
 	font-weight:bold;
 	border:none}
 
-.logo{
+.header-content{
+	position:relative;
+	margin-left:15%;
+	margin-right:15%;
 	margin-top:25px;
-	margin-left:15%
+}
+.header-content .logo{
+
 }
 
+.header-content-cart{
+	position:relative;
+	line-height:4em;
+	float:right;
+	vertical-align:middle;
+}
+
+.header-content-cart .cart{
+	position:relative;
+	line-height:4em;
+	float:right;
+	vertical-align:middle;
+}
 
 .promo-image-container{
 	margin-top:25px;
@@ -89,7 +133,8 @@ header
 .pages-wrapper {
    margin-top:25px;
    max-width: 70%;
-   margin: 0 auto;
+   margin-left:15%;
+   margin-right:15%
    display: table;
    border-collapse: collapse;
 }
@@ -130,4 +175,17 @@ header
 	display:inline-block;	
 	clear:left;
   	float:left;
+}
+
+.pages-wrapper .prodtable {
+	margin-top:25px;
+	width:70%;
+}
+
+.addToCartSelectedAddress{
+	
+}
+
+.addToCartButton{
+	
 }
