@@ -172,14 +172,13 @@ public class UsersBean implements Serializable{
 			address.setUser(user);
 			user.setAddresses(addressList);
 			userService.saveUser(user);
+			session.setAttribute("user",user);
 			Users user = (Users)session.getAttribute("user");
-
 			if (user != null){
 				//TODO remove redirect to the admin page
 				if (this.isAdmin) {
 					return "smc";
 				} else {
-					session.setAttribute("user",user);
 					this.login();
 					//session.removeAttribute("address");
 					return this.addressStep();
