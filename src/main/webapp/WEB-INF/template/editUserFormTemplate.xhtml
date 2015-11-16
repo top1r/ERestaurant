@@ -22,7 +22,15 @@
 			
 			<h:outputText rendered="#{param.checkout ne 'guest'}" value="Password"></h:outputText>
 			<h:inputSecret rendered="#{param.checkout ne 'guest'}" id="password" value="#{usersBean.user.password}" required="true" requiredMessage = "The password cannot be empty"></h:inputSecret>
-			<h:message rendered="#{param.checkout ne 'guest'}" for="password" style="color:red" />			
+			<h:message rendered="#{param.checkout ne 'guest'}" for="password" style="color:red" />
+			
+			<h:panelGroup rendered="#{not empty usersBean.userList and usersBean.admin}">
+				<h:selectManyCheckbox value = "#{usersBean.adminRoleList}">
+					<f:selectItem itemValue = "BUSINESS" itemLabel="Business User"></f:selectItem>
+					<f:selectItem itemValue = "KITCHEN" itemLabel="Kitchen User"></f:selectItem>
+					<f:selectItem itemValue = "DELIVERY" itemLabel="Delivery User"></f:selectItem>	
+				</h:selectManyCheckbox>
+			</h:panelGroup>			
 		</h:panelGrid>		
 </body>
 </html>
