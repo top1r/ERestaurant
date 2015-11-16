@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 	public boolean validatePassword(String email, String password){
 		Users user = userDao.getByEmail(email);
 		System.out.println(user);
-		if ((user != null) && (user.getPassword() != null)){
+		if ((user != null) && (user.isStatus() == true)){
 			if (user.getPassword().equals(user.generateHash(password, user.getSalt()))){
 				return true;
 			} else {
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
 			}
 		} else {
 			//TODO Add better logging
-			System.out.println("Null user or password");
+			System.out.println("Null user or disabled");
 			return false;
 		}
 	}

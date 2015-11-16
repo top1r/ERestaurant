@@ -25,6 +25,7 @@ import com.bionic.erestaurant.core.AddressHelper;
 import com.bionic.erestaurant.entity.Address;
 import com.bionic.erestaurant.entity.Users;
 import com.bionic.erestaurant.entity.UsersRole;
+import com.bionic.erestaurant.entity.UsersRole.UserRoleEnum;
 import com.bionic.erestaurant.service.AddressService;
 import com.bionic.erestaurant.service.UserService;
 
@@ -39,6 +40,62 @@ public class UsersBean implements Serializable{
 	private List<Address> addressList;
 	//used for rendered check
 	private List<Users> userList;
+	private List<String> roleList;
+	
+	private boolean isStaff;
+	
+	private boolean isAdmin;
+	private boolean isBusiness;
+	private boolean isKitchen;
+	private boolean isDelivery;
+
+	public List<String> getRoleList() {
+		return roleList;
+	}
+
+	public void setRoleList(List<String> roleList) {
+		this.roleList = roleList;
+	}
+
+	public boolean isStaff() {
+		return isStaff;
+	}
+
+	public void setStaff(boolean isStaff) {
+		this.isStaff = isStaff;
+	}
+
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
+	public boolean isBusiness() {
+		return isBusiness;
+	}
+
+	public void setBusiness(boolean isBusiness) {
+		this.isBusiness = isBusiness;
+	}
+
+	public boolean isKitchen() {
+		return isKitchen;
+	}
+
+	public void setKitchen(boolean isKitchen) {
+		this.isKitchen = isKitchen;
+	}
+
+	public boolean isDelivery() {
+		return isDelivery;
+	}
+
+	public void setDelivery(boolean isDelivery) {
+		this.isDelivery = isDelivery;
+	}
 
 	@Inject
 	private UserService userService;
@@ -68,13 +125,27 @@ public class UsersBean implements Serializable{
 		return "cart";
 	}
 	
+	public String homeRedirect() {
+		return "home";
+	}
+
 	public String saveUser() {
-			
+			List<UsersRole> rolelist = new ArrayList<UsersRole>();
 			System.out.println(user.getPassword());
 			if (user.getPassword() == null){
+				UsersRole guest = new UsersRole();
+				guest.setType(UserRoleEnum.GUEST.toString());
+				rolelist.add(guest);
+				guest.setUser(user);
+
 				user.setPassword(user.generateHash(user.generateSalt(), user.generateSalt()));
+			} else {
+				UsersRole registered = new UsersRole();
+				registered.setType(UserRoleEnum.REGISTERED.toString());
+				registered.setUser(user);
+				rolelist.add(registered);
 			}
-			
+			user.setRoles(rolelist);
 
 			FacesContext context = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
@@ -100,13 +171,47 @@ public class UsersBean implements Serializable{
 			}
 	}
 	
+	public String userRedirect(){
+		return "users";
+	}
+	
+	public String kitchenRedirect(){
+		return "kitchen";
+	}
+	
+	public String businessRedirect(){
+		return "business";
+	}
+	
+	public String deliveryRedirect(){
+		return "delivery";
+	}
+
 	public String login(){
 		  FacesContext context = FacesContext.getCurrentInstance();
 		  HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
 		  session.setAttribute("user", user);
 		  System.out.println(user.toString());
 		  userList.add(user);
-		  return "cart";
+		  roleList = user.rolesToList();
+		  //Some dirty code starts here. Need to get rid of it as soon as the idea available;
+		  this.setStaff(
+				  	 roleList.contains(UserRoleEnum.SYSADMIN.toString()) 
+				  || roleList.contains(UserRoleEnum.BUSINESS.toString())
+				  || roleList.contains(UserRoleEnum.KITCHEN.toString())
+				  || roleList.contains(UserRoleEnum.DELIVERY.toString())
+				  );
+			this.setAdmin(roleList.contains(UserRoleEnum.SYSADMIN.toString()));
+			this.setBusiness(roleList.contains(UserRoleEnum.BUSINESS.toString()));
+			this.setKitchen(roleList.contains(UserRoleEnum.KITCHEN.toString()));
+			this.setDelivery(roleList.contains(UserRoleEnum.DELIVERY.toString()));
+
+		  
+		  if (isStaff){
+			  return "smc";
+		  } else {
+			  return "cart";
+		  }
 		  //session.setAttribute("email",  this.getUser().getEmail());
 	}
 	

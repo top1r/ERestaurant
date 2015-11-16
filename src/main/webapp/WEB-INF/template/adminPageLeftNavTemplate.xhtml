@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Address</title>
+</head>
+<body>
+	<h3>Administrative sections</h3>
+		<h:panelGroup>
+		<ul>
+			<h:panelGroup rendered="#{usersBean.admin}">
+				<li>
+					<h:form>
+						<h:commandLink value = "User management page" action = "#{usersBean.userRedirect}" />
+					</h:form>
+				</li>
+			</h:panelGroup>
+			<h:panelGroup rendered="#{usersBean.admin or usersBean.kitchen}">
+				<li>
+					<h:form>
+						<h:commandLink value = "Kitchen management page" action = "#{usersBean.kitchenRedirect}" />
+					</h:form>
+				</li>
+			</h:panelGroup>
+			<h:panelGroup rendered="#{usersBean.admin or usersBean.delivery}">
+				<li>
+					<h:form>
+						<h:commandLink value = "Delivery management page" action = "#{usersBean.deliveryRedirect}" />
+					</h:form>
+				</li>
+			</h:panelGroup>
+			<h:panelGroup rendered="#{usersBean.admin or usersBean.business}">
+				<li>
+					<h:form>
+						<h:commandLink value = "Business reports" action = "#{usersBean.businessRedirect}" />
+					</h:form>
+				</li>
+			</h:panelGroup>
+		</ul>
+		</h:panelGroup>
+</body>
+</html>

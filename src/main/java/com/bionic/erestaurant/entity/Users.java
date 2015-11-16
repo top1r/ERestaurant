@@ -4,6 +4,7 @@ import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
@@ -38,6 +39,7 @@ public class Users {
 		this.status = true;
 	}
 
+
 	public Users(String email, String firstname, String lastname, String password) {
 		this.status = true;
 		this.email = email;
@@ -62,6 +64,14 @@ public class Users {
 		String salt = new String(Base64.getEncoder().encode(byteArray),Charset.forName("UTF-8"));
 		//System.out.println(x);
 		return salt;
+	}
+	
+	public List<String> rolesToList(){
+		List<String> rolesList = new ArrayList<String>();
+		for (UsersRole role: roles){
+			rolesList.add(role.getType());
+		}
+		return rolesList;
 	}
 	
 	public String generateHash(String pass, String salt){
