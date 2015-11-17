@@ -9,11 +9,15 @@
     <h:body>
     	
     	<ui:composition template="WEB-INF/template/pageTemplate.xhtml">
+    		<div class ="admin-login">
+    		<ui:define name="header">
+    			<div class = "header-login-admin"/>
+    		</ui:define>
 			<ui:define name="content">		
-			<div class = "pages-wrapper">
+			<div class = "content-login-admin">
 			<h:panelGroup rendered="#{empty usersBean.userList}">
-				<div class="signin-signup">
-					<div class="signin">
+				<div class="signin-signup-admin">
+					<div class="signin-admin">
 						<h3>Site Management Console</h3>
 						<h4>Please sign in with your email and password here.</h4>
 						<ui:include src="WEB-INF/template/signInTemplate.xhtml"></ui:include>
@@ -21,8 +25,8 @@
 				</div>
 			</h:panelGroup>
 				<h:panelGroup rendered="#{not empty usersBean.userList and !usersBean.staff}">
-					<div class="signin-signup">
-						<div class="signin">
+					<div class="signin-signup-admin">
+						<div class="signup-admin">
 							<h4><h:outputText value = "Admin section requires ERestaurant role."></h:outputText></h4> 
 							<!-- move text to bean -->
 							<h:form><h:commandLink value="Return to Home Page" action="#{usersBean.homeRedirect}"></h:commandLink></h:form>
@@ -31,7 +35,12 @@
 				</h:panelGroup>
 			</div>
 			</ui:define>
+			<ui:define name="footer">
+    			<div class = "footer-login-admin"/>
+    		</ui:define>
+    		</div>
     	</ui:composition>
+    	
     	
     </h:body>
 

@@ -15,6 +15,7 @@
 				<h:inputSecret id="password" value="#{usersBean.user.password}" maxlength="20" required="true" requiredMessage = "The password cannot be empty"></h:inputSecret>
 				<h:message for="password" style="color:red" />
 			</h:panelGrid>
+			<br/>
 			<h:commandButton id="login" value="Sign In" action="#{usersBean.validatePassword}"></h:commandButton>
 		</h:form>
 	</ui:composition>

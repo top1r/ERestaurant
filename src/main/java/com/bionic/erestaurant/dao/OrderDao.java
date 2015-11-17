@@ -13,7 +13,7 @@ public interface OrderDao {
 	public Orders getOrderById(int id);
 	public void createOrder(Orders order);
 	public List<Orders> getOrderByUser(int user_id);
-	public List<ReportByDateResult> getOrderReportByTotal(Date dateFrom, Date dateTo);
+	public List<ReportByDateResult> getOrderReportByTotal(String dateFrom, String dateTo);
 	public void saveOrder(Orders order);
 	public Orders getLastUsersOrderByAddress(Users user, Address address);
 }

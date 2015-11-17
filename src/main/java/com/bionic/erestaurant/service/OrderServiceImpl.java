@@ -37,7 +37,7 @@ public class OrderServiceImpl implements OrderService {
 		return orderDao.getOrderByUser(user_id);
 	}
 	
-	public List<ReportByDateResult> getOrderReportByTotal(Date dateFrom, Date dateTo){
+	public List<ReportByDateResult> getOrderReportByTotal(String dateFrom, String dateTo){
 		return orderDao.getOrderReportByTotal(dateFrom, dateTo);
 	}
 	

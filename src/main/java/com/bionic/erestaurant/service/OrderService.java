@@ -14,7 +14,7 @@ public interface OrderService {
 	public void createOrder(Orders order);
 	public void saveOrder(Orders order);
 	public List<Orders> getOrderByUser(int user_id);
-	public List<ReportByDateResult> getOrderReportByTotal(Date dateFrom, Date dateTo);
+	public List<ReportByDateResult> getOrderReportByTotal(String dateFrom, String dateTo);
 	public Orders getLastUsersOrderByAddress(Users user, Address address);
 
 

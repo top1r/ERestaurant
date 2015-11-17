@@ -9,17 +9,16 @@
 </h:head>
 <h:body>
 	<h2>Orders List</h2> 
-    #{reportsBean.getReport()}
     <h:form>
 		<h:dataTable value="#{reportsBean.results}" var="results"
 			styleClass="OrderTable" headerClass="OrderTableHeader"
 			rowClasses="OrderTableOddRow, OrderTableEvenRow">
 			<h:column>
-				<f:facet name="header">Category Name</f:facet> 
+				<f:facet name="header">Count</f:facet> 
 					#{results.ordersCount} 
 			</h:column>
 			<h:column>
-				<f:facet name="header">Category Total</f:facet> 
+				<f:facet name="header">Order Total</f:facet> 
 					#{results.ordersTotal} 
 			</h:column>
 		    <h:column> 
