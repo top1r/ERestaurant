@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      >
+    <h:body>    	
+    	<ui:composition template="WEB-INF/template/pageTemplate.xhtml">
+			<ui:define name="content">
+			<h:panelGroup rendered="#{usersBean.admin}">
+				<div class = "pages-wrapper">
+					<div class="signin-signup">
+						<h:form>
+							<div class="signin">
+								<ui:include src="WEB-INF/template/editAdminUserFormTemplate.xhtml"></ui:include>	
+							</div>
+							<h:commandButton id="submit" value="Submit" action="#{adminUserBean.saveUser}"></h:commandButton>
+						</h:form>
+					</div>				
+			</div>
+			</h:panelGroup>
+			
+			</ui:define>
+
+    	</ui:composition>
+    	
+    </h:body>
+
+</html>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<body>
+	<h3>User Information</h3>
+		<h:panelGrid columns="3">
+			<h:outputText value="First Name"></h:outputText>
+			<h:inputText id="firstName" value="#{adminUserBean.user.firstname}" required="true" requiredMessage = "The first name cannot be empty"></h:inputText>
+			<h:message for="firstName" style="color:red" />
+			
+			<h:outputText value="Last Name"></h:outputText>
+			<h:inputText id="lastName" value="#{adminUserBean.user.lastname}" required="true" requiredMessage = "The last name cannot be empty"></h:inputText>
+			<h:message for="lastName" style="color:red" />
+			
+			<h:outputText value="Email"></h:outputText>
+			<h:inputText id="email" value="#{adminUserBean.user.email}" required="true" requiredMessage = "The email cannot be empty">
+				<f:validator validatorId = "emailValidator" />
+			</h:inputText>
+			<h:message for="email" style="color:red" />
+			
+			<h:outputText value="Password"></h:outputText>
+			<h:inputSecret id="password" value="#{adminUserBean.user.password}" required="true" requiredMessage = "The password cannot be empty"></h:inputSecret>
+			<h:message for="password" style="color:red" />
+			
+			<h:panelGroup required="true" requiredMessage="Please select the role">
+				<h:selectManyCheckbox id="rolecheckbox" value = "#{adminUserBean.adminRoleList}">
+					<f:selectItem itemValue = "BUSINESS" itemLabel="Business User"></f:selectItem>
+					<f:selectItem itemValue = "KITCHEN" itemLabel="Kitchen User"></f:selectItem>
+					<f:selectItem itemValue = "DELIVERY" itemLabel="Delivery User"></f:selectItem>	
+				</h:selectManyCheckbox>
+				<h:message for="rolecheckbox" style="color:red" />
+			</h:panelGroup>			
+		</h:panelGrid>		
+</body>
+</html>
