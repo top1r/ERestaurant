@@ -45,14 +45,14 @@ public class OrderDaoImpl implements OrderDao{
 		return query.setParameter("userId", user_id).getResultList();
 	}
 	
-	public List<ReportByDateResult> getOrderReportByTotal(Date dateFrom, Date dateTo){
+	public List<ReportByDateResult> getOrderReportByTotal(String dateFrom, String dateTo){
 		String rawQuery = "select new com.bionic.erestaurant.core.reports.ReportByDateResult(FUNCTION('DATE',oi.created), count(distinct oi.order), sum(oi.quantity * p.price)) "
 				+ "from Orderitems oi, Product p "
 				+ "where oi.product_id = p.product_id "
 				+ "and FUNCTION('DATE',oi.created) between :dateFrom and :dateTo "
 				+ "group by FUNCTION('DATE',oi.created)";
 				TypedQuery<ReportByDateResult> query = em.createQuery(rawQuery, ReportByDateResult.class);
-		return query.setParameter("dateFrom", dateFrom).setParameter("dateTo", dateTo).getResultList();
+		return query.setParameter("dateFrom", dateFrom).setParameter("dateTo", dateTo.toString()).getResultList();
 	}
 	
 	public Orders getLastUsersOrderByAddress(Users user, Address address){

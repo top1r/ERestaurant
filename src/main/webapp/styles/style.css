@@ -20,6 +20,22 @@ header
 .wrapper{
 }
 
+.content-login-admin{
+    display: table;
+    margin: 0 auto;
+    margin-top:10%
+}
+
+.datepicker{
+}
+
+.signin-admin h4{
+	text-align: center;
+}
+
+.content-login-admin .signin-admin{
+}
+
 .footer-wrapper {
 	margin-top:50px;
     background: #f2f2f2;

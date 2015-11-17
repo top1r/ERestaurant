@@ -1,5 +1,6 @@
 package com.bionic.erestaurant.bean;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -26,7 +27,8 @@ import com.bionic.erestaurant.service.ProductService;
 @Named
 @Scope("session")
 @SessionAttributes("address")
-public class CartBean  {
+public class CartBean  implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private Map<Product, Integer> productMap;
 	
     FacesContext context = FacesContext.getCurrentInstance();

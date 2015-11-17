@@ -1,12 +1,15 @@
-package com.bionic.erestaurant.core;
+package com.bionic.erestaurant.bean;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import javax.inject.Named;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bionic.erestaurant.entity.Orderitems;
@@ -15,15 +18,33 @@ import com.bionic.erestaurant.entity.Orders.OrderStatus;
 import com.bionic.erestaurant.service.OrderService;
 import com.bionic.erestaurant.service.OrderitemsService;
 import com.bionic.erestaurant.service.ProductService;
-import com.bionic.erestaurant.service.UserService;
 
-public class KitchenServiceImpl implements KitchenService{
-	ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
-	OrderService orderService = (OrderService)context.getBean("orderServiceImpl");
-	OrderitemsService orderitemsService = (OrderitemsService)context.getBean("orderitemsServiceImpl");
-	ProductService productService = (ProductService)context.getBean("productServiceImpl");	
+@Named
+@Scope("session")
+public class KitchenBean implements Serializable{
+	private static final long serialVersionUID = 1L;
+	private List<Orderitems> kitchenList;
+	
+	@Autowired
+	private OrderitemsService orderitemsService;
+	
+	@Autowired
+	private OrderService orderService;
+	
+	@Autowired
+	private ProductService productService;
 
-	public KitchenServiceImpl(){}
+	public KitchenBean(){
+		kitchenList = new ArrayList<Orderitems>();
+	}
+	
+	public void getKitchenPendingList(){
+		kitchenList = orderitemsService.getKitchenPendingList();
+	} 
+	
+	public String getProductNameById(int id){
+		return productService.getProductById(id).getName();
+	}
 	
 	@Transactional
 	public void allocateInventory(Orderitems oi){
@@ -61,7 +82,15 @@ public class KitchenServiceImpl implements KitchenService{
 					.setLastupdated(Timestamp.valueOf(LocalDateTime.now()));
 				orderService.saveOrder(oi.getOrder());
 			}
+			}
 		}
 	}
-}
+
+	public List<Orderitems> getKitchenList() {
+		return kitchenList;
+	}
+
+	public void setKitchenList(List<Orderitems> kitchenList) {
+		this.kitchenList = kitchenList;
+	}
 }

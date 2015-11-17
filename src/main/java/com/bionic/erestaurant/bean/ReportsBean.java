@@ -2,6 +2,9 @@ package com.bionic.erestaurant.bean;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -11,29 +14,30 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.bionic.erestaurant.core.reports.ReportByDateResult;
 import com.bionic.erestaurant.service.OrderService;
 
 @Named
-@Scope("request")
+@Scope("session")
 public class ReportsBean implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private List<ReportByDateResult> results = null;
-	private Date dateFrom;
-	private Date dateTo;
+	private List<ReportByDateResult> results;
+	private String dateFrom;
+	private String dateTo;
 	
 	//To remove later
 	FacesContext context = FacesContext.getCurrentInstance();
 	HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
 	
-	@Inject
+	@Autowired
 	private OrderService orderService;
 	
 	public ReportsBean() {
-		this.dateFrom = Date.valueOf("2015-10-01");
-		this.dateTo = Date.valueOf("2015-11-01");
+		results = new ArrayList<ReportByDateResult>();
 	}
 
 	public List<ReportByDateResult> getResults() {
@@ -44,25 +48,29 @@ public class ReportsBean implements Serializable{
 		this.results = results;
 	};
 	
-	public void getReport() {
-		results = orderService.getOrderReportByTotal(this.dateFrom, this.dateTo);
+	public boolean getReport() {
+
+		System.out.println(dateFrom + " " + dateTo);
+		System.out.println(results.size());
+		results = orderService.getOrderReportByTotal(dateFrom, dateTo);
+		return true;
 		//System.out.println(session.getAttribute("type").toString());
 	}
 
-	public Date getDateFrom() {
-		return dateFrom;
-	}
-
-	public void setDateFrom(Date dateFrom) {
+	public void setDateFrom(String dateFrom) {
 		this.dateFrom = dateFrom;
 	}
 
-	public Date getDateTo() {
-		return dateTo;
+	public void setDateTo(String dateTo) {
+		this.dateTo = dateTo;
 	}
 
-	public void setDateTo(Date dateTo) {
-		this.dateTo = dateTo;
+	public String getDateFrom() {
+		return dateFrom;
+	}
+
+	public String getDateTo() {
+		return dateTo;
 	}
 
 }

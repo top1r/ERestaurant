@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <h:body>	
+    	<ui:composition template="WEB-INF/template/pageTemplate.xhtml">
+			<ui:define name="content">
+			<script type="text/javascript" src="${pageContext.request.contextPath}/ERestaurant/js/jquery-1.11.3.min.js"></script>
+			<script type="text/javascript" src="${pageContext.request.contextPath}/ERestaurant/js/jquery-ui.min.js"></script>
+			<link rel="stylesheet" href="${pageContext.request.contextPath}/ERestaurant/js/jquery-ui.min.css" type="text/css" />
+
+			<div class = "pages-wrapper">
+
+				<h:panelGroup rendered="#{usersBean.admin or usersBean.business}">
+				
+				<div class="signin-signup">
+					<h:form>
+						<h:inputText value="#{reportsBean.dateFrom}" styleClass="datepicker">
+						</h:inputText>
+
+						<h:inputText value="#{reportsBean.dateTo}" styleClass="datepicker">
+						</h:inputText>
+						<h:commandButton value="Generate" action="#{reportsBean.getReport()}"></h:commandButton>
+					</h:form>
+					<h:panelGroup rendered="#{not empty reportsBean.results}">
+						<ui:include src="WEB-INF/template/reportTemplate.xhtml"></ui:include>
+					</h:panelGroup>
+				</div>
+				</h:panelGroup>
+			</div>
+			<script type="text/javascript">
+				$(document).ready(function() {
+				  $(".datepicker").datepicker({
+				    showOn: "button",
+				    showWeek:"true",
+				    inline:"true",
+				    firstDay: 1,
+				    buttonImage: "img/design/calendar.gif",
+				    buttonImageOnly: true,
+				    dateFormat: 'yy-mm-dd'})
+				});
+			</script>
+			</ui:define>
+    	</ui:composition>
+     </h:body>
+</html>

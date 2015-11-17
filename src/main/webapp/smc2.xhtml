@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core"
+      >
+     <h:head/>
+    <h:body>
+    <h:outputScript library="javax.faces" name="js/jsf.js" target="head" />    
+    
+	<h:panelGroup id="header" layout="block">
+    	<h1>Header</h1>
+	</h:panelGroup>
+   	<h:panelGroup rendered="#{not empty usersBean.userList}">		
+			<h:panelGroup rendered="#{!usersBean.staff}">
+				<h4><h:outputText value = "Admin section requires ERestaurant role."></h:outputText></h4> 
+				<h:form><h:commandLink value="Return to Home Page" action="#{usersBean.homeRedirect}"></h:commandLink></h:form>
+			</h:panelGroup>
+			<h:panelGroup rendered="#{usersBean.staff}">
+				<h:panelGroup id="menu" layout="block">
+    				<h:form>
+        				<f:ajax render=":content">
+        				
+            			<ul>
+            				<h:panelGroup rendered="#{usersBean.admin}">
+							<li>
+								<h:form>
+									<h:commandLink value = "User management page" action = "#{viewBean.setPage('smcRegisterTemplate')}" />
+								</h:form>
+							</li>
+							</h:panelGroup>
+							<h:panelGroup rendered="#{usersBean.admin or usersBean.kitchen}">
+							<li>
+								<h:form>
+									<h:commandLink value = "Kitchen management page" action = "#{viewBean.setPage('kitchenTemplate')}" />
+								</h:form>
+							</li>
+							</h:panelGroup>
+							<h:panelGroup rendered="#{usersBean.admin or usersBean.delivery}">
+							<li>
+								<h:form>
+									<h:commandLink value = "Delivery management page" action = "#{viewBean.setPage('smcRegisterTemplate')}" />
+								</h:form>
+							</li>
+							</h:panelGroup>
+							<h:panelGroup rendered="#{usersBean.admin or usersBean.business}">
+							<li>
+								<h:form>
+									<h:commandLink value = "Business reports" action = "#{viewBean.setPage('smcRegisterTemplate')}" />
+								</h:form>
+							</li>
+							</h:panelGroup>
+						</ul>
+        				</f:ajax>
+    				</h:form>
+    			</h:panelGroup>
+    			<h:panelGroup id="content" layout="block">
+    				<ui:include src="/WEB-INF/template/#{viewBean.page}.xhtml" />
+				</h:panelGroup>
+			</h:panelGroup>
+
+	</h:panelGroup>	
+    	</h:body>
+</html>

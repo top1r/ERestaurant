@@ -128,5 +128,21 @@ public class Orderitems {
 	public void setCreated(Timestamp created) {
 		this.created = created;
 	}
+
+	public int getOrderitem_id() {
+		return orderitem_id;
+	}
+
+	public void setOrderitem_id(int orderitem_id) {
+		this.orderitem_id = orderitem_id;
+	}
+
+	public int getProduct_id() {
+		return product_id;
+	}
+
+	public void setProduct_id(int product_id) {
+		this.product_id = product_id;
+	}
 	
 }

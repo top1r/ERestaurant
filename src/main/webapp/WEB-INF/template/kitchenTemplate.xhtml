@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:body>
+	<h2>Kitchen Pending List</h2>
+	#{kitchenBean.getKitchenPendingList()} 
+    <h:form>
+		<h:dataTable value="#{kitchenBean.kitchenList}" var="results"
+			styleClass="OrderTable" headerClass="OrderTableHeader"
+			rowClasses="OrderTableOddRow, OrderTableEvenRow">
+			<h:column>
+				<f:facet name="header">Created</f:facet> 
+					#{results.created} 
+			</h:column>
+			<h:column>
+				<f:facet name="header">Product name</f:facet> 
+				<h:outputText value="#{kitchenBean.getProductNameById(results.product_id)}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Quantity</f:facet> 
+				<h:outputText value="#{results.quantity - results.allocated}"></h:outputText>
+			</h:column>
+			<h:column> 
+				<f:facet name="header"></f:facet> 
+					<h:commandButton value="Mark as Done" action="#{kitchenBean.allocateInventory(results)}"></h:commandButton>
+			</h:column>
+			
+		</h:dataTable>
+	</h:form>
+</h:body>
+</html>
