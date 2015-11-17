@@ -129,3 +129,5 @@ insert into PRODUCT(NAME, PRICE, QUANTITY, IMAGE_URL, ISONLINE,ISKITCHEN, CREATE
 		true,false,
 		current_timestamp, 
 		current_timestamp);
+		
+ insert into usersrole values (1,-1,'SYSADMIN',current_timestamp, current_timestamp);

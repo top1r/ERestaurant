@@ -154,14 +154,7 @@ public class UsersBean implements Serializable{
 				registered.setUser(user);
 				rolelist.add(registered);
 			}
-			if (!adminRoleList.isEmpty()){
-				for (String s: adminRoleList){
-					UsersRole role = new UsersRole();
-					role.setType(s);
-					role.setUser(user);
-					rolelist.add(role);
-				}
-			}
+
 			user.setRoles(rolelist);
 
 			FacesContext context = FacesContext.getCurrentInstance();
