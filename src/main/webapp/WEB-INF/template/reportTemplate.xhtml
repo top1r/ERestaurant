@@ -3,11 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
-<h:head>
-	<title>Orders List</title>
-	<h:outputStylesheet library="css" name="styles/style.css" target="head" />
-</h:head>
 <h:body>
+	<h:outputScript library="javax.faces" name="js/jsf.js" target="head" />    
+	
 	<h2>Orders List</h2> 
     <h:form>
 		<h:dataTable value="#{reportsBean.results}" var="results"

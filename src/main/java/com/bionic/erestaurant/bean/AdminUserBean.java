@@ -47,7 +47,7 @@ public class AdminUserBean implements Serializable{
 			}
 		user.setRoles(rolelist);
 		userService.saveUser(user);
-		return "smc";
+		return "smc2?new=true";
 	}
 
 	public Users getUser() {

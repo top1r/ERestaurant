@@ -7,9 +7,9 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       >
-    <h:body>	
-    	<ui:composition template="WEB-INF/template/pageTemplate.xhtml">
-			<ui:define name="content">
+    <h:body>
+    		<h:outputScript library="javax.faces" name="js/jsf.js" target="head" />    
+    			
 			<script type="text/javascript" src="${pageContext.request.contextPath}/ERestaurant/js/jquery-1.11.3.min.js"></script>
 			<script type="text/javascript" src="${pageContext.request.contextPath}/ERestaurant/js/jquery-ui.min.js"></script>
 			<link rel="stylesheet" href="${pageContext.request.contextPath}/ERestaurant/js/jquery-ui.min.css" type="text/css" />
@@ -28,7 +28,23 @@
 						<h:commandButton value="Generate" action="#{reportsBean.getReport()}"></h:commandButton>
 					</h:form>
 					<h:panelGroup rendered="#{not empty reportsBean.results}">
-						<ui:include src="WEB-INF/template/reportTemplate.xhtml"></ui:include>
+						<h:dataTable value="#{reportsBean.results}" var="results"
+						styleClass="OrderTable" headerClass="OrderTableHeader"
+						rowClasses="OrderTableOddRow, OrderTableEvenRow">
+						<h:column>
+							<f:facet name="header">Count</f:facet> 
+							#{results.ordersCount} 
+						</h:column>
+						<h:column>
+						<f:facet name="header">Order Total</f:facet> 
+							#{results.ordersTotal} 
+						</h:column>
+		    			<h:column> 
+							<f:facet name="header">Date</f:facet> 
+							#{results.date} 
+						</h:column>
+						<h:graphicImage ></h:graphicImage>
+					</h:dataTable>
 					</h:panelGroup>
 				</div>
 				</h:panelGroup>
@@ -45,7 +61,5 @@
 				    dateFormat: 'yy-mm-dd'})
 				});
 			</script>
-			</ui:define>
-    	</ui:composition>
      </h:body>
 </html>

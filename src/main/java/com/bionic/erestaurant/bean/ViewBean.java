@@ -10,14 +10,14 @@ import javax.inject.Named;
 import org.springframework.context.annotation.Scope;
 
 @Named
-@Scope("request")
+@Scope("session")
 public class ViewBean implements Serializable {
 	 private static final long serialVersionUID = 1L;
      private String page;
 
      @PostConstruct
      public void init() {
-         page = "kitchenTemplate"; //  Default include.
+         page = "stubTemplate"; //  Default include.
      }
 
 	public String getPage() {

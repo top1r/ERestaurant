@@ -48,12 +48,11 @@ public class ReportsBean implements Serializable{
 		this.results = results;
 	};
 	
-	public boolean getReport() {
+	public void getReport() {
 
 		System.out.println(dateFrom + " " + dateTo);
 		System.out.println(results.size());
 		results = orderService.getOrderReportByTotal(dateFrom, dateTo);
-		return true;
 		//System.out.println(session.getAttribute("type").toString());
 	}
 
