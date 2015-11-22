@@ -13,6 +13,7 @@ import com.bionic.erestaurant.core.reports.ReportByDateResult;
 import com.bionic.erestaurant.dao.OrderDao;
 import com.bionic.erestaurant.entity.Address;
 import com.bionic.erestaurant.entity.Orders;
+import com.bionic.erestaurant.entity.Orders.OrderStatus;
 import com.bionic.erestaurant.entity.Users;
 
 @Named
@@ -43,6 +44,18 @@ public class OrderServiceImpl implements OrderService {
 	
 	public Orders getLastUsersOrderByAddress(Users user, Address address){
 		return orderDao.getLastUsersOrderByAddress(user, address);
+	}
+	
+	public List<Orders> getDeliveryPendingList(){
+		return orderDao.getDeliveryPendingList();
+	}
+	
+	@Transactional
+	public void moveThroughWorkflow(Orders order){
+		String status = order.getStatus();
+		status = OrderStatus.values()[(OrderStatus.valueOf(status).ordinal() + 1)].toString();
+		order.setStatus(status);
+		orderDao.saveOrder(order);
 	}
 
 	

@@ -24,6 +24,16 @@ import com.bionic.erestaurant.service.OrderService;
 public class OrderBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Orders order;
+	private List<Orders> deliveryList;
+
+
+	public List<Orders> getDeliveryList() {
+		return deliveryList;
+	}
+
+	public void setDeliveryList(List<Orders> deliveryList) {
+		this.deliveryList = deliveryList;
+	}
 	
 	public Orders getOrder() {
 		return order;
@@ -47,6 +57,10 @@ public class OrderBean implements Serializable{
 		return "home";
 	}
 	
+	public void moveThroughWorkflow(Orders order){
+		orderService.moveThroughWorkflow(order);
+	}
+	
 	public int getOrderForConfirmation(){
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
@@ -55,7 +69,10 @@ public class OrderBean implements Serializable{
 		int order_id = orderService.getLastUsersOrderByAddress(user, address).getOrderId();
 		//session.removeAttribute("address");
 		return order_id;
-		
+	}
+	
+	public void getDeliveryPendingList(){
+		deliveryList = orderService.getDeliveryPendingList();
 	}
 
 }

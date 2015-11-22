@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:body>
+	<h2>Delivery Pending List</h2>
+	#{orderBean.getDeliveryPendingList()} 
+    <h:form>
+		<h:dataTable value="#{orderBean.deliveryList}" var="results"
+			styleClass="OrderTable" headerClass="OrderTableHeader"
+			rowClasses="OrderTableOddRow, OrderTableEvenRow">
+			<h:column>
+				<f:facet name="header">Created</f:facet> 
+					#{results.timeplaced} 
+			</h:column>
+			<h:column>
+				<f:facet name="header">Order Number</f:facet> 
+				<h:outputText value="#{results.orderId}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Status</f:facet> 
+				<h:outputText value="#{results.status}"></h:outputText>
+			</h:column>
+			<h:column> 
+				<f:facet name="header"></f:facet> 
+					<h:commandButton rendered="#{results.status eq 'READY_FOR_SHIPMENT'}" value="Send to the Customer" action="#{orderBean.moveThroughWorkflow(results)}"></h:commandButton>
+					<h:commandButton rendered="#{results.status eq 'DELIVERING'}" value="Mark as Delivered" action="#{orderBean.moveThroughWorkflow(results)}"></h:commandButton>
+					
+			</h:column>
+			
+		</h:dataTable>
+	</h:form>
+</h:body>
+</html>

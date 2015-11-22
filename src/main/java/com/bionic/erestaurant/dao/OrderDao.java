@@ -16,4 +16,5 @@ public interface OrderDao {
 	public List<ReportByDateResult> getOrderReportByTotal(String dateFrom, String dateTo);
 	public void saveOrder(Orders order);
 	public Orders getLastUsersOrderByAddress(Users user, Address address);
+	public List<Orders> getDeliveryPendingList();
 }

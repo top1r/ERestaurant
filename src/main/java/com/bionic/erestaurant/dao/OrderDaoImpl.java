@@ -69,4 +69,10 @@ public class OrderDaoImpl implements OrderDao{
 				
 	}
 	
+	public List<Orders> getDeliveryPendingList(){
+		String rawQuery = "select o from Orders o where o.status in ('READY_FOR_SHIPMENT', 'DELIVERING')";
+		TypedQuery<Orders> query = em.createQuery(rawQuery, Orders.class);
+		return query.getResultList();
+	}
+	
 }
