@@ -1,11 +1,13 @@
 package com.bionic.erestaurant.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.bionic.erestaurant.dao.ProductDao;
+import com.bionic.erestaurant.entity.Category;
 import com.bionic.erestaurant.entity.Product;
 
 @Named
@@ -25,7 +27,7 @@ public class ProductServiceImpl implements ProductService{
 		return productDao.getProductsByName(name);
 	}
 	
-	public String getCategoriesCount(List<Product> products){
+	public Map<Category, Integer> getCategoriesCount(List<Product> products){
 		return productDao
 				.getCategoriesCount(products);
 	}

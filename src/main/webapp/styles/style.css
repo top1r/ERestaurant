@@ -101,27 +101,75 @@ header
 	border:none}
 
 .header-content{
+	
 	position:relative;
 	margin-left:15%;
 	margin-right:15%;
 	margin-top:25px;
 }
 .header-content .logo{
-
+	display:inline;
+	float:left;
 }
 
-.header-content-cart{
+.header-content .header-search{
+	display:inline-block;
+	vertical-align:middle;
+	
+}
+
+.header-search{
+}
+
+.header-search .header-search-content{
+	display:inline-block;
 	position:relative;
 	line-height:4em;
-	float:right;
+	margin: 0 auto;
+	vertical-align:middle;
+	
+}
+
+.header-search .header-search-content li{
+	position:relative;
+	display:inline-block;
+	margin-left:9px;
+	padding-left:9px;
+	font-size:16px;
+	color:black;
+	line-height:1;
+	letter-spacing:normal;
+	vertical-align:middle;
+	border:none;
+}
+
+.header-content .header-cart{
+	display:inline-block;
 	vertical-align:middle;
 }
 
-.header-content-cart .cart{
+.header-cart{
+	float:right;
+	margin-left:25px;
+}
+
+.header-cart .header-cart-content{
+	display:inline;
 	position:relative;
 	line-height:4em;
-	float:right;
+	margin: 0 auto;
 	vertical-align:middle;
+}
+
+.header-cart .header-cart-content li{
+	position:relative;
+	display:inline-block;
+	font-size:16px;
+	color:black;
+	line-height:1;
+	letter-spacing:normal;
+	vertical-align:middle;
+	border:none;
 }
 
 .promo-image-container{
@@ -147,10 +195,10 @@ header
 }
 
 .pages-wrapper {
+   position:relative;
    margin-top:25px;
    max-width: 70%;
    margin-left:15%;
-   margin-right:15%
    display: table;
    border-collapse: collapse;
 }
@@ -190,12 +238,11 @@ header
 .pages ul.product li:nth-child(5n+6) {
 	display:inline-block;	
 	clear:left;
-  	float:left;
 }
 
 .pages-wrapper .prodtable {
+	
 	margin-top:25px;
-	width:70%;
 }
 
 .addToCartSelectedAddress{

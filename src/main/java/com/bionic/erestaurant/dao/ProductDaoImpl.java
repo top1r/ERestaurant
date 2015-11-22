@@ -1,5 +1,6 @@
 package com.bionic.erestaurant.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -43,27 +44,27 @@ public class ProductDaoImpl implements ProductDao{
 	
 	public List<Product> getProductsByName(String name){
 		//online status should be checked during iteration during the generation of the page
-		String txt = "select p from Product p where p.name like :name";
+		String txt = "select p from Product p where FUNCTION('UPPER',p.name) like FUNCTION('UPPER',:name)";
 		TypedQuery<Product> query = em.createQuery(txt, Product.class);
 		return query
 				.setParameter("name", "%" + name + "%")
 				.getResultList();
 	}
 	
-	public String getCategoriesCount(List<Product> products){
-		Map<String, Integer> facet = new TreeMap<String,Integer>();
+	public Map<Category, Integer> getCategoriesCount(List<Product> products){
+		Map<Category, Integer> facet = new HashMap<Category,Integer>();
 		if (products.size() > 0) {
 			for (Product p: products){
 				//List<Category> categories = p.getCategories(); 
 				for (Category c: p.getCategories()){
-					if (facet.keySet().contains(c.getName())){
-						facet.put((String)c.getName(), (Integer)facet.get(c.getName()) + 1);
+					if (facet.keySet().contains(c)){
+						facet.put(c, (Integer)facet.get(c) + 1);
 					} else {
-						facet.put((String)c.getName(), 1);
+						facet.put(c, 1);
 					}
 				}
 			}
-			return facet.toString();
+			return facet;
 		} else {
 			//Logger to add here
 			System.out.println("No results found");

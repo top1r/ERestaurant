@@ -33,11 +33,30 @@ import com.bionic.erestaurant.service.ProductService;
 import com.bionic.erestaurant.service.UserService;
 
 @Named
-@Scope("request")
+@Scope("session")
 
 public class ProductBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Product product;
+	private List<Product> productList;
+	private String searchTerm = "";
+
+	public String getSearchTerm() {
+		return searchTerm;
+	}
+
+	public void setSearchTerm(String searchTerm) {
+		this.searchTerm = searchTerm;
+	}
+
+	public List<Product> getProductList() {
+		return productList;
+	}
+
+	public void setProductList(List<Product> productList) {
+		this.productList = productList;
+	}
+
 
 	@Inject
 	private ProductService productService;
@@ -54,13 +73,18 @@ public class ProductBean implements Serializable{
 		this.product = product;
 	}
 	
-	public List<Product> getAllOnlineProducts(){
-		List<Product> onlineProducts = new ArrayList<Product>();
-		onlineProducts.addAll(productService.getProductsByName("")
+	public String searchRedirect(){
+		return "search";
+	}
+	
+	public List<Product> getOnlineProducts(){
+		productList = new ArrayList<Product>();
+		productList.addAll(productService.getProductsByName(searchTerm)
 				.stream()
 				.filter(p->p.isOnline())
 				.collect(Collectors.toList()));
-		return onlineProducts;
+		System.out.println(productList.size());
+		return productList;
 	}
 	
 
