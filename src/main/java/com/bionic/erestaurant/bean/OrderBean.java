@@ -29,7 +29,7 @@ public class OrderBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Orders order;
 	private List<Orders> deliveryList;
-	private boolean sortDateAscending = true; 
+	private boolean sortDateAscending = true;    
 	private boolean sortStatusAscending = true;
 	private boolean sortDate = true;
 
