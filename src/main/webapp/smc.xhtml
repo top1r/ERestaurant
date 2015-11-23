@@ -9,30 +9,43 @@
       >
      <h:head>
      	 <script type="text/javascript" src="${pageContext.request.contextPath}/ERestaurant/js/jsf.js"></script>   
+     	<script type="text/javascript" src="${pageContext.request.contextPath}/ERestaurant/js/jquery-1.11.3.min.js"></script>   
+    	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/ERestaurant/styles/style.css"/>
      	
      </h:head> 
     <h:body>
     <h:outputScript library="javax.faces" name="js/jsf.js" target="head" /> 
     <script type="text/javascript" src="${pageContext.request.contextPath}/ERestaurant/js/jquery-1.11.3.min.js"></script>   
     
-	<h:panelGroup id="header" layout="block">
-    	<h1>Header</h1>
+	<h:panelGroup class="adminHeader" id="header" layout="block">
+    	<span class="logo">		
+				<a class="logo" href="smc.xhtml">
+					<img src="http://pro.bionic-university.com/resources/images/logo_sub_pro.png" alt="SMC" border="0"/>
+				</a>
+		</span>
 	</h:panelGroup>
-   	<h:panelGroup rendered="#{not empty usersBean.userList}">		
+   	<h:panelGroup class="adminLinks" rendered="#{not empty usersBean.userList}">		
 			<h:panelGroup rendered="#{!usersBean.staff}">
 				<h4><h:outputText value = "Admin section requires ERestaurant role."></h:outputText></h4> 
 				<h:form><h:commandLink value="Return to Home Page" action="#{usersBean.homeRedirect}"></h:commandLink></h:form>
 			</h:panelGroup>
-			<h:panelGroup rendered="#{usersBean.staff}">
-				<h:panelGroup id="menu" layout="block">
+			<h:panelGroup class="adminMenu" rendered="#{usersBean.staff}">
+				<h:panelGroup class="adminMenuLinks" id="menu" layout="block">
     				<h:form>
         				<f:ajax render=":content">
         				
-            			<ul>
+            			<ul class="adminItems">
             				<h:panelGroup rendered="#{usersBean.admin}">
 							<li>
 								<h:form>
 									<h:commandLink value = "User management page" action = "#{viewBean.setPage('smcRegisterTemplate')}" />
+								</h:form>
+							</li>
+							</h:panelGroup>
+							<h:panelGroup rendered="#{usersBean.admin}">
+							<li>
+								<h:form>
+									<h:commandLink value = "Content management page" action = "#{viewBean.setPage('contentManagementTemplate')}" />
 								</h:form>
 							</li>
 							</h:panelGroup>
@@ -61,7 +74,7 @@
         				</f:ajax>
     				</h:form>
     			</h:panelGroup>
-    			<h:panelGroup id="content" layout="block">
+    			<h:panelGroup class="adminContent" id="content" layout="block">
     				<ui:include src="/WEB-INF/template/#{viewBean.page}.xhtml" />
 				</h:panelGroup>
 			</h:panelGroup>

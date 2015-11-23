@@ -298,3 +298,37 @@ header
 .addToCartButton{
 	
 }
+
+.adminHeader{
+    background: #205081;
+    color: #fff;
+    border-bottom-color: #2e3d54;
+}
+
+.adminLinks{
+	
+	margin: 0;
+    padding: 0;
+}
+
+.adminMenu{
+	
+	border-top: 1px solid #ccc;
+    margin-top: 5px;
+    padding-top: 5px;
+}
+
+.adminMenuLinks{
+	float:left;
+
+}
+
+.adminMenuLinks .adminItems li{
+   list-style: none;
+   padding: 7px 10px;
+}
+
+.adminContent{
+	float:left;
+	padding: 7px 10px;
+}

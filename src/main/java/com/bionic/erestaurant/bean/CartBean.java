@@ -83,7 +83,6 @@ public class CartBean  implements Serializable{
 			//Logger needs to be added here
 		}		
 		System.out.println("Remove: "+ productMap.size());
-
 	}
 	
 	public void increaseQuantity(Product product){
