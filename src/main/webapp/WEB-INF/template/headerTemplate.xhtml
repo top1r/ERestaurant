@@ -47,11 +47,12 @@
 						<h:inputText value="#{productBean.searchTerm}"></h:inputText>
 					</li>
 					<li>
-						<h:commandLink action="#{productBean.searchRedirect}"><h:graphicImage height="60" width="60" value="img/design/search.png"></h:graphicImage></h:commandLink>
+						<h:commandLink action="#{productBean.getOnlineProducts()}"><h:graphicImage height="60" width="60" value="img/design/search.png"></h:graphicImage></h:commandLink>
 					</li>
 				</ul>
 			</h:form>
 			</span>
+			
 			<span class="header-cart">
 				<h:panelGroup>
 				<ul class="header-cart-content">
@@ -72,6 +73,16 @@
 				</ul>
 				</h:panelGroup>
 			</span>
+		</div>
+		<div class="header-line">
+		<div class="header-search">
+			<h:form>
+			<div class="header-search-content">
+				<ul>
+				</ul>
+				</div>
+			</h:form>
+			</div>
 		</div>
 		</div>
 	

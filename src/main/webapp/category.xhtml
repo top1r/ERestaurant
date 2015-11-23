@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core"
+      >
+    <h:body>	
+    	<ui:composition template="WEB-INF/template/pageTemplate.xhtml">
+    		<ui:define name="content">
+				<div class="pages-wrapper">
+					<div class="produclist">
+					<h:panelGroup>
+					<h:form>
+    				<ui:repeat  var="category" value="#{productBean.getOnlineCategories()}">
+ 
+    				<ul class="product">
+    								
+    					<li>
+    						<h:graphicImage rendered="#{not empty category.image_url}" value="#{category.image_url}" height="120" width="120" alt="#{category.name}"></h:graphicImage>
+    						<h:graphicImage rendered="#{empty category.image_url}" value="img/product/no-image-available.png" height="120" width="120" alt="#{category.name}"></h:graphicImage>									
+    						
+    						 	<h:commandLink action="#{productBean.getProductsByCategory()}">
+    						 		<f:setPropertyActionListener target="#{productBean.category}" value="#{category}" />
+    						 		<p class="name"><b>#{category.name}</b></p>
+    						 	</h:commandLink>
+    						
+    					</li>
+    					
+    				</ul>
+    				</ui:repeat>
+    				</h:form>
+    				
+    				</h:panelGroup>
+    				</div>
+    				
+    			</div>
+			</ui:define>
+    	</ui:composition>   	
+    </h:body>
+
+</html>
