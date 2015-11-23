@@ -53,7 +53,7 @@ public class ProductDaoImpl implements ProductDao{
 	
 	public Map<Category, Integer> getCategoriesCount(List<Product> products){
 		Map<Category, Integer> facet = new HashMap<Category,Integer>();
-		if (products.size() > 0) {
+		if ((products != null) && (products.size() > 0)) {
 			for (Product p: products){
 				//List<Category> categories = p.getCategories(); 
 				for (Category c: p.getCategories()){

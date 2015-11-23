@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -25,6 +27,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.bionic.erestaurant.core.AddressHelper;
 import com.bionic.erestaurant.entity.Address;
+import com.bionic.erestaurant.entity.Category;
 import com.bionic.erestaurant.entity.Product;
 import com.bionic.erestaurant.entity.Users;
 import com.bionic.erestaurant.entity.UsersRole;
@@ -40,6 +43,7 @@ public class ProductBean implements Serializable{
 	private Product product;
 	private List<Product> productList;
 	private String searchTerm = "";
+	private Category category;
 
 	public String getSearchTerm() {
 		return searchTerm;
@@ -85,6 +89,20 @@ public class ProductBean implements Serializable{
 				.collect(Collectors.toList()));
 		System.out.println(productList.size());
 		return productList;
+	}
+	
+	public List<Entry<Category, Integer>> getLeftHandNavigationList() {
+		Map<Category, Integer> productMap = productService.getCategoriesCount(this.getOnlineProducts());
+		System.out.println(productMap.entrySet().size());
+        return new ArrayList(productMap.entrySet());
+    }
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 	
 

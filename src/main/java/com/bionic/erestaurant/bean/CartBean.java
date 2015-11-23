@@ -65,7 +65,7 @@ public class CartBean  implements Serializable{
 	
 	public List<Entry<String, Integer>> getCartProductsList() {
         return new ArrayList(productMap.entrySet());
-        }
+    }
 
 	public Map<Product, Integer> getProductMap() {
 		return productMap;
