@@ -40,7 +40,7 @@ import com.bionic.erestaurant.service.ProductService;
 import com.bionic.erestaurant.service.UserService;
 
 @Named
-@Scope("request")
+@Scope("session")
 
 public class ProductBean implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -94,9 +94,18 @@ public class ProductBean implements Serializable{
 		return "search";
 	}
 	
+	public String searchCatRedirect(){
+		return "searchcat";
+	}
+	
 	public void setCategoryById(String id){
 	    int n = Integer.valueOf(id);
 	    category = categoryService.getById(n);
+	}
+	
+	public void setProductById(String id){
+	    int n = Integer.valueOf(id);
+	    product = productService.getProductById(n);
 	}
 	
 	public void getCategoriesByName(){
@@ -112,12 +121,27 @@ public class ProductBean implements Serializable{
 		return productList;
 	}
 	
+	public List<Product> getProductsByName(){
+		productList = new ArrayList<Product>();
+		productList.addAll(productService.getProductsByName(productSearchTerm));
+		return productList;
+	}
+	
+	public List<Category> getAllCategories(){
+		categoryList = new ArrayList<Category>();
+		categoryList = categoryService.getCategoriesByName("");
+		return categoryList;
+		
+	}
+	
 	public List<Category> getOnlineCategories(){
 		categoryList = new ArrayList<Category>();
-		categoryList.addAll(categoryService.getCategoriesByName("")
-				.stream()
-				.filter(c->c.isOnline())
-				.collect(Collectors.toList()));
+		categoryList = categoryService.getCategoriesByName("");
+		for (Iterator<Category> iterator = categoryList.iterator();iterator.hasNext();){
+			if (!iterator.next().isOnline()){
+				iterator.remove();
+			}
+		}
 		System.out.println(categoryList.size());
 		return categoryList;
 		
@@ -130,20 +154,24 @@ public class ProductBean implements Serializable{
 	}
 	
 	public void saveProduct(){
-		product.setCategories(categoryList);
+		for (Category c: categoryList){
+			List<Product> newProducts = new ArrayList<Product>();
+			newProducts = c.getProducts();
+			newProducts.add(product);
+			c.setProducts(newProducts);
+		}
 		productService.saveProduct(product);
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("productBean", null);
 	}
 	
-	public String getProductsByCategory(){
+	public List<Product> getProductsByCategory(){
 		productList = new ArrayList<Product>();
-		System.out.println(category.getName());
 		productList = category.getProducts();
-		for (Iterator<Product> iterator = productList.iterator();iterator.hasNext();){
-			if (!iterator.next().isOnline()){
-				iterator.remove();
-			}
-		}
-		return "search";
+		productList
+			.stream()
+			.filter(p->p.isOnline())
+			.collect(Collectors.toList());
+		return productList;
 	}
 	
 	public List<Category> getCategoryList() {

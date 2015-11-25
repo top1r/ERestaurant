@@ -22,6 +22,16 @@ public class AdminUserBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Users user;
 	private List<String> adminRoleList;
+	private List<String> availableRolesList;
+	
+	public List<String> getAvailableRolesList() {
+		return availableRolesList;
+	}
+
+	public void setAvailableRolesList(List<String> availableRolesList) {
+		this.availableRolesList = availableRolesList;
+	}
+
 	private String userSearchEmail;
 	private List<Users> userSearchList;
 	
@@ -32,6 +42,10 @@ public class AdminUserBean implements Serializable{
 		user = new Users();
 		userSearchEmail = "";
 		adminRoleList = new ArrayList<String>();
+		availableRolesList = new ArrayList<String>();
+		availableRolesList.add("BUSINESS");
+		availableRolesList.add("KITCHEN");
+		availableRolesList.add("DELIVERY");
 	}
 	
 	public void searchByEmail(){
@@ -44,6 +58,7 @@ public class AdminUserBean implements Serializable{
 	public void setAdminUser(String id){
 	    int n = Integer.valueOf(id);
 	    user = userService.getById(n);
+	    System.out.println(user.getRoles().size());
 	}
 
 	
@@ -58,11 +73,13 @@ public class AdminUserBean implements Serializable{
 			UsersRole role = new UsersRole();
 			System.out.println(s);
 			role.setType(UserRoleEnum.valueOf(s).toString());
-			if (user == null && (!user.getRoles().contains(role))){
-				role.setUser(user);
-				rolelist.add(role);
-				}
+			if (user == null) {
+					role.setUser(user);
+					rolelist.add(role);
 			}
+		}
+
+		
 		user.setRoles(rolelist);
 		userService.saveUser(user);
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("adminUserBean", null);

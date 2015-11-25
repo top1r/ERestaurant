@@ -22,18 +22,10 @@
 			<h:outputText value="Password"></h:outputText>
 			<h:inputSecret id="password" value="#{adminUserBean.user.password}" required="true" requiredMessage = "The password cannot be empty"></h:inputSecret>
 			<h:message for="password" style="color:red" />
+			
 			<h:outputText value="Active"></h:outputText>
 			<h:selectBooleanCheckbox id="activecheckbox" value = "#{adminUserBean.user.status}"/>	
 			<h:message for="activecheckbox" style="color:red" />
-			
-			<h:panelGroup required="true" requiredMessage="Please select the role">
-				<h:selectManyCheckbox id="rolecheckbox" value = "#{adminUserBean.adminRoleList}">
-					<f:selectItem itemValue = "BUSINESS" itemLabel="Business User"></f:selectItem>
-					<f:selectItem itemValue = "KITCHEN" itemLabel="Kitchen User"></f:selectItem>
-					<f:selectItem itemValue = "DELIVERY" itemLabel="Delivery User"></f:selectItem>	
-				</h:selectManyCheckbox>
-				<h:message for="rolecheckbox" style="color:red" />
-			</h:panelGroup>	
 
 		</h:panelGrid>		
 </body>

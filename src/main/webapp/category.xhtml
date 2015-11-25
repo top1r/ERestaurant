@@ -23,7 +23,7 @@
     						<h:graphicImage rendered="#{not empty category.image_url}" value="#{category.image_url}" height="120" width="120" alt="#{category.name}"></h:graphicImage>
     						<h:graphicImage rendered="#{empty category.image_url}" value="img/product/no-image-available.png" height="120" width="120" alt="#{category.name}"></h:graphicImage>									
     						
-    						 	<h:commandLink action="#{productBean.getProductsByCategory()}">
+    						 	<h:commandLink action="#{productBean.searchCatRedirect}">
     						 		<f:setPropertyActionListener target="#{productBean.category}" value="#{category}" />
     						 		<p class="name"><b>#{category.name}</b></p>
     						 	</h:commandLink>
