@@ -40,7 +40,7 @@ import com.bionic.erestaurant.service.ProductService;
 import com.bionic.erestaurant.service.UserService;
 
 @Named
-@Scope("session")
+@Scope("request")
 
 public class ProductBean implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -78,6 +78,8 @@ public class ProductBean implements Serializable{
 	public ProductBean() {
 		productList = new ArrayList<Product>();
 		product = new Product();
+		categoryList = new ArrayList<Category>();
+		category = new Category();
 	}
 
 	public Product getProduct() {
@@ -92,13 +94,22 @@ public class ProductBean implements Serializable{
 		return "search";
 	}
 	
-	public String getOnlineProducts(){
+	public void setCategoryById(String id){
+	    int n = Integer.valueOf(id);
+	    category = categoryService.getById(n);
+	}
+	
+	public void getCategoriesByName(){
+		categoryList = categoryService.getCategoriesByName(categorySearchTerm);
+	}
+	
+	public List<Product> getOnlineProducts(){
 		productList = new ArrayList<Product>();
 		productList.addAll(productService.getProductsByName(searchTerm)
 				.stream()
 				.filter(p->p.isOnline())
 				.collect(Collectors.toList()));
-		return "search";
+		return productList;
 	}
 	
 	public List<Category> getOnlineCategories(){
@@ -112,8 +123,15 @@ public class ProductBean implements Serializable{
 		
 	}
 	
-	public void createNewCategory(){
-		
+	public void saveCategory(){
+		categoryService.saveCategory(category);
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("productBean", null);
+
+	}
+	
+	public void saveProduct(){
+		product.setCategories(categoryList);
+		productService.saveProduct(product);
 	}
 	
 	public String getProductsByCategory(){

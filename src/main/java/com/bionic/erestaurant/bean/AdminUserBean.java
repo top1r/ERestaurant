@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -29,6 +30,7 @@ public class AdminUserBean implements Serializable{
 	
 	public AdminUserBean() {
 		user = new Users();
+		userSearchEmail = "";
 		adminRoleList = new ArrayList<String>();
 	}
 	
@@ -48,21 +50,24 @@ public class AdminUserBean implements Serializable{
 	public String saveUser() {
 		List<UsersRole> rolelist = new ArrayList<UsersRole>();
 
-		UsersRole registered = new UsersRole();
-		registered.setType(UserRoleEnum.REGISTERED.toString());
-		registered.setUser(user);
-		rolelist.add(registered);
+		adminRoleList.add(UserRoleEnum.REGISTERED.toString());
+		adminRoleList.add(UserRoleEnum.GUEST.toString());
+
 
 		for (String s: adminRoleList){
 			UsersRole role = new UsersRole();
 			System.out.println(s);
 			role.setType(UserRoleEnum.valueOf(s).toString());
-			role.setUser(user);
-			rolelist.add(role);
+			if (user == null && (!user.getRoles().contains(role))){
+				role.setUser(user);
+				rolelist.add(role);
+				}
 			}
 		user.setRoles(rolelist);
 		userService.saveUser(user);
-		return "smc?new=true";
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("adminUserBean", null);
+
+		return "smc?faces-redirect=true";
 	}
 
 	public Users getUser() {

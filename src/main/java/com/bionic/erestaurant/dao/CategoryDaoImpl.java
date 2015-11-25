@@ -47,6 +47,11 @@ public class CategoryDaoImpl implements CategoryDao{
 			return null;
 		}
 	}
+	
+	public Category getById(int id){
+		return em.find(Category.class, id);
+	}
+	
 	/*
 	public List<String> getProductCount(){
 		String query = "SELECT c.name FROM category c WHERE c.isonline = true"

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.bionic.erestaurant.dao.CategoryDao;
 import com.bionic.erestaurant.entity.Category;
 import com.bionic.erestaurant.entity.Product;
+import com.bionic.erestaurant.entity.Users;
 
 @Named
 public class CategoryServiceImpl implements CategoryService{
@@ -32,4 +33,9 @@ public class CategoryServiceImpl implements CategoryService{
 	public Category getCategoryByName(String name){
 		return categoryDao.getCategoryByName(name);
 	}
+	
+	public Category getById(int id){
+		return categoryDao.getById(id);
+	}
+	
 }

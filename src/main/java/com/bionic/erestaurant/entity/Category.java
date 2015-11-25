@@ -31,15 +31,13 @@ public class Category {
 			)
 	private List<Product> products;
 	
-	public Category() {};
-	
-	public Category(String name) {
-		this.name = name;
+	public Category() {
 		this.isOnline = false;
 		this.image_url = null;
 		this.created = Timestamp.valueOf(LocalDateTime.now());
 		this.lastupdated = this.created;
-	}
+	};
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

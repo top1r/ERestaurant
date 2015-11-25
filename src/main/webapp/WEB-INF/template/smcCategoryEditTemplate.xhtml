@@ -8,31 +8,12 @@
     <h:body>
    	
 			<h:panelGroup rendered="#{usersBean.admin}">
-				<div class = "pages-wrapper-smc">
-					<div class="signin-signup">
-						<span class="user-search">
-							<h:form>
-							<ul class="user-search-content">
-							<li>
-								<h:inputText value="#{productBean.categorySearchTerm}"></h:inputText>
-							</li>
-							<li>
-								<h:commandLink action="#{viewBean.setPage('categoryEditTemplate')}"><h:graphicImage height="30" width="30" value="img/design/search.png"></h:graphicImage></h:commandLink>
-							</li>
-							</ul>
-						</h:form>
-						</span>
-						<button id="createbutton">Create New Category</button>
-						<div id = "create">
 						<h:form>
 							<div class="signin">
 								<ui:include src="editCategoryFormTemplate.xhtml"></ui:include>	
 							</div>
 							<h:commandButton id="submit" value="Submit" action="#{productBean.saveCategory()}"></h:commandButton>
 						</h:form>
-						</div>
-					</div>				
-			</div>
 			</h:panelGroup>   	
     </h:body>
 
