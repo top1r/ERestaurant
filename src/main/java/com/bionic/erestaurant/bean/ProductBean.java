@@ -45,10 +45,12 @@ import com.bionic.erestaurant.service.UserService;
 public class ProductBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Product product;
+	private Category category;
 	private List<Product> productList;
 	private List<Category> categoryList;
 	private String searchTerm = "";
-	private Category category;
+	private String categorySearchTerm = "";
+	private String productSearchTerm = "";
 
 	public String getSearchTerm() {
 		return searchTerm;
@@ -110,6 +112,10 @@ public class ProductBean implements Serializable{
 		
 	}
 	
+	public void createNewCategory(){
+		
+	}
+	
 	public String getProductsByCategory(){
 		productList = new ArrayList<Product>();
 		System.out.println(category.getName());
@@ -136,6 +142,22 @@ public class ProductBean implements Serializable{
 
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+
+	public String getCategorySearchTerm() {
+		return categorySearchTerm;
+	}
+
+	public void setCategorySearchTerm(String categorySearchTerm) {
+		this.categorySearchTerm = categorySearchTerm;
+	}
+
+	public String getProductSearchTerm() {
+		return productSearchTerm;
+	}
+
+	public void setProductSearchTerm(String productSearchTerm) {
+		this.productSearchTerm = productSearchTerm;
 	}
 	
 

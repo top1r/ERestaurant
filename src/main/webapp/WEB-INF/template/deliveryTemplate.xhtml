@@ -8,8 +8,8 @@
 	#{orderBean.getDeliveryPendingList()} 
     <h:form>
 		<h:dataTable value="#{orderBean.deliveryList}" var="results"
-			styleClass="OrderTable" headerClass="OrderTableHeader"
-			rowClasses="OrderTableOddRow, OrderTableEvenRow">
+			styleClass="Table" headerClass="TableHeader"
+			rowClasses="TableOddRow, TableEvenRow">
 			<h:column>
 				<f:facet name="header">
 					<h:commandLink action="#{orderBean.setDateOrder}">

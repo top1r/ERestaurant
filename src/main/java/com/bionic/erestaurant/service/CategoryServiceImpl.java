@@ -28,4 +28,8 @@ public class CategoryServiceImpl implements CategoryService{
 	public void saveCategory(Category category){
 		categoryDao.saveCategory(category);
 	}
+	
+	public Category getCategoryByName(String name){
+		return categoryDao.getCategoryByName(name);
+	}
 }

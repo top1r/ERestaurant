@@ -9,4 +9,5 @@ public interface CategoryDao {
 	public void saveCategory(Category category);
 	public List<Product> getProductsByCategory(Category category);
 	public List<Category> getCategoriesByName(String name);
+	public Category getCategoryByName(String name);
 }

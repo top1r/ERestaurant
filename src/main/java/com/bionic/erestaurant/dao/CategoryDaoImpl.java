@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.bionic.erestaurant.entity.Category;
 import com.bionic.erestaurant.entity.Product;
+import com.bionic.erestaurant.entity.Users;
 
 @Repository
 public class CategoryDaoImpl implements CategoryDao{
@@ -37,6 +39,14 @@ public class CategoryDaoImpl implements CategoryDao{
 				.getResultList();
 	}
 	
+	public Category getCategoryByName(String name){
+		TypedQuery<Category> query = em.createQuery("SELECT c from Category c where c.name = :name", Category.class);
+		try {
+			return query.setParameter("name", name).getSingleResult();
+		} catch (NoResultException n){
+			return null;
+		}
+	}
 	/*
 	public List<String> getProductCount(){
 		String query = "SELECT c.name FROM category c WHERE c.isonline = true"

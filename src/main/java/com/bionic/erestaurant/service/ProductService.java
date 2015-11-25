@@ -12,4 +12,5 @@ public interface ProductService {
 	public List<Product> getProductsByName(String name);
 	public Map<Category,Integer> getCategoriesCount(List<Product> products);
 	public void deleteProduct (Product p);
+	public Product getProductByName(String name);
 }

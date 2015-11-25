@@ -16,7 +16,6 @@
 			
 			<h:outputText value="Email"></h:outputText>
 			<h:inputText id="email" value="#{adminUserBean.user.email}" required="true" requiredMessage = "The email cannot be empty">
-				<f:validator validatorId = "emailValidator" />
 			</h:inputText>
 			<h:message for="email" style="color:red" />
 			

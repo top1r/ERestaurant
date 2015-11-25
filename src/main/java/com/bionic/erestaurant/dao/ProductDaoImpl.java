@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
@@ -70,5 +71,14 @@ public class ProductDaoImpl implements ProductDao{
 			System.out.println("No results found");
 			return null;
 		}		
+	}
+	
+	public Product getProductByName(String name){
+		TypedQuery<Product> query = em.createQuery("SELECT p from Product p where p.name = :name", Product.class);
+		try {
+			return query.setParameter("name", name).getSingleResult();
+		} catch (NoResultException n){
+			return null;
+		}
 	}
 }

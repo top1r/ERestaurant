@@ -4,13 +4,12 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
 <h:body>
-	<h:outputScript library="javax.faces" name="js/jsf.js" target="head" />    
 	
 	<h2>Orders List</h2> 
     <h:form>
 		<h:dataTable value="#{reportsBean.results}" var="results"
-			styleClass="OrderTable" headerClass="OrderTableHeader"
-			rowClasses="OrderTableOddRow, OrderTableEvenRow">
+			styleClass="Table" headerClass="TableHeader"
+			rowClasses="TableOddRow, TableEvenRow">
 			<h:column>
 				<f:facet name="header">Count</f:facet> 
 					#{results.ordersCount} 
