@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:body>
+	<h2>User list</h2>
+	#{productBean.getProductsByName()}
+	<h:panelGroup rendered="#{empty productBean.productList}">
+		<h4>No results found</h4>
+	</h:panelGroup>
+    <h:form rendered="#{not empty productBean.productList}">
+		<h:dataTable value="#{productBean.productList}" var="results"
+			styleClass="Table" headerClass="TableHeader"
+			rowClasses="TableOddRow, TableEvenRow">
+			<h:column>
+				<f:facet name="header">Product</f:facet> 
+					#{results.name} 
+			</h:column>
+			<h:column>
+				<f:facet name="header">Price USD</f:facet> 
+					#{results.price} 
+			</h:column>
+			<h:column>
+				<f:facet name="header">Available Quantity</f:facet> 
+					#{results.quantity} 
+			</h:column>
+			<h:column>
+				<f:facet name="header">URL</f:facet> 
+				#{results.image_url} 
+			</h:column>
+			<h:column>
+				<f:facet name="header">Active</f:facet> 
+				<h:outputText value="#{results.online}"></h:outputText>
+			</h:column>
+			<h:column> 
+				<f:facet name="header"></f:facet> 
+					<h:commandButton value="Edit" action="#{viewBean.setPage('smcProductEditTemplate')}">
+						<f:actionListener binding="#{productBean.setProductById(results.product_id)}"/>
+					</h:commandButton>
+					
+			</h:column>
+			
+		</h:dataTable>
+	</h:form>
+</h:body>
+</html>

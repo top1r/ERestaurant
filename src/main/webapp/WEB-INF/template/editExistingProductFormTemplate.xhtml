@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<body>
+	<h3>Product Information</h3>
+		<h:panelGrid columns="3">
+			<h:outputText value="Product Name"></h:outputText>
+			<h:inputText id="product" value="#{productBean.product.name}" required="true" requiredMessage = "The product name cannot be empty">
+			</h:inputText>
+			<h:message for="product" style="color:red" />
+			
+			<h:outputText value="Price USD"></h:outputText>
+			<h:inputText id="price" converter="javax.faces.Double" value="#{productBean.product.price}" required="true" requiredMessage = "The price is mandatory. Double only"></h:inputText>
+			<h:message for="price" style="color:red" />
+			
+			<h:outputText value="Image URL"></h:outputText>
+			<h:inputText id="image" value="#{productBean.product.image_url}" required="false"></h:inputText>
+			<h:message for="image" style="color:red" />
+			
+			<h:outputText value="Available Quantity"></h:outputText>
+			<h:inputText id="quantity" converter="javax.faces.Integer" value="#{productBean.product.price}" required="true" requiredMessage = "Quantity must be Ingteger higher than 0"></h:inputText>
+			<h:message for="quantity" style="color:red" />
+			
+			<h:outputText value="Kitchen Made Item"></h:outputText>
+			<h:selectBooleanCheckbox id="kitchen" value = "#{productBean.product.kitchen}"/>	
+			<h:message for="kitchen" style="color:red" />
+			
+			<h:outputText value="Active"></h:outputText>
+			<h:selectBooleanCheckbox id="activecheckbox" value = "#{productBean.product.online}"/>	
+			<h:message for="activecheckbox" style="color:red" />
+		</h:panelGrid>		
+</body>
+</html>

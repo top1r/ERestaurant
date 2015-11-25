@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<body>
+	<h3>Category Information</h3>
+		<h:panelGrid columns="3">
+			<h:outputText value="Category Name"></h:outputText>
+			<h:inputText id="category" value="#{productBean.category.name}" required="true" requiredMessage = "The category name cannot be empty">
+			</h:inputText>
+			<h:message for="category" style="color:red" />
+			
+			<h:outputText value="Image URL"></h:outputText>
+			<h:inputText id="image" value="#{productBean.category.image_url}" required="false"></h:inputText>
+			<h:message for="image" style="color:red" />
+			
+			<h:outputText value="Active"></h:outputText>
+			<h:selectBooleanCheckbox id="activecheckbox" value = "#{productBean.category.online}"/>	
+			<h:message for="activecheckbox" style="color:red" />
+		</h:panelGrid>		
+</body>
+</html>

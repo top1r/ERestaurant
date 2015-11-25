@@ -23,6 +23,7 @@
 		</script> 
      </h:head> 
     <h:body>
+    <ui:debug />
     <h:outputScript library="javax.faces" name="js/jsf.js" target="head" /> 
     <script type="text/javascript" src="${pageContext.request.contextPath}/ERestaurant/js/jquery-1.11.3.min.js"></script>   
     
@@ -57,7 +58,7 @@
 							<h:panelGroup rendered="#{usersBean.admin}">
 							<li>
 								<h:form>
-									<h:commandLink value = "Product management page" action = "#{viewBean.setPage('productManagementTemplate')}" />
+									<h:commandLink value = "Product management page" action = "#{viewBean.setPage('smcProductTemplate')}" />
 								</h:form>
 							</li>
 							</h:panelGroup>
