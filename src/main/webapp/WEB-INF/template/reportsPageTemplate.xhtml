@@ -7,9 +7,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       >
-    <h:body>
-    		<h:outputScript library="javax.faces" name="js/jsf.js" target="head" />    
-    			
+    <h:body>    			
 			<script type="text/javascript" src="${pageContext.request.contextPath}/ERestaurant/js/jquery-1.11.3.min.js"></script>
 			<script type="text/javascript" src="${pageContext.request.contextPath}/ERestaurant/js/jquery-ui.min.js"></script>
 			<link rel="stylesheet" href="${pageContext.request.contextPath}/ERestaurant/js/jquery-ui.min.css" type="text/css" />
@@ -29,8 +27,10 @@
 					</h:form>
 					<h:panelGroup rendered="#{not empty reportsBean.results}">
 						<h:dataTable value="#{reportsBean.results}" var="results"
-						styleClass="OrderTable" headerClass="OrderTableHeader"
-						rowClasses="OrderTableOddRow, OrderTableEvenRow">
+						styleClass="Table" headerClass="TableHeader"
+						rowClasses="TableOddRow, TableEvenRow">
+						<br/>
+						<br/>
 						<h:column>
 							<f:facet name="header">Count</f:facet> 
 							#{results.ordersCount} 
@@ -51,6 +51,16 @@
 			</div>
 			<script type="text/javascript">
 				$(document).ready(function() {
+					if (!$.datepicker.initialized) {
+					    $(document).mousedown($.datepicker._checkExternalClick)
+					        // !!!!!!!!!!
+					        // The next code line has to be added again so that the date picker
+					        // shows up when the popup is opened more than once without reloading
+					        // the "base" page.
+					        // !!!!!!!!!!
+					        .find(document.body).append($.datepicker.dpDiv);
+					    $.datepicker.initialized = true;
+					}
 				  $(".datepicker").datepicker({
 				    showOn: "button",
 				    showWeek:"true",

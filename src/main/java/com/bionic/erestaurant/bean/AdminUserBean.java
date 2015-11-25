@@ -16,11 +16,13 @@ import com.bionic.erestaurant.entity.UsersRole.UserRoleEnum;
 import com.bionic.erestaurant.service.UserService;
 
 @Named
-@Scope("request")
+@Scope("session")
 public class AdminUserBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Users user;
 	private List<String> adminRoleList;
+	private String userSearchEmail;
+	private List<Users> userSearchList;
 	
 	@Inject
 	private UserService userService;
@@ -29,6 +31,19 @@ public class AdminUserBean implements Serializable{
 		user = new Users();
 		adminRoleList = new ArrayList<String>();
 	}
+	
+	public void searchByEmail(){
+		System.out.println(userSearchEmail);
+	
+		userSearchList = userService.searchByEmail(userSearchEmail);
+		System.out.println(userSearchList.size());
+	}
+	
+	public void setAdminUser(String id){
+	    int n = Integer.valueOf(id);
+	    user = userService.getById(n);
+	}
+
 	
 	public String saveUser() {
 		List<UsersRole> rolelist = new ArrayList<UsersRole>();
@@ -47,7 +62,7 @@ public class AdminUserBean implements Serializable{
 			}
 		user.setRoles(rolelist);
 		userService.saveUser(user);
-		return "smc2?new=true";
+		return "smc?new=true";
 	}
 
 	public Users getUser() {
@@ -64,5 +79,21 @@ public class AdminUserBean implements Serializable{
 
 	public void setAdminRoleList(List<String> adminRoleList) {
 		this.adminRoleList = adminRoleList;
+	}
+
+	public String getUserSearchEmail() {
+		return userSearchEmail;
+	}
+
+	public void setUserSearchEmail(String userSearchEmail) {
+		this.userSearchEmail = userSearchEmail;
+	}
+
+	public List<Users> getUserSearchList() {
+		return userSearchList;
+	}
+
+	public void setUserSearchList(List<Users> userSearchList) {
+		this.userSearchList = userSearchList;
 	}
 }

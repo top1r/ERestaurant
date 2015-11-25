@@ -8,8 +8,8 @@
 	#{kitchenBean.getKitchenPendingList()} 
     <h:form>
 		<h:dataTable value="#{kitchenBean.kitchenList}" var="results"
-			styleClass="OrderTable" headerClass="OrderTableHeader"
-			rowClasses="OrderTableOddRow, OrderTableEvenRow">
+			styleClass="Table" headerClass="TableHeader"
+			rowClasses="TableOddRow, TableEvenRow">
 			<h:column>
 				<f:facet name="header">Created</f:facet> 
 					#{results.created} 

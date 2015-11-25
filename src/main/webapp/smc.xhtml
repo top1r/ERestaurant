@@ -8,10 +8,19 @@
       xmlns:f="http://java.sun.com/jsf/core"
       >
      <h:head>
-     	 <script type="text/javascript" src="${pageContext.request.contextPath}/ERestaurant/js/jsf.js"></script>   
+     	<script type="text/javascript" src="${pageContext.request.contextPath}/ERestaurant/js/jsf.js"></script>   
      	<script type="text/javascript" src="${pageContext.request.contextPath}/ERestaurant/js/jquery-1.11.3.min.js"></script>   
     	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/ERestaurant/styles/style.css"/>
-     	
+		<script type="text/javascript" src="${pageContext.request.contextPath}/ERestaurant/js/jquery-ui.min.js"></script>
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/ERestaurant/js/jquery-ui.min.css" type="text/css" />
+     	<script>
+
+			$(document).ready(function(){
+				$(document).on("click", "#createbutton", function(){
+        			$("#create").show();
+    			});
+			});
+		</script> 
      </h:head> 
     <h:body>
     <h:outputScript library="javax.faces" name="js/jsf.js" target="head" /> 
@@ -23,6 +32,9 @@
 					<img src="http://pro.bionic-university.com/resources/images/logo_sub_pro.png" alt="SMC" border="0"/>
 				</a>
 		</span>
+	</h:panelGroup>
+	<h:panelGroup class="signin-admin" rendered="#{empty usersBean.userList}">
+		<h3>Please <a href="admin.xhtml">sign in</a> to proceed.</h3>
 	</h:panelGroup>
    	<h:panelGroup class="adminLinks" rendered="#{not empty usersBean.userList}">		
 			<h:panelGroup rendered="#{!usersBean.staff}">
@@ -38,7 +50,7 @@
             				<h:panelGroup rendered="#{usersBean.admin}">
 							<li>
 								<h:form>
-									<h:commandLink value = "User management page" action = "#{viewBean.setPage('smcRegisterTemplate')}" />
+									<h:commandLink value = "User management page" action = "#{viewBean.setPage('smcEditTemplate')}" />
 								</h:form>
 							</li>
 							</h:panelGroup>

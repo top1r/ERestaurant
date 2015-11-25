@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      >
+    <h:body>
+   	
+			<h:panelGroup rendered="#{usersBean.admin}">
+				<div class = "pages-wrapper-smc">
+					<div class="signin-signup">
+						<span class="user-search">
+							<h:form>
+							<ul class="user-search-content">
+							<li>
+								<h:inputText value="#{adminUserBean.userSearchEmail}"></h:inputText>
+							</li>
+							<li>
+								<h:commandLink action="#{viewBean.setPage('userEditTemplate')}"><h:graphicImage height="60" width="60" value="img/design/search.png"></h:graphicImage></h:commandLink>
+							</li>
+							</ul>
+						</h:form>
+						</span>
+						<button id="createbutton">Create New User</button>
+						<div id = "create">
+						<h:form>
+							<div class="signin">
+								<ui:include src="editAdminUserFormTemplate.xhtml"></ui:include>	
+							</div>
+							<h:commandButton id="submit" value="Submit" action="#{adminUserBean.saveUser}"></h:commandButton>
+						</h:form>
+						</div>
+					</div>				
+			</div>
+			</h:panelGroup>   	
+    </h:body>
+
+</html>

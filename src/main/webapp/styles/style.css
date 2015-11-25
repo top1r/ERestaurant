@@ -8,6 +8,14 @@ header
 .header{	
 }
 
+.TableOddRow{
+	background: #FFF;
+}
+
+.TableEvenRow{
+	background: #CCC;
+}
+
 .header:before {
     content: '';
     position: absolute;
@@ -29,7 +37,7 @@ header
 .datepicker{
 }
 
-.signin-admin h4{
+.signin-admin{
 	text-align: center;
 }
 
@@ -263,6 +271,8 @@ header
    vertical-align: top;
    border: none;
 }
+
+
  
 .pages-wrapper .signup {
    display: table-cell;
@@ -312,6 +322,7 @@ header
 }
 
 .adminMenu{
+
 	
 	border-top: 1px solid #ccc;
     margin-top: 5px;
@@ -320,15 +331,29 @@ header
 
 .adminMenuLinks{
 	float:left;
-
+	width: 240px;
+	height: 1600px;
+	border-right: 1px solid #ccc;
+	
 }
 
 .adminMenuLinks .adminItems li{
    list-style: none;
    padding: 7px 10px;
+   border-color: #ccc;
 }
 
 .adminContent{
 	float:left;
 	padding: 7px 10px;
+}
+
+#create {
+	display:none;
+}
+
+.user-search li{
+	list-style: none;
+	position:relative;
+	display:inline-block;
 }

@@ -40,6 +40,8 @@ public class UsersBean implements Serializable{
 	private List<Address> addressList;
 	//used for rendered check
 	private List<Users> userList;
+	private String userSearchEmail;
+	private List<Users> userSearchList;
 	private List<String> roleList;
 	private List<String> adminRoleList;
 	
@@ -136,6 +138,13 @@ public class UsersBean implements Serializable{
 	
 	public String homeRedirect() {
 		return "home";
+	}
+	
+	public void searchByEmail(){
+		System.out.println(userSearchEmail);
+	
+		userSearchList = userService.searchByEmail(userSearchEmail);
+		System.out.println(userSearchList.size());
 	}
 
 	public String saveUser() {
@@ -302,5 +311,21 @@ public class UsersBean implements Serializable{
 
 	public void setAddressList(List<Address> addressList) {
 		this.addressList = addressList;
+	}
+
+	public List<Users> getUserSearchList() {
+		return userSearchList;
+	}
+
+	public void setUserSearchList(List<Users> userSearchList) {
+		this.userSearchList = userSearchList;
+	}
+
+	public String getUserSearchEmail() {
+		return userSearchEmail;
+	}
+
+	public void setUserSearchEmail(String userSearchEmail) {
+		this.userSearchEmail = userSearchEmail;
 	}
 }

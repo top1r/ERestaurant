@@ -1,6 +1,7 @@
 package com.bionic.erestaurant.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -46,4 +47,8 @@ public class UserServiceImpl implements UserService {
 			return false;
 		}
 	}
+	public List<Users> searchByEmail(String email){
+		return userDao.searchByEmail(email);
+	}
+
 }

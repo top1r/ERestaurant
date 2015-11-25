@@ -10,6 +10,7 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
+import com.bionic.erestaurant.entity.Product;
 import com.bionic.erestaurant.entity.Users;
 
 @Repository
@@ -37,5 +38,13 @@ public class UserDaoImpl implements UserDao{
 		else {
 			em.merge(user);
 		}
+	}
+	
+	public List<Users> searchByEmail(String name){
+		String txt = "select u from Users u where FUNCTION('UPPER',u.email) like FUNCTION('UPPER',:name)";
+		TypedQuery<Users> query = em.createQuery(txt, Users.class);
+		return query
+				.setParameter("name", "%" + name + "%")
+				.getResultList();
 	}
 }
