@@ -73,10 +73,8 @@ public class AdminUserBean implements Serializable{
 			UsersRole role = new UsersRole();
 			System.out.println(s);
 			role.setType(UserRoleEnum.valueOf(s).toString());
-			if (user == null) {
-					role.setUser(user);
-					rolelist.add(role);
-			}
+			role.setUser(user);
+			rolelist.add(role);
 		}
 
 		
