@@ -9,6 +9,7 @@
 		<h:panelGrid columns="3">
 			<h:outputText value="Product Name"></h:outputText>
 			<h:inputText id="product" value="#{productBean.product.name}" required="true" requiredMessage = "The product name cannot be empty">
+				<f:validator validatorId = "productValidator" />
 			</h:inputText>
 			<h:message for="product" style="color:red" />
 			
