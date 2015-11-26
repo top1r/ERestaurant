@@ -183,7 +183,7 @@ public class ProductBean implements Serializable{
 	
 	public void saveProduct(){
 		categoryList = new ArrayList<Category>();
-		for (String s: categoryStringList){
+		for (String s: categoryToAddList){
 			category = categoryService.getCategoryByName(s);
 			categoryList.add(category);
 		}

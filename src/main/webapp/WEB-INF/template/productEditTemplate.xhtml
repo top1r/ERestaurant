@@ -4,7 +4,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
 <h:body>
-	<h2>User list</h2>
+	<h2>Product list</h2>
 	#{productBean.getProductsByName()}
 	<h:panelGroup rendered="#{empty productBean.productList}">
 		<h4>No results found</h4>
