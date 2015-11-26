@@ -51,6 +51,15 @@ public class ProductBean implements Serializable{
 	private String searchTerm = "";
 	private String categorySearchTerm = "";
 	private String productSearchTerm = "";
+	private List<String> categoryStringList;
+
+	public List<String> getCategoryStringList() {
+		return categoryStringList;
+	}
+
+	public void setCategoryStringList(List<String> categoryStringList) {
+		this.categoryStringList = categoryStringList;
+	}
 
 	public String getSearchTerm() {
 		return searchTerm;
@@ -132,6 +141,14 @@ public class ProductBean implements Serializable{
 		categoryList = categoryService.getCategoriesByName("");
 		return categoryList;
 		
+	}
+	
+	public void categoryToString(){
+		categoryStringList = new ArrayList<String>();
+		this.getAllCategories();
+		for (Category c: categoryList){
+			categoryStringList.add(c.getName());
+		}
 	}
 	
 	public List<Category> getOnlineCategories(){

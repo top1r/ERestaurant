@@ -5,7 +5,7 @@
 	xmlns:h="http://java.sun.com/jsf/html">
 <body>
 	<h3>Product Information</h3>
-		#{productBean.getAllCategories()}
+		#{productBean.categoryToString()}
 		<h:panelGrid columns="3">
 			<h:outputText value="Product Name"></h:outputText>
 			<h:inputText id="product" value="#{productBean.product.name}" required="true" requiredMessage = "The product name cannot be empty">
@@ -35,7 +35,7 @@
 			
 			<h:outputText value="Categories"/>
 			<h:selectManyCheckbox id="rolecheckbox" value = "#{productBean.product.categories}">
-					<f:selectItems value="#{productBean.categoryList}"/>
+					<f:selectItems value="#{productBean.categoryStringList}"/>
 			</h:selectManyCheckbox>
 			<h:message for="rolecheckbox" style="color:red" />
 			
