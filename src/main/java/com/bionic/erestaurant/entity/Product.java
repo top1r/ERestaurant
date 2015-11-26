@@ -1,12 +1,17 @@
 package com.bionic.erestaurant.entity;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 @Entity
@@ -15,6 +20,12 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int product_id;
 	private String name;
+	public Product(){
+		this.isKitchen = true;
+		this.isOnline = true;
+		this.created = this.lastupdated = Timestamp.valueOf(LocalDateTime.now());
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -56,7 +67,12 @@ public class Product {
 	private Timestamp created;
 	private Timestamp lastupdated;
 	
-	@ManyToMany(mappedBy="products")
+	@ManyToMany(cascade = CascadeType.REFRESH)
+	@JoinTable(
+			name = "PRODUCTCATEGORYASSIGNEMENT",
+			joinColumns = {@JoinColumn(name = "product_id")},
+			inverseJoinColumns = {@JoinColumn(name = "category_id")}
+			)
 	private List<Category> categories;
 	
 	

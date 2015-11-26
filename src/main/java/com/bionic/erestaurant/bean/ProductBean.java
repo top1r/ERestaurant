@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.logging.Logger;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -51,6 +52,25 @@ public class ProductBean implements Serializable{
 	private String searchTerm = "";
 	private String categorySearchTerm = "";
 	private String productSearchTerm = "";
+	public List<String> getCategoryToAddList() {
+		return categoryToAddList;
+	}
+
+	public void setCategoryToAddList(List<String> categoryToAddList) {
+		this.categoryToAddList = categoryToAddList;
+	}
+
+
+	private List<String> categoryStringList;
+	private List<String> categoryToAddList;
+
+	public List<String> getCategoryStringList() {
+		return categoryStringList;
+	}
+
+	public void setCategoryStringList(List<String> categoryStringList) {
+		this.categoryStringList = categoryStringList;
+	}
 
 	public String getSearchTerm() {
 		return searchTerm;
@@ -134,6 +154,14 @@ public class ProductBean implements Serializable{
 		
 	}
 	
+	public void categoryToString(){
+		categoryStringList = new ArrayList<String>();
+		this.getAllCategories();
+		for (Category c: categoryList){
+			categoryStringList.add(c.getName());
+		}
+	}
+	
 	public List<Category> getOnlineCategories(){
 		categoryList = new ArrayList<Category>();
 		categoryList = categoryService.getCategoriesByName("");
@@ -154,12 +182,13 @@ public class ProductBean implements Serializable{
 	}
 	
 	public void saveProduct(){
-		for (Category c: categoryList){
-			List<Product> newProducts = new ArrayList<Product>();
-			newProducts = c.getProducts();
-			newProducts.add(product);
-			c.setProducts(newProducts);
+		categoryList = new ArrayList<Category>();
+		for (String s: categoryStringList){
+			category = categoryService.getCategoryByName(s);
+			categoryList.add(category);
 		}
+		System.out.println(categoryList.size());
+		product.setCategories(categoryList);
 		productService.saveProduct(product);
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("productBean", null);
 	}

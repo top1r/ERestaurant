@@ -4,7 +4,9 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,12 +25,7 @@ public class Category {
 	private Timestamp created;
 	private Timestamp lastupdated;
 	
-	@ManyToMany
-	@JoinTable(
-			name = "ProductCategoryAssignement",
-			joinColumns = {@JoinColumn(name = "category_id")},
-			inverseJoinColumns = {@JoinColumn(name = "product_id")}
-			)
+	@ManyToMany(mappedBy="categories")
 	private List<Product> products;
 	
 	public Category() {
@@ -38,6 +35,11 @@ public class Category {
 		this.lastupdated = this.created;
 	};
 	
+	@Override
+	public String toString() {
+		return "Category [name=" + name + "]";
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
