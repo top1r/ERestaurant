@@ -4,8 +4,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
 <h:body>
-	<h2>User list</h2>
-	#{productBean.getProductsByName()}
+ 	#{productBean.getProductsByName()}
+	<h2>Product list</h2>
 	<h:panelGroup rendered="#{empty productBean.productList}">
 		<h4>No results found</h4>
 	</h:panelGroup>
@@ -18,20 +18,20 @@
 					#{results.name} 
 			</h:column>
 			<h:column>
-				<f:facet name="header">Price USD</f:facet> 
+				<f:facet name="header">Price</f:facet> 
 					#{results.price} 
 			</h:column>
 			<h:column>
-				<f:facet name="header">Available Quantity</f:facet> 
+				<f:facet name="header">Quantity</f:facet> 
 					#{results.quantity} 
-			</h:column>
-			<h:column>
-				<f:facet name="header">URL</f:facet> 
-				#{results.image_url} 
 			</h:column>
 			<h:column>
 				<f:facet name="header">Active</f:facet> 
 				<h:outputText value="#{results.online}"></h:outputText>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Kitchen Made</f:facet> 
+				<h:outputText value="#{results.kitchen}"></h:outputText>
 			</h:column>
 			<h:column> 
 				<f:facet name="header"></f:facet> 

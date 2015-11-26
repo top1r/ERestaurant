@@ -287,8 +287,25 @@ header
 	display:inline-block;	
 }
 
+.pages-wrapper .product ul {
+	width:120px;
+	
+}
+
 .pages-wrapper .product li {
 	display:inline-block;	
+	width:120px;
+}
+
+.pages-wrapper .product p {
+	text-align:center;		
+	width:120px;
+	word-wrap:break-word;
+}
+
+.pages-wrapper .product .addtocartbutton {
+	align:center;		
+	width:120px;
 }
 
 .pages ul.product li:nth-child(5n+6) {

@@ -141,10 +141,10 @@ public class ProductBean implements Serializable{
 		return productList;
 	}
 	
-	public List<Product> getProductsByName(){
+	public void getProductsByName(){
+		System.out.println(productSearchTerm);
 		productList = new ArrayList<Product>();
 		productList.addAll(productService.getProductsByName(productSearchTerm));
-		return productList;
 	}
 	
 	public List<Category> getAllCategories(){
@@ -183,12 +183,14 @@ public class ProductBean implements Serializable{
 	
 	public void saveProduct(){
 		categoryList = new ArrayList<Category>();
-		for (String s: categoryStringList){
-			category = categoryService.getCategoryByName(s);
-			categoryList.add(category);
+		if (categoryToAddList != null){
+			for (String s: categoryToAddList){
+				category = categoryService.getCategoryByName(s);
+				categoryList.add(category);
+			}
+			System.out.println(categoryList.size());
+			product.setCategories(categoryList);
 		}
-		System.out.println(categoryList.size());
-		product.setCategories(categoryList);
 		productService.saveProduct(product);
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("productBean", null);
 	}
