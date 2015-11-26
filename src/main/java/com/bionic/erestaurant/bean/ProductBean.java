@@ -52,6 +52,7 @@ public class ProductBean implements Serializable{
 	private String searchTerm = "";
 	private String categorySearchTerm = "";
 	private String productSearchTerm = "";
+<<<<<<< HEAD
 	public List<String> getCategoryToAddList() {
 		return categoryToAddList;
 	}
