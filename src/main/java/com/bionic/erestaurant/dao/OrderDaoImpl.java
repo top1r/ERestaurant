@@ -9,9 +9,12 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.Order;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bionic.erestaurant.bean.OrderBean;
 import com.bionic.erestaurant.core.reports.ReportByDateResult;
 import com.bionic.erestaurant.entity.Address;
 import com.bionic.erestaurant.entity.Orders;
@@ -33,7 +36,7 @@ public class OrderDaoImpl implements OrderDao{
 	public void saveOrder(Orders order){
 		if (order.getOrderId() == 0){
 			//Logging goes here
-			System.out.println("Order doesn't exist in the context");
+			Logger.getLogger(OrderBean.class).log(Priority.ERROR, "Order doesn't exist in the context");
 		} else {
 			em.merge(order);
 		}

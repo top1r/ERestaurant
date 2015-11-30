@@ -7,8 +7,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
 import org.springframework.stereotype.Repository;
 
+import com.bionic.erestaurant.bean.OrderBean;
 import com.bionic.erestaurant.entity.Orderitems;
 import com.bionic.erestaurant.entity.Orderitems.orderitemsStatus;
 
@@ -24,7 +27,7 @@ public class OrderitemsDaoImpl implements OrderitemsDao{
 	public void saveOrderItem(Orderitems o){
 		if (o.getOrderitemId() == 0){
 			//Logger goes here
-			System.out.println("Orderitem does not exist");
+			Logger.getLogger(OrderBean.class).log(Priority.ERROR, "Orderitem does not exist");
 		} else {
 			em.merge(o);
 		}

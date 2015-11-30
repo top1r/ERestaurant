@@ -10,9 +10,12 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bionic.erestaurant.bean.ProductBean;
 import com.bionic.erestaurant.entity.Category;
 import com.bionic.erestaurant.entity.Product;
 
@@ -29,7 +32,7 @@ public class ProductDaoImpl implements ProductDao{
 		if (em.find(Product.class, p.getProductId()) == null){
 			em.remove(p);
 		} else {
-			System.out.println("No product to remove");
+			//Add better handling
 		}
 	}
 	
@@ -67,8 +70,7 @@ public class ProductDaoImpl implements ProductDao{
 			}
 			return facet;
 		} else {
-			//Logger to add here
-			System.out.println("No results found");
+			Logger.getLogger(ProductBean.class).log(Priority.INFO, "No results found");
 			return null;
 		}		
 	}

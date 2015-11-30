@@ -140,16 +140,12 @@ public class UsersBean implements Serializable{
 		return "home";
 	}
 	
-	public void searchByEmail(){
-		System.out.println(userSearchEmail);
-	
+	public void searchByEmail(){	
 		userSearchList = userService.searchByEmail(userSearchEmail);
-		System.out.println(userSearchList.size());
 	}
 
 	public String saveUser() {
 			List<UsersRole> rolelist = new ArrayList<UsersRole>();
-			System.out.println(user.getPassword());
 			if (user.getPassword() == null){
 				UsersRole guest = new UsersRole();
 				guest.setType(UserRoleEnum.GUEST.toString());
@@ -169,7 +165,6 @@ public class UsersBean implements Serializable{
 			FacesContext context = FacesContext.getCurrentInstance();
 			HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
 			Address address = (Address)session.getAttribute("address");
-			System.out.println(address.getAddress1());
 			addressList.add((Address)session.getAttribute("address"));
 			address.setUser(user);
 			user.setAddresses(addressList);
@@ -210,7 +205,6 @@ public class UsersBean implements Serializable{
 		  FacesContext context = FacesContext.getCurrentInstance();
 		  HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
 		  session.setAttribute("user", user);
-		  System.out.println(user.toString());
 		  userList.add(user);
 		  roleList = user.rolesToList();
 		  //Some dirty code starts here. Need to get rid of it as soon as the idea available;
@@ -241,7 +235,6 @@ public class UsersBean implements Serializable{
 	public String logout() throws IOException{
 		  ExternalContext  context = FacesContext.getCurrentInstance().getExternalContext();
 		  context.invalidateSession();
-		  System.out.println(user.toString());
 		  //userList.remove(user);
 		  return "home.xhtml?faces-redirect=true";
 		  //session.setAttribute("email",  this.getUser().getEmail());
@@ -254,10 +247,6 @@ public class UsersBean implements Serializable{
 		//session.setAttribute("type", type);
 		
 		boolean valid = userService.validatePassword(user.getEmail(), user.getPassword());
-		System.out.println(user.getEmail());
-		System.out.println(user.getPassword());
-		
-		System.out.println(valid);
 
 		if (valid) {
 			user = userService.getByEmail(user.getEmail());
@@ -269,25 +258,8 @@ public class UsersBean implements Serializable{
                     		"Either the User ID or password entered is incorrect.", 
                     		"Enter the information again."));
             return null;
-		}	
-
-		//System.out.println(type);
-		//return this.addressStep();		
+		}		
 	}
-	/*
-	public String validateUser() {
-		if (userService.getByEmail(user.getEmail()).getUserId() != 0){
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    		"The user exists", 
-                    		"Enter the information again."));
-			return null;
-		} else {
-			
-		}
-	}
-	*/
 
 	public List<Users> getUserList() {
 		return userList;

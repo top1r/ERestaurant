@@ -83,12 +83,10 @@ public class Users {
 		}			
 		String passString = pass.concat(salt);
 		byte[] hashByte = md.digest(passString.getBytes());
-		System.out.println(passString);
 		StringBuffer hash = new StringBuffer();
 		for(byte b : hashByte) {
 	        hash.append(String.format("%02x", b));
 	    }
-		System.out.println(hash);
 		return hash.toString();
 	}	
 

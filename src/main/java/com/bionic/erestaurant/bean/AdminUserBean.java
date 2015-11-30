@@ -7,7 +7,10 @@ import java.util.List;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.PersistenceException;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Scope;
 
 import com.bionic.erestaurant.entity.Address;
@@ -19,6 +22,8 @@ import com.bionic.erestaurant.service.UserService;
 @Named
 @Scope("session")
 public class AdminUserBean implements Serializable{
+	private static final Logger logger = Logger.getLogger(AdminUserBean.class);
+
 	private static final long serialVersionUID = 1L;
 	private Users user;
 	private List<String> adminRoleList;
@@ -39,6 +44,7 @@ public class AdminUserBean implements Serializable{
 	private UserService userService;
 	
 	public AdminUserBean() {
+
 		user = new Users();
 		userSearchEmail = "";
 		adminRoleList = new ArrayList<String>();
@@ -50,9 +56,10 @@ public class AdminUserBean implements Serializable{
 	
 	public void searchByEmail(){
 		System.out.println(userSearchEmail);
-	
 		userSearchList = userService.searchByEmail(userSearchEmail);
-		System.out.println(userSearchList.size());
+		if (logger.isDebugEnabled()){
+			logger.log(Level.DEBUG, "Search by Email is performed with " + userSearchList.size() + " results.");
+		}
 	}
 	
 	public void setAdminUser(String id){
@@ -79,9 +86,12 @@ public class AdminUserBean implements Serializable{
 
 		
 		user.setRoles(rolelist);
-		userService.saveUser(user);
+		try {
+			userService.saveUser(user);
+		} catch (PersistenceException p){
+			logger.error("The Admin was not created with exception: \n" + p);
+		}
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("adminUserBean", null);
-
 		return "smc?faces-redirect=true";
 	}
 

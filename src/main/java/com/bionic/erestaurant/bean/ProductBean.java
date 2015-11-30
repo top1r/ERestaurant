@@ -142,7 +142,6 @@ public class ProductBean implements Serializable{
 	}
 	
 	public void getProductsByName(){
-		System.out.println(productSearchTerm);
 		productList = new ArrayList<Product>();
 		productList.addAll(productService.getProductsByName(productSearchTerm));
 	}
@@ -170,7 +169,6 @@ public class ProductBean implements Serializable{
 				iterator.remove();
 			}
 		}
-		System.out.println(categoryList.size());
 		return categoryList;
 		
 	}
@@ -188,7 +186,6 @@ public class ProductBean implements Serializable{
 				category = categoryService.getCategoryByName(s);
 				categoryList.add(category);
 			}
-			System.out.println(categoryList.size());
 			product.setCategories(categoryList);
 		}
 		productService.saveProduct(product);

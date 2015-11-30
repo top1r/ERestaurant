@@ -15,6 +15,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -30,6 +31,8 @@ import com.bionic.erestaurant.service.ProductService;
 public class CartBean  implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Map<Product, Integer> productMap;
+	private static final Logger logger = Logger.getLogger(CartBean.class);
+
 	
     FacesContext context = FacesContext.getCurrentInstance();
 	HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
@@ -42,12 +45,6 @@ public class CartBean  implements Serializable{
 	
 	@Autowired
 	private ProductService productService;
-/*
-	ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
-	AddressService addressService = (AddressService)context.getBean("addressServiceImpl");
-	OrderService orderService = (OrderService)context.getBean("orderServiceImpl");	
-	ProductService productService = (ProductService)context.getBean("productServiceImpl");	
-*/
 	
 	public CartBean() {
 		productMap = new HashMap<Product, Integer>();
@@ -59,8 +56,9 @@ public class CartBean  implements Serializable{
 		} else {
 			productMap.put(product, 1);
 		}
-		System.out.println("ADD: "+ productMap.size());
-
+		if (logger.isDebugEnabled()){
+			logger.debug("ADD: "+ productMap.size());
+		}
 	}
 	
 	public List<Entry<String, Integer>> getCartProductsList() {
@@ -80,19 +78,22 @@ public class CartBean  implements Serializable{
 		if (productMap.containsKey(product)) {
 			productMap.remove(product);
 		} else {
-			//Logger needs to be added here
-		}		
-		System.out.println("Remove: "+ productMap.size());
+			logger.error("ERROR! Nothing to remove");
+		}
+		if (logger.isDebugEnabled()){
+			logger.debug("Remove: "+ productMap.size());
+		}
 	}
 	
 	public void increaseQuantity(Product product){
 		if (productMap.containsKey(product)) {
 			productMap.put(product, productMap.get(product) + 1);
 		} else {
-			//Logger needs to be added here
+			logger.error("ERROR! Product is not selected.");
 		}
-		System.out.println("Increase: "+ productMap.size());
-
+		if (logger.isDebugEnabled()){
+			logger.debug("Increase: "+ productMap.size());
+		}
 	}
 	
 	public int getTotalItemsInCart(){
@@ -111,9 +112,11 @@ public class CartBean  implements Serializable{
 				this.removeProduct(product);
 			}
 		} else {
-			//Logger needs to be added here
+			logger.error("ERROR! Product is not selected.");
 		}
-		System.out.println("Decrease: "+ productMap.size());
+		if (logger.isDebugEnabled()){
+			logger.debug("Decrease: "+ productMap.size());
+		}
 
 	}
 	
@@ -140,7 +143,6 @@ public class CartBean  implements Serializable{
 
 			for (Product p: productMap.keySet()){
 				Orderitems item = new Orderitems(p.getProductId(), productMap.get(p));
-				System.out.println(orderitemsList.contains(item));
 				orderitemsList.add(item);
 			}
 							
@@ -152,12 +154,12 @@ public class CartBean  implements Serializable{
 			order.setOrderitems((List<Orderitems>)orderitemsList);
 			boolean negativeInventory = false;
 			for (Orderitems oi: orderitemsList){
-				System.out.println(oi.getQuantity());
+				logger.debug("Checking for orderitems in amount of " + oi.getQuantity());
 				oi.setOrder(order);
 				Product pn = productService.getProductById(oi.getProductId());
 				//Check if there is enough inventory for the order
 				int deltaQuantity = pn.getQuantity() - oi.getQuantity();
-				System.out.println("Delta: " + deltaQuantity);
+				logger.debug("Delta: " + deltaQuantity);
 				if (deltaQuantity > 0){
 					pn.setQuantity(deltaQuantity);
 					//productService.saveProduct(pn);
@@ -172,18 +174,16 @@ public class CartBean  implements Serializable{
 			}
 			if (!negativeInventory) {
 				orderService.createOrder(order);
-				//session.removeAttribute("address");
 				productMap.clear();
 				return this.orderRedirect();
 			} else {
-				//TODO Logging
-				System.out.println("Not enough inventory");
+				logger.error("Not enough inventory to submit the order.");
 				return this.cartRedirect();
 			}
 			
 		} else {
+			logger.error("Attempt of submitting an empty basket");
 			return this.cartRedirect();
-			//Logger goes here
 		}
 	}
 }

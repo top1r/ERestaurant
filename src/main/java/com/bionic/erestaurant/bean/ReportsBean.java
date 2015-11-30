@@ -14,6 +14,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -28,6 +29,8 @@ public class ReportsBean implements Serializable{
 	private List<ReportByDateResult> results;
 	private String dateFrom;
 	private String dateTo;
+	private static final Logger logger = Logger.getLogger(ReportsBean.class);
+
 	
 	//To remove later
 	FacesContext context = FacesContext.getCurrentInstance();
@@ -49,11 +52,8 @@ public class ReportsBean implements Serializable{
 	};
 	
 	public void getReport() {
-
-		System.out.println(dateFrom + " " + dateTo);
-		System.out.println(results.size());
+		logger.debug("Getting the report for the period: " + dateFrom + " - " + dateTo);
 		results = orderService.getOrderReportByTotal(dateFrom, dateTo);
-		//System.out.println(session.getAttribute("type").toString());
 	}
 
 	public void setDateFrom(String dateFrom) {

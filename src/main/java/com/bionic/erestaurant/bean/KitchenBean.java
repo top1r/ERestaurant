@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Named;
+import javax.persistence.PersistenceException;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +26,8 @@ import com.bionic.erestaurant.service.ProductService;
 public class KitchenBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private List<Orderitems> kitchenList;
+	private static final Logger logger = Logger.getLogger(KitchenBean.class);
+
 	
 	@Autowired
 	private OrderitemsService orderitemsService;
@@ -60,12 +64,10 @@ public class KitchenBean implements Serializable{
 			boolean orderKitchenDone = true;
 			List<Orderitems> nonKitchen = new ArrayList<Orderitems>();
 			for (Orderitems oia: oi.getOrder().getOrderitems()){
-				System.out.println(oia.getStatus());
 				if ((!oia.getStatus().equals(orderitemsStatus.DONE.toString()))) {
-					System.out.println("Kitchen is: " + productService.getProductById(oia.getProductId()).isKitchen());
 					if (productService.getProductById(oia.getProductId()).isKitchen()){
 						orderKitchenDone = false;
-						System.out.println("Kitchen order is not ready yet");
+						logger.info("Kitchen order is not ready yet");
 						break;
 					} else {nonKitchen.add(oia);}
 				} 
@@ -80,7 +82,11 @@ public class KitchenBean implements Serializable{
 					.setStatus(OrderStatus.READY_FOR_SHIPMENT.toString());
 				oi.getOrder()
 					.setLastupdated(Timestamp.valueOf(LocalDateTime.now()));
-				orderService.saveOrder(oi.getOrder());
+				try {
+					orderService.saveOrder(oi.getOrder());
+				} catch (PersistenceException p){
+					logger.error("Failed to allocate the inventory" + p.getMessage());
+				}
 			}
 			}
 		}
