@@ -13,12 +13,20 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
+@XmlAccessorType(XmlAccessType.NONE)
 public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@XmlAttribute
 	private int product_id;
+	@XmlElement
 	private String name;
 	public Product(){
 		this.isKitchen = true;
@@ -52,8 +60,11 @@ public class Product {
 			return false;
 		return true;
 	}
+	@XmlElement
 	private double price;
+	@XmlElement
 	private int quantity;
+	@XmlElement
 	private String image_url;
 	public String getImage_url() {
 		return image_url;
@@ -61,6 +72,7 @@ public class Product {
 	public void setImage_url(String image_url) {
 		this.image_url = image_url;
 	}
+	@XmlElement
 	private boolean isOnline;
 	private boolean isKitchen;
 	
