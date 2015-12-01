@@ -17,7 +17,7 @@
     
     <error-page>
    		<exception-type>javax.faces.application.ViewExpiredException</exception-type>
-    	<location>/login.xhtml</location>
+    	<location>/home.xhtml</location>
 	</error-page>
 	
 	<context-param>
@@ -41,17 +41,17 @@
     <servlet-name>Faces Servlet</servlet-name>
     <url-pattern>*.xhtml</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <servlet-name>CXFServlet</servlet-name>
-    <servlet-class> 
-	org.apache.cxf.transport.servlet.CXFServlet
+  	<servlet>
+    	<servlet-name>CXFServlet</servlet-name>
+    	<servlet-class> 
+			org.apache.cxf.transport.servlet.CXFServlet
         </servlet-class>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>CXFServlet</servlet-name>
-    <url-pattern>/service/*</url-pattern>
-  </servlet-mapping>
+   	 	<load-on-startup>1</load-on-startup>
+ 	 </servlet>
+ 	 <servlet-mapping>
+    	<servlet-name>CXFServlet</servlet-name>
+    	<url-pattern>/service/*</url-pattern>
+  	</servlet-mapping>
   
   	<filter>
    		<filter-name>encodingFilter</filter-name>

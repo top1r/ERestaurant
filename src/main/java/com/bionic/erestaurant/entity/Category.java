@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 public class Category {
@@ -24,6 +25,7 @@ public class Category {
 	private String image_url; 
 	private Timestamp created;
 	private Timestamp lastupdated;
+	
 	
 	@ManyToMany(mappedBy="categories")
 	private List<Product> products;
