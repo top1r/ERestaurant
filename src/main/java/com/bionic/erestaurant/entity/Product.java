@@ -18,6 +18,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.bionic.erestaurant.core.TimeDateAdapter;
 
 @Entity
 @XmlAccessorType(XmlAccessType.NONE)
@@ -76,7 +79,10 @@ public class Product {
 	private boolean isOnline;
 	private boolean isKitchen;
 	
+	@XmlElement
+	@XmlJavaTypeAdapter(TimeDateAdapter.class)
 	private Timestamp created;
+	
 	private Timestamp lastupdated;
 	
 	@ManyToMany(cascade = CascadeType.REFRESH)
