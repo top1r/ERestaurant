@@ -42,8 +42,8 @@ public class OrderServiceImpl implements OrderService {
 		return orderDao.getOrderReportByTotal(dateFrom, dateTo);
 	}
 	
-	public Orders getLastUsersOrderByAddress(Users user, Address address){
-		return orderDao.getLastUsersOrderByAddress(user, address);
+	public Orders getLastUsersOrderByAddress(Users user, int address_id){
+		return orderDao.getLastUsersOrderByAddress(user, address_id);
 	}
 	
 	public List<Orders> getDeliveryPendingList(){

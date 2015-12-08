@@ -58,14 +58,14 @@ public class OrderDaoImpl implements OrderDao{
 		return query.setParameter("dateFrom", dateFrom).setParameter("dateTo", dateTo.toString()).getResultList();
 	}
 	
-	public Orders getLastUsersOrderByAddress(Users user, Address address){
+	public Orders getLastUsersOrderByAddress(Users user, int address_id){
 		String rawQuery = "select o from Orders o "
 				+ "where o.user_id=:user_id and o.address_id=:address_id "
 				+ "order by o.timeplaced desc";
 		TypedQuery<Orders> query = em.createQuery(rawQuery, Orders.class);
 		return query
 				.setParameter("user_id", user.getUserId())
-				.setParameter("address_id", address.getAddressId())
+				.setParameter("address_id", address_id)
 				.setFirstResult(0)
 				.setMaxResults(1)
 				.getSingleResult();

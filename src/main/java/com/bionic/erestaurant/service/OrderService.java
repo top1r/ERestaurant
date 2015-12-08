@@ -17,7 +17,7 @@ public interface OrderService {
 	public void saveOrder(Orders order);
 	public List<Orders> getOrderByUser(int user_id);
 	public List<ReportByDateResult> getOrderReportByTotal(String dateFrom, String dateTo);
-	public Orders getLastUsersOrderByAddress(Users user, Address address);
+	public Orders getLastUsersOrderByAddress(Users user, int address_id);
 	public List<Orders> getDeliveryPendingList();
 	public void moveThroughWorkflow(Orders order);
 }

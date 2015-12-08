@@ -10,6 +10,7 @@ import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.apache.log4j.Priority;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -26,6 +27,7 @@ public class AddressBean implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	private Address address;
+	private int addressId;
 	@Inject
 	private AddressService addressService;
 	
@@ -33,7 +35,12 @@ public class AddressBean implements Serializable{
 		address = new Address();
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+		logger.log(Priority.INFO, "New Bean Created");
 		session.setAttribute("address", address);
+	}
+	
+	public void setById(){
+		address = addressService.getById(addressId);
 	}
 	
 	public String addressLater(){
@@ -45,9 +52,7 @@ public class AddressBean implements Serializable{
 	}
 
 	public void setAddress(Address address) {
-		FacesContext context = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
-		session.setAttribute("address", address);
+		logger.log(Priority.INFO, "New Address Created");
 		this.address = address;
 	}
 	
@@ -56,6 +61,14 @@ public class AddressBean implements Serializable{
 			logger.log(org.apache.log4j.Level.DEBUG,"The list of countries is retrieved.");
 		}
 		return AddressHelper.getCountries();
+	}
+
+	public int getAddressId() {
+		return addressId;
+	}
+
+	public void setAddressId(int addressId) {
+		this.addressId = addressId;
 	}
 	
 }

@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.el.ELContext;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -149,9 +150,12 @@ public class CartBean  implements Serializable{
 							
 			Users user = (Users)session.getAttribute("user"); 
 			order.setUserId(user.getUserId());
-			Address address = (Address)session.getAttribute("address");
-			System.out.println(address);
-			order.setAddressId(address.getAddressId());
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			ELContext elContext = FacesContext.getCurrentInstance().getELContext();
+			AddressBean addressBean 
+			    = (AddressBean) FacesContext.getCurrentInstance().getApplication()
+			    .getELResolver().getValue(elContext, null, "addressBean");
+			order.setAddressId(addressBean.getAddressId());
 			order.setOrderitems((List<Orderitems>)orderitemsList);
 			boolean negativeInventory = false;
 			for (Orderitems oi: orderitemsList){

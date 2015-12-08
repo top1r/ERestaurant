@@ -33,4 +33,8 @@ public class AddressServiceImpl implements AddressService{
 	public List<Address> getAddressesByUserId(int id){
 		return addressDao.getAddressesByUserId(id);
 	}
+	
+	public Address getById(int id){
+		return addressDao.getById(id);
+	}
 }

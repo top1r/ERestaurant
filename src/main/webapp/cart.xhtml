@@ -91,9 +91,10 @@
 							<h:panelGroup rendered="#{not empty usersBean.userList}">
 								<h3>Select an address</h3>
 								<h:form>
-								<h:selectOneRadio rendered="#{not empty usersBean.addressList}" immediate="true" name="checkbox" value="#{addressBean.address}">
-									<f:selectItems styleClass="addToCartSelectedAddress" value ="#{usersBean.addressList}" var="address" itemLabel="#{address.country}, #{address.state}, #{address.city}, #{address.address1}, #{address.zip}" itemValue="address">
+								<h:selectOneRadio rendered="#{not empty usersBean.addressList}"  immediate="true" name="checkbox" value="#{addressBean.addressId}"  converter = "javax.faces.Integer">
+									<f:selectItems styleClass="addToCartSelectedAddress" value ="#{usersBean.addressList}" var="address" itemLabel="#{address.country}, #{address.state}, #{address.city}, #{address.address1}, #{address.zip}" itemValue="#{address.addressId}">
 									</f:selectItems>
+									<f:ajax event="click" render="@form"/>
 								</h:selectOneRadio>		
 								<h:messages style="color:red;display:inline-block;list-style:none"></h:messages>						
 								</h:form>

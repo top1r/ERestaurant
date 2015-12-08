@@ -8,6 +8,7 @@ import java.util.Comparator;
 import java.util.Formatter;
 import java.util.List;
 
+import javax.el.ELContext;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -88,8 +89,11 @@ public class OrderBean implements Serializable{
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
 		Users user = (Users) session.getAttribute("user");
-		Address address = (Address) session.getAttribute("address");
-		int order_id = orderService.getLastUsersOrderByAddress(user, address).getOrderId();
+		ELContext elContext = FacesContext.getCurrentInstance().getELContext();
+		AddressBean addressBean 
+	    = (AddressBean) FacesContext.getCurrentInstance().getApplication()
+	    .getELResolver().getValue(elContext, null, "addressBean");
+		int order_id = orderService.getLastUsersOrderByAddress(user, addressBean.getAddressId()).getOrderId();
 		//session.removeAttribute("address");
 		return order_id;
 	}

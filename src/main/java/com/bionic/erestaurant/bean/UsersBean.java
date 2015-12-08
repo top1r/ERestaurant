@@ -206,6 +206,11 @@ public class UsersBean implements Serializable{
 		  HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
 		  session.setAttribute("user", user);
 		  userList.add(user);
+		  //addressList.clear();
+		  if (addressList.isEmpty()){
+			  addressList.addAll(user.getAddresses());
+		  }
+		 
 		  roleList = user.rolesToList();
 		  //Some dirty code starts here. Need to get rid of it as soon as the idea available;
 		  this.setStaff(
