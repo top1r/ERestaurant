@@ -12,7 +12,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.bionic.erestaurant.bean.ProductBean;
 import com.bionic.erestaurant.entity.Product;
-import com.sun.istack.logging.Logger;
 
 @XmlRootElement
 public class ProductList {

@@ -16,8 +16,8 @@
 
     				<ul class="product">			
     					<li>
-    						<h:graphicImage rendered="#{not empty product.image_url}" value="#{product.image_url}" height="120" width="120" alt="#{product.name}"></h:graphicImage>
-    						<h:graphicImage rendered="#{empty product.image_url}" value="img/product/no-image-available.png" height="120" width="120" alt="#{product.name}"></h:graphicImage>									
+    						<h:graphicImage rendered="#{not empty product.image_url}" value="#{product.image_url}" height="140" width="240" alt="#{product.name}"></h:graphicImage>
+    						<h:graphicImage rendered="#{empty product.image_url}" value="img/product/no-image-available.png" height="120" width="240" alt="#{product.name}"></h:graphicImage>									
     						<p class="name"><b>#{product.name}</b></p>
     						<p class="price">$#{product.price}</p>
     						<h:form><h:commandButton class="addtocartbutton" id="addtocart" value="Add To Cart" action="#{cartBean.addProduct(product)}"></h:commandButton></h:form>

@@ -18,7 +18,6 @@ import com.bionic.erestaurant.core.ProductList;
 import com.bionic.erestaurant.core.ProductWS;
 import com.bionic.erestaurant.entity.Product;
 import com.bionic.erestaurant.service.ProductService;
-import com.sun.istack.logging.Logger;
 
 @WebService(endpointInterface = "com.bionic.erestaurant.core.ProductWS")
 @Named
@@ -32,7 +31,6 @@ public class ProductWSBean implements ProductWS{
 	public String getOnlineProducts(){
 		try{
 			products.setProducts(productService.getProductsByName(""));
-			Logger.getLogger(ProductBean.class).log(Level.INFO, "Found in WS: " + productService.getProductsByName("").size());
 	        JAXBContext jc = JAXBContext.newInstance(com.bionic.erestaurant.core.ProductList.class);
 	        Marshaller m = jc.createMarshaller();
 	        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);

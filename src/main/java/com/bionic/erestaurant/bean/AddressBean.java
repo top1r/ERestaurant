@@ -45,6 +45,9 @@ public class AddressBean implements Serializable{
 	}
 
 	public void setAddress(Address address) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+		session.setAttribute("address", address);
 		this.address = address;
 	}
 	

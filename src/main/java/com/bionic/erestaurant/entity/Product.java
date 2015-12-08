@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -23,6 +24,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import com.bionic.erestaurant.core.TimeDateAdapter;
 
 @Entity
+@Cacheable(false)
 @XmlAccessorType(XmlAccessType.NONE)
 public class Product {
 	@Id

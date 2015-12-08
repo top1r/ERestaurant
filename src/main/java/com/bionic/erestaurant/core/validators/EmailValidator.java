@@ -70,7 +70,8 @@ public class EmailValidator implements Validator{
 			    FacesMessage msg =
 			              new FacesMessage(messageString);
 			    msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-			    
+			    context.addMessage("login",msg);
+			    context.renderResponse();
 			    throw new ValidatorException(msg);
 	    	}
 	    } 

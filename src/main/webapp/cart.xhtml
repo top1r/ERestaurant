@@ -34,8 +34,8 @@
 										<table class="itemspc">
 											<tr>	
 												<td>
-													<h:graphicImage rendered="#{not empty product.key.image_url}" value="#{product.key.image_url}" height="120" width="120" alt="#{product.key.name}"></h:graphicImage>
-    												<h:graphicImage rendered="#{empty product.key.image_url}" value="img/product/no-image-available.png" height="120" width="120" alt="#{product.key.name}"></h:graphicImage>																		
+													<h:graphicImage rendered="#{not empty product.key.image_url}" value="#{product.key.image_url}" height="120" width="240" alt="#{product.key.name}"></h:graphicImage>
+    												<h:graphicImage rendered="#{empty product.key.image_url}" value="img/product/no-image-available.png" height="120" width="240" alt="#{product.key.name}"></h:graphicImage>																		
 												</td>
 												<td>
 													<p class="name">#{product.key.name}</p>	
@@ -50,7 +50,11 @@
 										<p class="price"><b>$#{product.key.price}</b></p>
 									</td>
 									<td class="productpricetotal">
-										<p class="price"><b>$#{product.key.price * product.value}</b></p>
+										<p class="price">
+										<h:outputText value = "#{product.key.price * product.value}">
+											<f:convertNumber currencySymbol="$" type = "currency"></f:convertNumber>
+										</h:outputText>
+										</p>
 									</td>
 									<td class="productremove">
 										<h:form><h:commandButton value="remove" action="#{cartBean.removeProduct(product.key)}"></h:commandButton></h:form>
@@ -61,7 +65,11 @@
 									<td></td>
 									<td></td>
 									<td></td>
-									<td><b>$#{cartBean.cartTotal}</b></td>
+									<td><b>
+										<h:outputText value = "#{cartBean.cartTotal}">
+											<f:convertNumber currencySymbol="$" type = "currency"></f:convertNumber>
+										</h:outputText>			
+									</b></td>
 									<td></td>
 								</tr>
 							</tbody>
@@ -86,7 +94,8 @@
 								<h:selectOneRadio rendered="#{not empty usersBean.addressList}" immediate="true" name="checkbox" value="#{addressBean.address}">
 									<f:selectItems styleClass="addToCartSelectedAddress" value ="#{usersBean.addressList}" var="address" itemLabel="#{address.country}, #{address.state}, #{address.city}, #{address.address1}, #{address.zip}" itemValue="address">
 									</f:selectItems>
-								</h:selectOneRadio>
+								</h:selectOneRadio>		
+								<h:messages style="color:red;display:inline-block;list-style:none"></h:messages>						
 								</h:form>
 							</h:panelGroup>
 							

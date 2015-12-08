@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -177,6 +178,13 @@ public class CartBean  implements Serializable{
 				productMap.clear();
 				return this.orderRedirect();
 			} else {
+				String messageString = "We are so sorry! Not enough inventory to submit the order.";
+				context = FacesContext.getCurrentInstance();
+				FacesMessage msg = 
+			              new FacesMessage(messageString);
+			    msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+			    context.addMessage("inventory",msg);
+			    context.renderResponse();
 				logger.error("Not enough inventory to submit the order.");
 				return this.cartRedirect();
 			}

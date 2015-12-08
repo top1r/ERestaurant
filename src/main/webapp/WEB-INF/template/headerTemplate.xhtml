@@ -61,15 +61,24 @@
 							<img src="img/design/cart.png" height="60" width="60" alt="Home" border="0"/>
 						</a>
 					</li>
-					<li>
-						<h:form rendered="#{empty cartBean.productMap}" >
-							<h:commandLink value="Shopping cart: 0 items, $0.00" action="#{cartBean.cartRedirect}">
-							</h:commandLink>
+						<h:form class="header-cart" rendered="#{empty cartBean.productMap}" >
+						<li>
+							<h:outputText value="Shopping cart: 0 items, $0.00">
+							</h:outputText>
+						</li>
 						</h:form>
-						<h:form rendered="#{not empty cartBean.productMap}" >
-							<h:commandLink value="Shopping cart: #{cartBean.totalItemsInCart} items, $#{cartBean.cartTotal}" action="#{cartBean.cartRedirect}"></h:commandLink>
+						
+						<h:form class="header-cart" rendered="#{not empty cartBean.productMap}" >
+						<li>
+							<h:outputText value="Shopping cart: #{cartBean.totalItemsInCart} items, "></h:outputText>
+						</li>
+						<li>	
+								<h:outputText value="#{cartBean.cartTotal}">
+									<f:convertNumber currencySymbol="$" type = "currency"></f:convertNumber>
+								</h:outputText>
+						</li>
 						</h:form>
-					</li>
+					
 				</ul>
 				</h:panelGroup>
 			</span>
