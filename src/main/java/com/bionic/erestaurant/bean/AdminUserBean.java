@@ -75,17 +75,16 @@ public class AdminUserBean implements Serializable{
 		adminRoleList.add(UserRoleEnum.REGISTERED.toString());
 		adminRoleList.add(UserRoleEnum.GUEST.toString());
 
-
-		for (String s: adminRoleList){
-			UsersRole role = new UsersRole();
-			System.out.println(s);
-			role.setType(UserRoleEnum.valueOf(s).toString());
-			role.setUser(user);
-			rolelist.add(role);
-		}
-
-		
+		if ((user.getUserId() == 0) || (user.getRoles().isEmpty())){
+			for (String s: adminRoleList){
+				UsersRole role = new UsersRole();
+				System.out.println(s);
+				role.setType(UserRoleEnum.valueOf(s).toString());
+				role.setUser(user);
+				rolelist.add(role);
+			}
 		user.setRoles(rolelist);
+		}
 		try {
 			userService.saveUser(user);
 		} catch (PersistenceException p){
