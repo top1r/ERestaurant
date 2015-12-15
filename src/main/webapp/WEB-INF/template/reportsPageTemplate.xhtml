@@ -37,7 +37,9 @@
 						</h:column>
 						<h:column>
 						<f:facet name="header">Order Total</f:facet> 
-							#{results.ordersTotal} 
+							<h:outputText value = "#{results.ordersTotal}">
+								<f:convertNumber currencySymbol="$" type = "currency"></f:convertNumber> 
+							</h:outputText>
 						</h:column>
 		    			<h:column> 
 							<f:facet name="header">Date</f:facet> 
